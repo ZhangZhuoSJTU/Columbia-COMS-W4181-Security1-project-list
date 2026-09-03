@@ -15,6 +15,10 @@ cd "$(dirname "$0")"
 # tests are timezone-sensitive, so pin TZ for reproducibility everywhere.
 export TZ=UTC
 
+# Containers resolve the temp dir to /tmp; macOS defaults to /var/folders/...,
+# and some tests assert temp paths, so pin it to the container default.
+export TMPDIR=/tmp
+
 INSTANCE=@@INSTANCE@@
 BASE_URL="https://huggingface.co/datasets/programbench/ProgramBench-Tests/resolve/main/$INSTANCE/tests"
 PB=.programbench
