@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 4 / 198**
+**Ported so far: 5 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -142,7 +142,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [dundee/gdu](https://github.com/ZhangZhuoSJTU/gdu) | `ede21d2` | 1553 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [ecumene/rust-sloth](https://github.com/ZhangZhuoSJTU/rust-sloth) | `051c559` | 455 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [ekzhang/bore](https://github.com/ZhangZhuoSJTU/bore) | `8e059cd` | 452 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [eliukblau/pixterm](https://github.com/ZhangZhuoSJTU/pixterm) | `1a93fd5` | 458 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [eliukblau/pixterm](https://github.com/ZhangZhuoSJTU/pixterm) | `1a93fd5` | 458 | 423 | — | ⬜ | ⬜ | ⬜ |
 | [elkowar/pipr](https://github.com/ZhangZhuoSJTU/pipr) | `fae0b17` | 835 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [Epistates/treemd](https://github.com/ZhangZhuoSJTU/treemd) | `825c6dd` | 1961 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [eradman/entr](https://github.com/ZhangZhuoSJTU/entr) | `8e2e8b4` | 685 | N/A | — | ⬜ | ⬜ | ⬜ |
