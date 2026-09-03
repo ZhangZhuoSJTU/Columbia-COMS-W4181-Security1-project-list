@@ -86,6 +86,8 @@ fork and you are ready to build and test. *Tests (ProgramBench)* is the total nu
 behavioral tests the benchmark ships for the project; *Tests kept* is the number we keep after
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
+A per-project record of every dropped test and the reason it was dropped lives in
+[docs/dropped-tests.md](docs/dropped-tests.md).
 
 **Ported so far: 11 / 198**
 
