@@ -1,4 +1,4 @@
-# 💥 SIGSEGV: The COMS W4181 Course Project
+# 💥 SIGSEGV Hacking: The COMS W4181 Course Project
 
 The semester-long competition of **COMS W4181 Security I**, built on
 [ProgramBench](https://github.com/facebookresearch/programbench): every student maintains a real
@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 3 / 198**
+**Ported so far: 4 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -226,7 +226,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [php/php-src](https://github.com/ZhangZhuoSJTU/php-src) | `c891263` | 20530 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [pier-cli/pier](https://github.com/ZhangZhuoSJTU/pier) | `5e1bde9` | 779 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [pls-rs/pls](https://github.com/ZhangZhuoSJTU/pls) | `4e1ae50` | 354 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [psampaz/go-mod-outdated](https://github.com/ZhangZhuoSJTU/go-mod-outdated) | `bb79367` | 342 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [psampaz/go-mod-outdated](https://github.com/ZhangZhuoSJTU/go-mod-outdated) | `bb79367` | 342 | 284 | — | ⬜ | ⬜ | ⬜ |
 | [quinn-rs/quinn](https://github.com/ZhangZhuoSJTU/quinn) | `bb359cc` | 620 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [raviqqe/muffet](https://github.com/ZhangZhuoSJTU/muffet) | `a882908` | 432 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [rbakbashev/elfcat](https://github.com/ZhangZhuoSJTU/elfcat) | `52f8cc7` | 646 | N/A | — | ⬜ | ⬜ | ⬜ |
