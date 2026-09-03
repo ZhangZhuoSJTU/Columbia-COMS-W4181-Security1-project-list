@@ -100,9 +100,14 @@ for branch in Path(".programbench/branches.txt").read_text().split():
     # pytest-rerunfailures records every attempt as its own <testcase> (the
     # non-final attempts are empty), so aggregate attempts per test name: a
     # test fails only if its final attempt carries a failure/error child.
+    # Parametrized test IDs can embed workspace paths, which the harness
+    # rewrote to the local run dir; map them back so names match the
+    # benchmark's ignore lists.
+    prefix = str(Path.cwd() / f".programbench/run/{branch}/workspace")
     cases: dict[str, set] = {}
     for case in ET.fromstring(xml.read_text()).iter("testcase"):
-        cases.setdefault(f"{case.get('classname')}.{case.get('name')}", set()).update(c.tag for c in case)
+        name = f"{case.get('classname')}.{case.get('name')}".replace(prefix, "/workspace")
+        cases.setdefault(name, set()).update(c.tag for c in case)
     n = ok = skip = 0
     for name, tags in cases.items():
         if f"{branch}/{name}" in ignored:
