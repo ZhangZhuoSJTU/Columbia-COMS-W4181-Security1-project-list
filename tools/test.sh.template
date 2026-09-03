@@ -31,8 +31,10 @@ mkdir -p "$PB/tests"
 while read -r branch; do
     tar="$PB/tests/$branch.tar.gz"
     [ -f "$tar" ] || curl -fsSL -o "$tar" "$BASE_URL/$branch.tar.gz"
-    dir="$PB/run/$branch"
-    rm -rf "$dir" && mkdir -p "$dir"
+    # The extra "workspace" path segment matters: a few suites assert that
+    # paths printed by the tool contain the substring "workspace".
+    dir="$PB/run/$branch/workspace"
+    rm -rf "$PB/run/$branch" && mkdir -p "$dir"
     # Seed the run dir with the project's tracked files, then overlay the test
     # tarball — in the real ProgramBench eval the tests run inside the
     # submission's own tree, and some suites read project files (testdata/,
@@ -57,12 +59,24 @@ python3 - <<'EOF'
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-ignored = set(Path(".programbench/ignored_tests.txt").read_text().split())
+def read_list(path: Path) -> set:
+    if not path.exists():
+        return set()
+    return {l for l in map(str.strip, path.read_text().splitlines()) if l and not l.startswith("#")}
+
+
+# ignored_tests.txt comes from ProgramBench (tests unreliable on the gold
+# binary); local_ignored_tests.txt is course-side, for tests that are
+# environment-sensitive outside the benchmark containers (each entry carries
+# a comment explaining why).
+ignored = read_list(Path(".programbench/ignored_tests.txt")) | read_list(
+    Path(".programbench/local_ignored_tests.txt")
+)
 total = passed = dropped = 0
 for branch in Path(".programbench/branches.txt").read_text().split():
-    xml = Path(f".programbench/run/{branch}/eval/results.xml")
+    xml = Path(f".programbench/run/{branch}/workspace/eval/results.xml")
     if not xml.exists():
-        print(f"{branch}: NO RESULTS (see .programbench/run/{branch}/run.log)")
+        print(f"{branch}: NO RESULTS (see .programbench/run/{branch}/workspace/run.log)")
         continue
     n = ok = skip = 0
     for case in ET.fromstring(xml.read_text()).iter("testcase"):
