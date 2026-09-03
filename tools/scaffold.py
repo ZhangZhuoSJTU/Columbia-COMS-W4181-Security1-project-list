@@ -42,7 +42,9 @@ def compile_body(repo: Path, language: str) -> str:
             cmds = sorted((repo / "cmd").glob("*/*.go")) if (repo / "cmd").is_dir() else []
             if cmds:
                 target = f"./cmd/{cmds[0].parent.name}"
-        return f"go build -o executable {target}"
+        # -buildvcs=false: gold binaries report (devel), not a VCS-stamped
+        # version, and the harness commit would mark builds +dirty.
+        return f"go build -buildvcs=false -o executable {target}"
     if language == "rs":
         cargo = tomllib.loads((repo / "Cargo.toml").read_text())
         name = cargo["package"]["name"]
