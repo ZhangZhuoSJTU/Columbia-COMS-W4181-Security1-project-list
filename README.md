@@ -87,6 +87,8 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
+**Ported so far: 2 / 198**
+
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
 | [abishekvashok/cmatrix](https://github.com/ZhangZhuoSJTU/cmatrix) | `5c082c6` | 769 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -180,7 +182,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [jrnxf/thokr](https://github.com/ZhangZhuoSJTU/thokr) | `09375ef` | 507 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [junegunn/fzf](https://github.com/ZhangZhuoSJTU/fzf) | `b56d614` | 2164 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [kaushiksrini/parqeye](https://github.com/ZhangZhuoSJTU/parqeye) | `8072121` | 564 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [kisielk/errcheck](https://github.com/ZhangZhuoSJTU/errcheck) | `dacab89` | 532 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [kisielk/errcheck](https://github.com/ZhangZhuoSJTU/errcheck) | `dacab89` | 532 | 340 | — | ⬜ | ⬜ | ⬜ |
 | [konradsz/igrep](https://github.com/ZhangZhuoSJTU/igrep) | `aa75630` | 728 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [KSXGitHub/parallel-disk-usage](https://github.com/ZhangZhuoSJTU/parallel-disk-usage) | `96978ed` | 630 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [kyoh86/richgo](https://github.com/ZhangZhuoSJTU/richgo) | `313114f` | 787 | N/A | — | ⬜ | ⬜ | ⬜ |

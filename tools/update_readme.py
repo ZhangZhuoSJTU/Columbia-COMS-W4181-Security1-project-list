@@ -16,5 +16,8 @@ pattern = re.compile(
 new, n = pattern.subn(rf"\g<1>{kept}\g<2>", readme.read_text())
 if n != 1:
     sys.exit(f"expected exactly 1 row for {repo}, matched {n}")
+rows = re.findall(r"^\| \[[^]]+\]\([^)]+\) \| `[0-9a-f]{7}` \| \d+ \| (\S+) \|", new, re.M)
+ported = sum(cell != "N/A" for cell in rows)
+new = re.sub(r"^\*\*Ported so far: \d+ / \d+\*\*$", f"**Ported so far: {ported} / {len(rows)}**", new, flags=re.M)
 readme.write_text(new)
-print(f"updated {repo}: tests kept = {kept}")
+print(f"updated {repo}: tests kept = {kept} (ported {ported}/{len(rows)})")
