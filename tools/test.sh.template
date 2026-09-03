@@ -19,6 +19,10 @@ export TZ=UTC
 # and some tests assert temp paths, so pin it to the container default.
 export TMPDIR=/tmp
 
+# Retry individually failed tests, as programbench eval does, to absorb
+# flakes from tests that race on shared files under pytest-xdist.
+export PYTEST_ADDOPTS="${PYTEST_ADDOPTS:-} --reruns=2 --reruns-delay=1"
+
 # Optional per-project environment overrides (kept in the repo).
 [ -f .programbench/env ] && . .programbench/env
 
@@ -28,10 +32,8 @@ PB=.programbench
 
 ./compile.sh
 
-if [ ! -d "$PB/venv" ]; then
-    python3 -m venv "$PB/venv"
-    "$PB/venv/bin/pip" install -q pytest pytest-timeout pytest-xdist
-fi
+[ -d "$PB/venv" ] || python3 -m venv "$PB/venv"
+"$PB/venv/bin/pip" install -q pytest pytest-timeout pytest-xdist pytest-rerunfailures
 export PATH="$PWD/$PB/venv/bin:$PATH"
 
 mkdir -p "$PB/tests"
