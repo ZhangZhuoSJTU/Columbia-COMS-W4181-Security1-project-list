@@ -1,4 +1,4 @@
-# 💥 Crash Course — The COMS W4181 Bug-Hunting Games
+# 💥 SIGSEGV: The COMS W4181 Course Project
 
 The semester-long competition of **COMS W4181 Security I**, built on
 [ProgramBench](https://github.com/facebookresearch/programbench): every student maintains a real
