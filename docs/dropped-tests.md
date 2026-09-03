@@ -140,6 +140,17 @@ Course-side: 3 tests dropped by us.
 - Golden captures one specific ordering of clones inside clone groups; dupl's output order follows filesystem directory-walk order, which differs between APFS (macOS) and the ext4-based containers. Entries are identical, permuted.
   - `9dea7bde779b/tests.test_large_scale.test_very_permissive_threshold_finds_many_clones`
 
+## multiprocessio/dsq
+
+Instance `multiprocessio__dsq.c3ae0ba`: 766 tests shipped, 542 kept.
+
+Benchmark-side: 224 tests dropped by ProgramBench.
+
+- `gold_fail`: 183
+- `dummy_pass`: 58
+
+Course-side: none.
+
 ## psampaz/go-mod-outdated
 
 Instance `psampaz__go-mod-outdated.bb79367`: 342 tests shipped, 284 kept.

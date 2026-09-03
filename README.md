@@ -89,7 +89,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 14 / 198**
+**Ported so far: 15 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -204,7 +204,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [Miserlou/Loop](https://github.com/ZhangZhuoSJTU/Loop) | `209927c` | 778 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [mkj/dropbear](https://github.com/ZhangZhuoSJTU/dropbear) | `75f699b` | 1075 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [mookid/diffr](https://github.com/ZhangZhuoSJTU/diffr) | `2152742` | 782 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [multiprocessio/dsq](https://github.com/ZhangZhuoSJTU/dsq) | `c3ae0ba` | 766 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [multiprocessio/dsq](https://github.com/ZhangZhuoSJTU/dsq) | `c3ae0ba` | 766 | 542 | — | ⬜ | ⬜ | ⬜ |
 | [nachoparker/dutree](https://github.com/ZhangZhuoSJTU/dutree) | `44e877d` | 957 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [naggie/dstask](https://github.com/ZhangZhuoSJTU/dstask) | `ff57396` | 1589 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [NikolaDucak/caps-log](https://github.com/ZhangZhuoSJTU/caps-log) | `2cf2d1e` | 1232 | N/A | — | ⬜ | ⬜ | ⬜ |
