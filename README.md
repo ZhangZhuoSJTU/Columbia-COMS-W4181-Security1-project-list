@@ -89,7 +89,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 12 / 198**
+**Ported so far: 13 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -254,7 +254,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [sharkdp/pastel](https://github.com/ZhangZhuoSJTU/pastel) | `b60e899` | 1256 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [shashwatah/jot](https://github.com/ZhangZhuoSJTU/jot) | `a92aad8` | 846 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [sheepla/pingu](https://github.com/ZhangZhuoSJTU/pingu) | `926d475` | 419 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [sibprogrammer/xq](https://github.com/ZhangZhuoSJTU/xq) | `b89f681` | 879 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [sibprogrammer/xq](https://github.com/ZhangZhuoSJTU/xq) | `b89f681` | 879 | 791 | — | ⬜ | ⬜ | ⬜ |
 | [sigoden/argc](https://github.com/ZhangZhuoSJTU/argc) | `04a08f1` | 1410 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [simeg/eureka](https://github.com/ZhangZhuoSJTU/eureka) | `df3796c` | 400 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [sirwart/ripsecrets](https://github.com/ZhangZhuoSJTU/ripsecrets) | `34c9e03` | 937 | 611 | — | ⬜ | ⬜ | ⬜ |

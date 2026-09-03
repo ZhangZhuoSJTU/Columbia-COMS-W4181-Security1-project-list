@@ -151,6 +151,20 @@ Benchmark-side: 58 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## sibprogrammer/xq
+
+Instance `sibprogrammer__xq.b89f681`: 879 tests shipped, 791 kept.
+
+Benchmark-side: 87 tests dropped by ProgramBench.
+
+- `dummy_pass`: 83
+- `gold_fail`: 5
+
+Course-side: 1 tests dropped by us.
+
+- The golden captures one specific interleaving of partial formatted output and the syntax-error message on stdout. The two are flushed independently, and the interleaving order differs between environments, so identical bytes arrive in a different order locally.
+  - `0ce13a636ff1/tests.test_io_modes.test_malformed_xml_error`
+
 ## sirwart/ripsecrets
 
 Instance `sirwart__ripsecrets.34c9e03`: 937 tests shipped, 611 kept.
