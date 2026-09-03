@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 8 / 198**
+**Ported so far: 9 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -255,7 +255,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [sibprogrammer/xq](https://github.com/ZhangZhuoSJTU/xq) | `b89f681` | 879 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [sigoden/argc](https://github.com/ZhangZhuoSJTU/argc) | `04a08f1` | 1410 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [simeg/eureka](https://github.com/ZhangZhuoSJTU/eureka) | `df3796c` | 400 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [sirwart/ripsecrets](https://github.com/ZhangZhuoSJTU/ripsecrets) | `34c9e03` | 937 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [sirwart/ripsecrets](https://github.com/ZhangZhuoSJTU/ripsecrets) | `34c9e03` | 937 | 611 | — | ⬜ | ⬜ | ⬜ |
 | [sitkevij/hex](https://github.com/ZhangZhuoSJTU/hex) | `61ae69b` | 877 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [skeema/skeema](https://github.com/ZhangZhuoSJTU/skeema) | `6a76243` | 3807 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [sqlite/sqlite](https://github.com/ZhangZhuoSJTU/sqlite) | `839433d` | 16801 | N/A | — | ⬜ | ⬜ | ⬜ |
