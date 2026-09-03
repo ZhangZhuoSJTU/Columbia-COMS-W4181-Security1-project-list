@@ -33,6 +33,22 @@ Benchmark-side: 197 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## chmln/sd
+
+Instance `chmln__sd.87d1ba5`: 869 tests shipped, 808 kept.
+
+Benchmark-side: 59 tests dropped by ProgramBench.
+
+- `dummy_pass`: 40
+- `gold_fail`: 19
+
+Course-side: 2 tests dropped by us.
+
+- Reading a directory as an input file yields errno 19 (No such device) on Linux but errno 22 (Invalid argument) on macOS; the golden pins the Linux error string.
+  - `08a92821049f/tests.test_errors.test_directory_as_input_file`
+- Uses /etc/hostname as an unreadable-input fixture; the file exists on Linux but not on macOS, so the failure mode differs before the code under test is reached.
+  - `08a92821049f/tests.test_gaps.test_failed_jobs_error_display`
+
 ## clog-tool/clog-cli
 
 Instance `clog-tool__clog-cli.7066cba`: 778 tests shipped, 575 kept.
@@ -140,6 +156,17 @@ Course-side: 3 tests dropped by us.
 - Golden captures one specific ordering of clones inside clone groups; dupl's output order follows filesystem directory-walk order, which differs between APFS (macOS) and the ext4-based containers. Entries are identical, permuted.
   - `9dea7bde779b/tests.test_large_scale.test_very_permissive_threshold_finds_many_clones`
 
+## mookid/diffr
+
+Instance `mookid__diffr.2152742`: 782 tests shipped, 606 kept.
+
+Benchmark-side: 176 tests dropped by ProgramBench.
+
+- `dummy_pass`: 164
+- `gold_fail`: 12
+
+Course-side: none.
+
 ## multiprocessio/dsq
 
 Instance `multiprocessio__dsq.c3ae0ba`: 766 tests shipped, 542 kept.
@@ -150,6 +177,30 @@ Benchmark-side: 224 tests dropped by ProgramBench.
 - `dummy_pass`: 58
 
 Course-side: none.
+
+## oppiliappan/eva
+
+Instance `oppiliappan__eva.41ae245`: 963 tests shipped, 913 kept.
+
+Benchmark-side: 50 tests dropped by ProgramBench.
+
+- `dummy_pass`: 40
+- `gold_fail`: 10
+
+Course-side: none.
+
+## pemistahl/grex
+
+Instance `pemistahl__grex.fa3e8ed`: 1518 tests shipped, 1311 kept.
+
+Benchmark-side: 206 tests dropped by ProgramBench.
+
+- `dummy_pass`: 206
+
+Course-side: 1 tests dropped by us.
+
+- Asserts the panic message cites the workspace-prefixed source path. Rust bakes source paths at compile time (relative src/builder.rs in local builds), so the message can never contain the per-run workspace path in this local harness.
+  - `88384662e66e/eval.tests.test_stress.test_empty_file_input`
 
 ## psampaz/go-mod-outdated
 
@@ -165,6 +216,20 @@ Course-side: 1 tests dropped by us.
 - Asserts the nil-pointer panic traceback cites the workspace source path. Go bakes source paths into the binary at compile time, so the traceback shows the repo checkout path (where compile.sh ran), which can never equal the per-run workspace path in this local harness.
   - `0d7f74667e0b/tests.test_replace_timestamps.test_missing_update_timestamp_causes_crash`
 
+## riquito/tuc
+
+Instance `riquito__tuc.16fb471`: 1249 tests shipped, 1195 kept.
+
+Benchmark-side: 53 tests dropped by ProgramBench.
+
+- `dummy_pass`: 49
+- `gold_fail`: 4
+
+Course-side: 1 tests dropped by us.
+
+- Renders output through od, whose column spacing differs between BSD od (macOS) and GNU od (containers); the bytes under test are identical.
+  - `565c68a30560/tests.test_trim_compress.test_compress_with_zero_terminated_lines`
+
 ## sclevine/yj
 
 Instance `sclevine__yj.8016400`: 825 tests shipped, 768 kept.
@@ -173,6 +238,17 @@ Benchmark-side: 58 tests dropped by ProgramBench.
 
 - `dummy_pass`: 53
 - `gold_fail`: 5
+
+Course-side: none.
+
+## sharkdp/hexyl
+
+Instance `sharkdp__hexyl.2e26437`: 974 tests shipped, 906 kept.
+
+Benchmark-side: 68 tests dropped by ProgramBench.
+
+- `dummy_pass`: 52
+- `gold_fail`: 16
 
 Course-side: none.
 
