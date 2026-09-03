@@ -72,11 +72,12 @@ The intended workflow is simply: edit the code, run `./test.sh`, repeat.
 
 ## Project list
 
-Each project is a fork of an open-source program from ProgramBench, reverted to the exact commit
-the benchmark was built from. *Tests (ProgramBench)* is the total number of behavioral tests the
-benchmark ships for the project; *Tests kept* is the number we keep after removing tests that
-ProgramBench flags as unreliable (N/A = project not yet prepared). Each project must be validated
-by all three TAs before it can be selected.
+Each project links **directly to our forked repository**, reverted to the exact commit the
+benchmark was built from, with `compile.sh` and `test.sh` already added at the root — clone the
+fork and you are ready to build and test. *Tests (ProgramBench)* is the total number of
+behavioral tests the benchmark ships for the project; *Tests kept* is the number we keep after
+removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
+may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|
