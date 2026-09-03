@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 7 / 198**
+**Ported so far: 8 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -277,7 +277,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [unhappychoice/gittype](https://github.com/ZhangZhuoSJTU/gittype) | `34b72d0` | 932 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [universal-ctags/ctags](https://github.com/ZhangZhuoSJTU/ctags) | `243595e` | 2579 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [wfxr/code-minimap](https://github.com/ZhangZhuoSJTU/code-minimap) | `0ddeea5` | 370 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [wfxr/csview](https://github.com/ZhangZhuoSJTU/csview) | `8ac4de0` | 348 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [wfxr/csview](https://github.com/ZhangZhuoSJTU/csview) | `8ac4de0` | 348 | 334 | — | ⬜ | ⬜ | ⬜ |
 | [WGUNDERWOOD/tex-fmt](https://github.com/ZhangZhuoSJTU/tex-fmt) | `3f1aef6` | 495 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [wintermute-cell/ngrrram](https://github.com/ZhangZhuoSJTU/ngrrram) | `8ea13c3` | 332 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [XAMPPRocky/tokei](https://github.com/ZhangZhuoSJTU/tokei) | `505d648` | 760 | N/A | — | ⬜ | ⬜ | ⬜ |
