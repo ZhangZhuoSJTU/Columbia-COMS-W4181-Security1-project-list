@@ -1,0 +1,72 @@
+#!/bin/bash
+# Compile, then run all ProgramBench test branches for @@INSTANCE@@.
+#
+# Test suites (one tarball per "branch") are downloaded from the public
+# ProgramBench-Tests HuggingFace dataset on first run and cached under
+# .programbench/tests/. Each branch is extracted into .programbench/run/<branch>,
+# the freshly built ./executable is copied in (replacing the linux binary the
+# tarball ships), and the branch's own eval/run.sh drives pytest, writing JUnit
+# XML to eval/results.xml. Tests listed in .programbench/ignored_tests.txt are
+# excluded from the final score, mirroring `programbench info`.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+# The reference results were produced in UTC containers; datetime-handling
+# tests are timezone-sensitive, so pin TZ for reproducibility everywhere.
+export TZ=UTC
+
+INSTANCE=@@INSTANCE@@
+BASE_URL="https://huggingface.co/datasets/programbench/ProgramBench-Tests/resolve/main/$INSTANCE/tests"
+PB=.programbench
+
+./compile.sh
+
+if [ ! -d "$PB/venv" ]; then
+    python3 -m venv "$PB/venv"
+    "$PB/venv/bin/pip" install -q pytest pytest-timeout pytest-xdist
+fi
+export PATH="$PWD/$PB/venv/bin:$PATH"
+
+mkdir -p "$PB/tests"
+while read -r branch; do
+    tar="$PB/tests/$branch.tar.gz"
+    [ -f "$tar" ] || curl -fsSL -o "$tar" "$BASE_URL/$branch.tar.gz"
+    dir="$PB/run/$branch"
+    rm -rf "$dir" && mkdir -p "$dir"
+    tar xzf "$tar" -C "$dir"
+    cp executable "$dir/executable" && chmod +x "$dir/executable"
+    # Some branches hardcode the container's /workspace path; make run.sh
+    # relocatable. Also use signal-based timeouts (as programbench eval does)
+    # so a timing-out test fails cleanly instead of killing the pytest worker.
+    sed -i.bak -e 's|cd /workspace|cd "$(dirname "$0")/.."|' \
+        -e 's/--timeout-method=thread/--timeout-method=signal/g' \
+        "$dir/eval/run.sh" && rm -f "$dir/eval/run.sh.bak"
+    echo "=== branch $branch ==="
+    (cd "$dir" && bash eval/run.sh > run.log 2>&1 || true)
+done < "$PB/branches.txt"
+
+python3 - <<'EOF'
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+ignored = set(Path(".programbench/ignored_tests.txt").read_text().split())
+total = passed = dropped = 0
+for branch in Path(".programbench/branches.txt").read_text().split():
+    xml = Path(f".programbench/run/{branch}/eval/results.xml")
+    if not xml.exists():
+        print(f"{branch}: NO RESULTS (see .programbench/run/{branch}/run.log)")
+        continue
+    n = ok = skip = 0
+    for case in ET.fromstring(xml.read_text()).iter("testcase"):
+        name = f"{case.get('classname')}.{case.get('name')}"
+        if f"{branch}/{name}" in ignored:
+            skip += 1
+            continue
+        n += 1
+        ok += not [c for c in case if c.tag in ("failure", "error", "skipped")]
+    print(f"{branch}: {ok}/{n} passed ({skip} ignored)")
+    total += n
+    passed += ok
+    dropped += skip
+print(f"\nTOTAL: {passed}/{total} passed ({100 * passed / total:.1f}%), {dropped} tests ignored")
+EOF
