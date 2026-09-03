@@ -85,13 +85,15 @@ def main() -> None:
         "".join(f"{b}/{t['name']}\n" for b, info in active.items() for t in info.get("ignored_tests") or [])
     )
     (repo / "test.sh").write_text((TOOLS / "test.sh.template").read_text().replace("@@INSTANCE@@", iid))
-    (repo / "compile.sh").write_text(
-        "#!/bin/bash\n"
-        "# ProgramBench-style build: must produce ./executable at the repo root.\n"
-        "set -e\n"
-        'cd "$(dirname "$0")"\n'
-        f"{compile_body(repo, language)}\n"
-    )
+    # Never overwrite an existing compile.sh: porters hand-tune it per project.
+    if not (repo / "compile.sh").exists():
+        (repo / "compile.sh").write_text(
+            "#!/bin/bash\n"
+            "# ProgramBench-style build: must produce ./executable at the repo root.\n"
+            "set -e\n"
+            'cd "$(dirname "$0")"\n'
+            f"{compile_body(repo, language)}\n"
+        )
     for script in ("compile.sh", "test.sh"):
         (repo / script).chmod(0o755)
     gitignore = repo / ".gitignore"
