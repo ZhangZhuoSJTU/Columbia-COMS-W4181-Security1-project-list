@@ -97,14 +97,19 @@ for branch in Path(".programbench/branches.txt").read_text().split():
     if not xml.exists():
         print(f"{branch}: NO RESULTS (see .programbench/run/{branch}/workspace/run.log)")
         continue
-    n = ok = skip = 0
+    # pytest-rerunfailures records every attempt as its own <testcase> (the
+    # non-final attempts are empty), so aggregate attempts per test name: a
+    # test fails only if its final attempt carries a failure/error child.
+    cases: dict[str, set] = {}
     for case in ET.fromstring(xml.read_text()).iter("testcase"):
-        name = f"{case.get('classname')}.{case.get('name')}"
+        cases.setdefault(f"{case.get('classname')}.{case.get('name')}", set()).update(c.tag for c in case)
+    n = ok = skip = 0
+    for name, tags in cases.items():
         if f"{branch}/{name}" in ignored:
             skip += 1
             continue
         n += 1
-        ok += not [c for c in case if c.tag in ("failure", "error", "skipped")]
+        ok += not (tags & {"failure", "error", "skipped"})
     print(f"{branch}: {ok}/{n} passed ({skip} ignored)")
     total += n
     passed += ok
