@@ -39,7 +39,7 @@ def compile_body(repo: Path, language: str) -> str:
     if language == "go":
         target = "."
         if not any(re.search(r"^package main\b", p.read_text(), re.M) for p in repo.glob("*.go")):
-            cmds = sorted((repo / "cmd").glob("*/main.go")) if (repo / "cmd").is_dir() else []
+            cmds = sorted((repo / "cmd").glob("*/*.go")) if (repo / "cmd").is_dir() else []
             if cmds:
                 target = f"./cmd/{cmds[0].parent.name}"
         return f"go build -o executable {target}"
