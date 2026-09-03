@@ -33,6 +33,32 @@ Benchmark-side: 197 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## astro/deadnix
+
+Instance `astro__deadnix.d590041`: 709 tests shipped, 602 kept.
+
+Benchmark-side: 107 tests dropped by ProgramBench.
+
+- `dummy_pass`: 106
+- `gold_fail`: 1
+
+Course-side: none.
+
+## brocode/fblog
+
+Instance `brocode__fblog.3b54330`: 1127 tests shipped, 976 kept.
+
+Benchmark-side: 149 tests dropped by ProgramBench.
+
+- `dummy_pass`: 143
+- `gold_fail`: 6
+
+Course-side: 2 tests dropped by us.
+
+- Configure fblog through XDG_CONFIG_HOME. The dirs crate honors that variable on Linux only; on macOS it resolves the config dir to ~/Library/Application Support, so the binary never reads the test config.
+  - `335611dbee6b/eval.tests.test_config_env.test_xdg_config_home_is_used_for_default_config_path`
+  - `335611dbee6b/eval.tests.test_config_env.test_malformed_config_in_default_location_crashes_with_error_message`
+
 ## chmln/sd
 
 Instance `chmln__sd.87d1ba5`: 869 tests shipped, 808 kept.
@@ -42,12 +68,7 @@ Benchmark-side: 59 tests dropped by ProgramBench.
 - `dummy_pass`: 40
 - `gold_fail`: 19
 
-Course-side: 2 tests dropped by us.
-
-- Reading a directory as an input file yields errno 19 (No such device) on Linux but errno 22 (Invalid argument) on macOS; the golden pins the Linux error string.
-  - `08a92821049f/tests.test_errors.test_directory_as_input_file`
-- Uses /etc/hostname as an unreadable-input fixture; the file exists on Linux but not on macOS, so the failure mode differs before the code under test is reached.
-  - `08a92821049f/tests.test_gaps.test_failed_jobs_error_display`
+Course-side: none.
 
 ## clog-tool/clog-cli
 
@@ -60,6 +81,17 @@ Benchmark-side: 203 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## cweill/gotests
+
+Instance `cweill__gotests.2a672c5`: 752 tests shipped, 603 kept.
+
+Benchmark-side: 149 tests dropped by ProgramBench.
+
+- `dummy_pass`: 81
+- `gold_fail`: 68
+
+Course-side: none.
+
 ## Drew-Alleman/DataSurgeon
 
 Instance `drew-alleman__datasurgeon.d257cee`: 564 tests shipped, 498 kept.
@@ -69,15 +101,7 @@ Benchmark-side: 62 tests dropped by ProgramBench.
 - `dummy_pass`: 42
 - `gold_fail`: 20
 
-Course-side: 4 tests dropped by us.
-
-- Compare --help output byte-for-byte against a golden captured with a different clap resolution (the golden quotes empty defaults as [default: ""]). Cargo re-resolves this project's outdated lockfile on modern toolchains, so clap's help rendering varies with the resolved version.
-  - `1f8845ada8c0/eval.tests.test_help_usage.test_baseline_help_output_matches_fixture_exactly`
-  - `61d5d5110768/tests.test_seed.test_help_output`
-- Simulates a disk-full write error via file permissions; containers run as root (permissions bypassed), local runs do not, so the error path differs.
-  - `61d5d5110768/tests.test_gap_filling.test_write_error_disk_full_simulation`
-- Output order follows filesystem directory-walk order, which differs between APFS (macOS) and the ext4-based containers; entries are identical, permuted.
-  - `61d5d5110768/tests.test_timing_errors.test_directory_extraction_processes_all_files`
+Course-side: none.
 
 ## eliukblau/pixterm
 
@@ -88,17 +112,21 @@ Benchmark-side: 28 tests dropped by ProgramBench.
 - `dummy_pass`: 27
 - `gold_fail`: 1
 
-Course-side: 7 tests dropped by us.
+Course-side: none.
 
-- Fake a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper itself exits 1 regardless of the binary.
-  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_contains_ansi_escape_sequences`
-  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_contains_contributors_after_icon`
-  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_output_with_icon`
-  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_icon_includes_version`
-- Compare exact ANSI pixel bytes; image-scaling floating-point rounding differs across CPU architectures (goldens captured on amd64), so a handful of color channel values drift by one unit on arm64.
-  - `c0ff9908837a/tests.test_terminal_size.test_scale_fit_respects_terminal_size_bounds`
-  - `c0ff9908837a/tests.test_url_loading.test_http_jpeg_basic`
-  - `c0ff9908837a/tests.test_url_loading.test_http_with_scale_fit`
+## incu6us/goimports-reviser
+
+Instance `incu6us__goimports-reviser.81bd549`: 597 tests shipped, 512 kept.
+
+Benchmark-side: 84 tests dropped by ProgramBench.
+
+- `dummy_pass`: 80
+- `gold_fail`: 4
+
+Course-side: 1 tests dropped by us.
+
+- Makes a file unreadable (chmod 000) and expects the remaining files to be listed; containers run as root where permissions are bypassed, so the gold behavior differs from any non-root local run.
+  - `12d881a9aa7e/tests.test_directory_ops.test_file_with_read_permission_issues`
 
 ## JohannesKaufmann/html-to-markdown
 
@@ -127,6 +155,28 @@ Course-side: 1 tests dropped by us.
 
 - Passes on gold only because the cleanroom container has no Go source at the workspace root (package loading fails there with rc 0); on any real checkout errcheck analyzes its own tree, legitimately finds unchecked errors, and exits 1.
   - `11c421a3b5f4/eval.tests.test_argparse_validation.test_tags_flag_accepts_comma_or_space_separated_values[tag1 tag2]`
+
+## mfridman/tparse
+
+Instance `mfridman__tparse.2416b4b`: 556 tests shipped, 417 kept.
+
+Benchmark-side: 131 tests dropped by ProgramBench.
+
+- `dummy_pass`: 84
+- `gold_fail`: 72
+
+Course-side: 8 tests dropped by us.
+
+- Expects Linux's "open /: is a directory" error string; macOS reports "open /: file exists" for the same call.
+  - `b112ab0c5f2b/tests.test_follow.test_follow_output_file_error_handling`
+- Compare full rendered tables against goldens whose row order for equal elapsed times depends on Go's unstable sort. The tie order changed across Go toolchain versions, so binaries built with a newer Go than the containers order tied rows differently (deterministically, but not matching the goldens).
+  - `b112ab0c5f2b/tests.test_format.test_plain_format_with_all_flag_shows_test_table`
+  - `b112ab0c5f2b/tests.test_format.test_format_basic_with_no_color_env_and_all_flag`
+  - `b112ab0c5f2b/tests.test_format.test_basic_format_with_all_flag_shows_test_table`
+  - `b112ab0c5f2b/tests.test_format.test_basic_format_nocolor_with_all_flag`
+  - `b112ab0c5f2b/tests.test_format.test_markdown_format_with_all_flag_shows_collapsible_details`
+  - `b112ab0c5f2b/tests.test_sort.test_sort_cover_with_real_data`
+  - `b112ab0c5f2b/tests.test_sort.test_sort_elapsed_with_cached_packages`
 
 ## mgdm/htmlq
 
@@ -189,6 +239,21 @@ Benchmark-side: 50 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## oppiliappan/statix
+
+Instance `oppiliappan__statix.e9df54c`: 983 tests shipped, 813 kept.
+
+Benchmark-side: 168 tests dropped by ProgramBench.
+
+- `dummy_pass`: 150
+- `gold_fail`: 19
+
+Course-side: 2 tests dropped by us.
+
+- Goldens capture a dependency panic whose message embeds the build machine s cargo registry path (/root/.cargo/registry/... in the containers). Rust bakes that path at compile time, so local builds cite the local registry path and the normalization in the tests does not cover it.
+  - `df37316a82f6/tests.test_errors.test_streaming_mode_empty_stdin`
+  - `df37316a82f6/tests.test_errors.test_empty_file`
+
 ## pemistahl/grex
 
 Instance `pemistahl__grex.fa3e8ed`: 1518 tests shipped, 1311 kept.
@@ -197,10 +262,7 @@ Benchmark-side: 206 tests dropped by ProgramBench.
 
 - `dummy_pass`: 206
 
-Course-side: 1 tests dropped by us.
-
-- Asserts the panic message cites the workspace-prefixed source path. Rust bakes source paths at compile time (relative src/builder.rs in local builds), so the message can never contain the per-run workspace path in this local harness.
-  - `88384662e66e/eval.tests.test_stress.test_empty_file_input`
+Course-side: none.
 
 ## psampaz/go-mod-outdated
 
@@ -229,6 +291,87 @@ Course-side: 1 tests dropped by us.
 
 - Renders output through od, whose column spacing differs between BSD od (macOS) and GNU od (containers); the bytes under test are identical.
   - `565c68a30560/tests.test_trim_compress.test_compress_with_zero_terminated_lines`
+
+## rvben/rumdl
+
+Instance `rvben__rumdl.2d75c4d`: 4781 tests shipped, 3256 kept.
+
+Benchmark-side: 1459 tests dropped by ProgramBench.
+
+- `dummy_pass`: 1320
+- `gold_fail`: 139
+- `outcome_dependent_presence`: 1
+
+Course-side: 66 tests dropped by us.
+
+- Create files under the temp dir and normalize printed paths with a regex that assumes the canonical temp path starts with the literal /tmp. On macOS /tmp is a symlink to /private/tmp and rumdl canonicalizes paths, so the normalization mangles the output regardless of TMPDIR.
+  - `d42773df6c01/eval.tests.test_file_processor_gapfill.test_fix_mode_applies_fixes`
+  - `d42773df6c01/eval.tests.test_fmt_command.test_fmt_readonly_file_handles_gracefully`
+  - `d42773df6c01/eval.tests.test_init_config.test_init_creates_default_config`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_abbreviation_definition_with_reference`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_config_section_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_descriptive_pattern_with_colon_and_spaces`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_empty_label_collapsed_reference_undefined`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_file_path_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_footnote_syntax_with_reference`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_github_alert_with_reference`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_glob_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_image_reference_in_jinja_template`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_image_reference_in_shortcode`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_mkdocs_auto_reference_backticked_module`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_mkdocs_python_builtin_types`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_numeric_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_operator_symbol_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_quarto_citation_with_reference`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_quoted_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_reference_in_frontmatter`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_reference_in_html_comment`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_reference_in_html_tag_attribute`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_reference_in_jinja_template`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_reference_in_math_context`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_reference_in_shortcode`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_rust_type_name_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_toc_marker_with_reference`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_type_annotation_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill2.test_type_parameter_pattern`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_abbreviation_syntax_skipped`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_collapsed_references`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_github_alerts_comprehensive`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_html_line_skipping`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_image_collapsed_references`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_known_non_reference_patterns`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_mixed_reference_types`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_mkdocs_auto_references`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_mkdocs_snippet_lines_skipped`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_multiple_undefined_references_same_line`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_shortcodes_with_references`
+  - `d42773df6c01/eval.tests.test_md052_gapfill_pt3.test_undefined_image_reference`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_code_block_in_blockquote`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_escaped_brackets`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_image_undefined_collapsed`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_indented_code_block`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_language_specified_code_block`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_multiple_files`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_multiple_references_to_same_label`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_multiple_undefined_references`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_reference_in_code_block_ignored`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_reference_in_code_span_ignored`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_reference_in_html_comment_ignored`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_reference_with_frontmatter`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_tilde_fenced_code_block`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_undefined_collapsed_reference_link`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_undefined_full_reference_link`
+  - `d42773df6c01/eval.tests.test_md052_reference_links.test_undefined_reference_image`
+  - `d42773df6c01/eval.tests.test_watch_gapfill.test_watch_mode_config_file_change`
+- Probe the `rumdl vscode` integration expecting no editor to be present; this machine has VS Code with the rumdl extension installed, so the command succeeds instead of failing.
+  - `d42773df6c01/eval.tests.test_vscode.test_codium_marketplace_not_found_error`
+  - `d42773df6c01/eval.tests.test_vscode.test_cursor_command_detection`
+  - `d42773df6c01/eval.tests.test_vscode.test_cursor_install_shows_openvsx_note`
+  - `d42773df6c01/eval.tests.test_vscode.test_cursor_marketplace_not_found_error`
+  - `d42773df6c01/eval.tests.test_vscode.test_vscodium_command_detection`
+  - `d42773df6c01/eval.tests.test_vscode.test_windsurf_command_detection`
+  - `d42773df6c01/eval.tests.test_vscode.test_windsurf_install_shows_openvsx_note`
+  - `d42773df6c01/eval.tests.test_vscode.test_windsurf_marketplace_not_found_error`
 
 ## sclevine/yj
 
@@ -277,6 +420,24 @@ Benchmark-side: 326 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## tomarrell/wrapcheck
+
+Instance `tomarrell__wrapcheck.c058da1`: 669 tests shipped, 477 kept.
+
+Benchmark-side: 189 tests dropped by ProgramBench.
+
+- `dummy_pass`: 143
+- `gold_fail`: 93
+
+Course-side: 3 tests dropped by us.
+
+- Asserts the exact Go parser message "unexpected main, expected ("; newer Go toolchains phrase it "unexpected name main, expected (". wrapcheck invokes the host Go toolchain at runtime.
+  - `20131512a06f/tests.test_analysis.test_syntax_error_graceful_handling`
+- Expects diagnostics printed relative to the working directory; the go/packages position rendering changed across Go toolchain versions and newer ones report absolute paths here.
+  - `20131512a06f/tests.test_cli.test_diff_flag_with_no_suggestions`
+- The fixture filename (файл.go) is stored NFC in the tarball, but macOS filesystem APIs return it NFD, so the substring assertion on the printed path fails despite identical-looking names.
+  - `7eef48c36ca2/tests.test_edge_cases.test_unicode_filenames`
+
 ## tomnomnom/gron
 
 Instance `tomnomnom__gron.88a6234`: 233 tests shipped, 220 kept.
@@ -296,6 +457,21 @@ Course-side: 4 tests dropped by us.
 - Expects Linux's errno text ("connection refused") for a dial to port 0; macOS reports "can't assign requested address" for the same call.
   - `bc90bea37ab6/tests.test_url_fetch.test_fetch_with_invalid_proxy_url_causes_error`
 
+## wfxr/code-minimap
+
+Instance `wfxr__code-minimap.0ddeea5`: 370 tests shipped, 312 kept.
+
+Benchmark-side: 57 tests dropped by ProgramBench.
+
+- `dummy_pass`: 55
+- `gold_fail`: 1
+- `outcome_dependent_presence`: 1
+
+Course-side: 1 tests dropped by us.
+
+- Simulates a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper produces no output regardless of the binary under test.
+  - `25bb8e14ea1f/tests.test_errors.test_no_input_when_stdin_is_tty`
+
 ## wfxr/csview
 
 Instance `wfxr__csview.8ac4de0`: 348 tests shipped, 334 kept.
@@ -309,3 +485,14 @@ Course-side: 1 tests dropped by us.
 
 - Parses the host's /etc/passwd with ':' as delimiter and expects success. macOS's /etc/passwd begins with '##' comment lines whose field counts vary, so csview correctly reports a CSV field-count error there; the test only holds on Linux-shaped /etc/passwd files.
   - `5f4759b87816/eval.tests.test_rendering_and_options.test_custom_delimiter_colon_on_passwd_head`
+
+## WGUNDERWOOD/tex-fmt
+
+Instance `wgunderwood__tex-fmt.3f1aef6`: 495 tests shipped, 455 kept.
+
+Benchmark-side: 40 tests dropped by ProgramBench.
+
+- `dummy_pass`: 39
+- `gold_fail`: 1
+
+Course-side: none.

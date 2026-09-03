@@ -89,7 +89,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 21 / 198**
+**Ported so far: 31 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -108,7 +108,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [ArthurSonzogni/json-tui](https://github.com/ZhangZhuoSJTU/json-tui) | `17a22b6` | 894 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [ast-grep/ast-grep](https://github.com/ZhangZhuoSJTU/ast-grep) | `dde0fe0` | 895 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [astaxie/bat](https://github.com/ZhangZhuoSJTU/bat-astaxie) | `17d1080` | 1462 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [astro/deadnix](https://github.com/ZhangZhuoSJTU/deadnix) | `d590041` | 709 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [astro/deadnix](https://github.com/ZhangZhuoSJTU/deadnix) | `d590041` | 709 | 602 | — | ⬜ | ⬜ | ⬜ |
 | [axodotdev/oranda](https://github.com/ZhangZhuoSJTU/oranda) | `27d60c7` | 978 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [bellard/quickjs](https://github.com/ZhangZhuoSJTU/quickjs) | `d7ae12a` | 3044 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [bensadeh/tailspin](https://github.com/ZhangZhuoSJTU/tailspin) | `6278437` | 785 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -116,7 +116,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [BLAKE3-team/BLAKE3](https://github.com/ZhangZhuoSJTU/BLAKE3) | `15e83a5` | 687 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [bootandy/dust](https://github.com/ZhangZhuoSJTU/dust) | `62bf1e1` | 965 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [boyter/scc](https://github.com/ZhangZhuoSJTU/scc) | `515f91c` | 476 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [brocode/fblog](https://github.com/ZhangZhuoSJTU/fblog) | `3b54330` | 1127 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [brocode/fblog](https://github.com/ZhangZhuoSJTU/fblog) | `3b54330` | 1127 | 976 | — | ⬜ | ⬜ | ⬜ |
 | [BurntSushi/ripgrep](https://github.com/ZhangZhuoSJTU/ripgrep) | `3b7fd44` | 2538 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [BurntSushi/xsv](https://github.com/ZhangZhuoSJTU/xsv) | `f430466` | 1323 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [Byron/dua-cli](https://github.com/ZhangZhuoSJTU/dua-cli) | `8570c15` | 1003 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -132,7 +132,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [cordx56/rustowl](https://github.com/ZhangZhuoSJTU/rustowl) | `655bc5c` | 763 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [crowdagger/crowbook](https://github.com/ZhangZhuoSJTU/crowbook) | `ea214d7` | 887 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [cslarsen/jp2a](https://github.com/ZhangZhuoSJTU/jp2a) | `61d205f` | 714 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [cweill/gotests](https://github.com/ZhangZhuoSJTU/gotests) | `2a672c5` | 752 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [cweill/gotests](https://github.com/ZhangZhuoSJTU/gotests) | `2a672c5` | 752 | 603 | — | ⬜ | ⬜ | ⬜ |
 | [dalance/amber](https://github.com/ZhangZhuoSJTU/amber) | `69a0f52` | 785 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [dandavison/delta](https://github.com/ZhangZhuoSJTU/delta) | `acd758f` | 1188 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [danmar/cppcheck](https://github.com/ZhangZhuoSJTU/cppcheck) | `0a5b103` | 2550 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -169,7 +169,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [hpjansson/chafa](https://github.com/ZhangZhuoSJTU/chafa) | `dd4d4c1` | 2775 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [htop-dev/htop](https://github.com/ZhangZhuoSJTU/htop) | `523600b` | 1200 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [hush-shell/hush](https://github.com/ZhangZhuoSJTU/hush) | `560c33a` | 1298 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [incu6us/goimports-reviser](https://github.com/ZhangZhuoSJTU/goimports-reviser) | `81bd549` | 597 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [incu6us/goimports-reviser](https://github.com/ZhangZhuoSJTU/goimports-reviser) | `81bd549` | 597 | 512 | — | ⬜ | ⬜ | ⬜ |
 | [ip7z/7zip](https://github.com/ZhangZhuoSJTU/7zip) | `839151e` | 1085 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [ismaelgv/rnr](https://github.com/ZhangZhuoSJTU/rnr) | `fc0733b` | 742 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [Isona/dirble](https://github.com/ZhangZhuoSJTU/dirble) | `e2dea9f` | 1108 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -196,7 +196,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [Lymphatus/caesium-clt](https://github.com/ZhangZhuoSJTU/caesium-clt) | `a529b2e` | 616 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [lz4/lz4](https://github.com/ZhangZhuoSJTU/lz4) | `1519f46` | 1829 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [madler/pigz](https://github.com/ZhangZhuoSJTU/pigz) | `fe4894f` | 938 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [mfridman/tparse](https://github.com/ZhangZhuoSJTU/tparse) | `2416b4b` | 556 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [mfridman/tparse](https://github.com/ZhangZhuoSJTU/tparse) | `2416b4b` | 556 | 417 | — | ⬜ | ⬜ | ⬜ |
 | [mgdm/htmlq](https://github.com/ZhangZhuoSJTU/htmlq) | `6e31bc8` | 2058 | 1455 | — | ⬜ | ⬜ | ⬜ |
 | [mgechev/revive](https://github.com/ZhangZhuoSJTU/revive) | `201451e` | 886 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [mibk/dupl](https://github.com/ZhangZhuoSJTU/dupl) | `1bf052b` | 450 | 370 | — | ⬜ | ⬜ | ⬜ |
@@ -217,7 +217,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [o2sh/onefetch](https://github.com/ZhangZhuoSJTU/onefetch) | `e5958ce` | 1214 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [ogham/dog](https://github.com/ZhangZhuoSJTU/dog) | `721440b` | 1722 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [oppiliappan/eva](https://github.com/ZhangZhuoSJTU/eva) | `41ae245` | 963 | 913 | — | ⬜ | ⬜ | ⬜ |
-| [oppiliappan/statix](https://github.com/ZhangZhuoSJTU/statix) | `e9df54c` | 983 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [oppiliappan/statix](https://github.com/ZhangZhuoSJTU/statix) | `e9df54c` | 983 | 813 | — | ⬜ | ⬜ | ⬜ |
 | [orf/gping](https://github.com/ZhangZhuoSJTU/gping) | `26eb5b9` | 655 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [OSGeo/gdal](https://github.com/ZhangZhuoSJTU/gdal) | `0847f12` | 1319 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [OSGeo/PROJ](https://github.com/ZhangZhuoSJTU/PROJ) | `75d455c` | 7160 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -242,7 +242,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [rust-embedded/svd2rust](https://github.com/ZhangZhuoSJTU/svd2rust) | `1760b5e` | 985 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [rust-ethereum/ethabi](https://github.com/ZhangZhuoSJTU/ethabi) | `b1710ad` | 1053 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [rust-lang/mdBook](https://github.com/ZhangZhuoSJTU/mdBook) | `37273ba` | 1326 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [rvben/rumdl](https://github.com/ZhangZhuoSJTU/rumdl) | `2d75c4d` | 4781 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [rvben/rumdl](https://github.com/ZhangZhuoSJTU/rumdl) | `2d75c4d` | 4781 | 3256 | — | ⬜ | ⬜ | ⬜ |
 | [samtools/samtools](https://github.com/ZhangZhuoSJTU/samtools) | `aa823b5` | 1819 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [sayanarijit/xplr](https://github.com/ZhangZhuoSJTU/xplr) | `1751065` | 939 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [sclevine/yj](https://github.com/ZhangZhuoSJTU/yj) | `8016400` | 825 | 768 | — | ⬜ | ⬜ | ⬜ |
@@ -269,7 +269,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [tarka/xcp](https://github.com/ZhangZhuoSJTU/xcp) | `5e5b448` | 1236 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [TheZoraiz/ascii-image-converter](https://github.com/ZhangZhuoSJTU/ascii-image-converter) | `d05a757` | 488 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [tinycc/tinycc](https://github.com/ZhangZhuoSJTU/tinycc) | `9b8765d` | 2062 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [tomarrell/wrapcheck](https://github.com/ZhangZhuoSJTU/wrapcheck) | `c058da1` | 669 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [tomarrell/wrapcheck](https://github.com/ZhangZhuoSJTU/wrapcheck) | `c058da1` | 669 | 477 | — | ⬜ | ⬜ | ⬜ |
 | [tomnomnom/gron](https://github.com/ZhangZhuoSJTU/gron) | `88a6234` | 233 | 220 | — | ⬜ | ⬜ | ⬜ |
 | [trasta298/keifu](https://github.com/ZhangZhuoSJTU/keifu) | `3331426` | 413 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [tree-sitter/tree-sitter](https://github.com/ZhangZhuoSJTU/tree-sitter) | `5e23cca` | 1888 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -278,9 +278,9 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [typst/typst](https://github.com/ZhangZhuoSJTU/typst) | `88356d0` | 1789 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [unhappychoice/gittype](https://github.com/ZhangZhuoSJTU/gittype) | `34b72d0` | 932 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [universal-ctags/ctags](https://github.com/ZhangZhuoSJTU/ctags) | `243595e` | 2579 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [wfxr/code-minimap](https://github.com/ZhangZhuoSJTU/code-minimap) | `0ddeea5` | 370 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [wfxr/code-minimap](https://github.com/ZhangZhuoSJTU/code-minimap) | `0ddeea5` | 370 | 312 | — | ⬜ | ⬜ | ⬜ |
 | [wfxr/csview](https://github.com/ZhangZhuoSJTU/csview) | `8ac4de0` | 348 | 334 | — | ⬜ | ⬜ | ⬜ |
-| [WGUNDERWOOD/tex-fmt](https://github.com/ZhangZhuoSJTU/tex-fmt) | `3f1aef6` | 495 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [WGUNDERWOOD/tex-fmt](https://github.com/ZhangZhuoSJTU/tex-fmt) | `3f1aef6` | 495 | 455 | — | ⬜ | ⬜ | ⬜ |
 | [wintermute-cell/ngrrram](https://github.com/ZhangZhuoSJTU/ngrrram) | `8ea13c3` | 332 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [XAMPPRocky/tokei](https://github.com/ZhangZhuoSJTU/tokei) | `505d648` | 760 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [xorg62/tty-clock](https://github.com/ZhangZhuoSJTU/tty-clock) | `f2f847c` | 319 | N/A | — | ⬜ | ⬜ | ⬜ |
