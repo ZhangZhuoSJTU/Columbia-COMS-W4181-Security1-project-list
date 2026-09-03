@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 2 / 198**
+**Ported so far: 3 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -197,7 +197,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [mfridman/tparse](https://github.com/ZhangZhuoSJTU/tparse) | `2416b4b` | 556 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [mgdm/htmlq](https://github.com/ZhangZhuoSJTU/htmlq) | `6e31bc8` | 2058 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [mgechev/revive](https://github.com/ZhangZhuoSJTU/revive) | `201451e` | 886 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [mibk/dupl](https://github.com/ZhangZhuoSJTU/dupl) | `1bf052b` | 450 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [mibk/dupl](https://github.com/ZhangZhuoSJTU/dupl) | `1bf052b` | 450 | 370 | — | ⬜ | ⬜ | ⬜ |
 | [mikefarah/yq](https://github.com/ZhangZhuoSJTU/yq) | `602586d` | 2046 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [Miserlou/Loop](https://github.com/ZhangZhuoSJTU/Loop) | `209927c` | 778 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [mkj/dropbear](https://github.com/ZhangZhuoSJTU/dropbear) | `75f699b` | 1075 | N/A | — | ⬜ | ⬜ | ⬜ |
