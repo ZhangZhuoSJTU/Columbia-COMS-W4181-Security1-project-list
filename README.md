@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 9 / 198**
+**Ported so far: 11 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -124,7 +124,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [chirlu/sox](https://github.com/ZhangZhuoSJTU/sox) | `42b3557` | 1260 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [chmln/handlr](https://github.com/ZhangZhuoSJTU/handlr) | `90e78ba` | 908 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [chmln/sd](https://github.com/ZhangZhuoSJTU/sd) | `87d1ba5` | 869 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [clog-tool/clog-cli](https://github.com/ZhangZhuoSJTU/clog-cli) | `7066cba` | 778 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [clog-tool/clog-cli](https://github.com/ZhangZhuoSJTU/clog-cli) | `7066cba` | 778 | 575 | — | ⬜ | ⬜ | ⬜ |
 | [cmatsuoka/figlet](https://github.com/ZhangZhuoSJTU/figlet) | `202a0a8` | 1044 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [codesnap-rs/codesnap](https://github.com/ZhangZhuoSJTU/codesnap) | `f81e4f3` | 871 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [cordx56/rustowl](https://github.com/ZhangZhuoSJTU/rustowl) | `655bc5c` | 763 | N/A | — | ⬜ | ⬜ | ⬜ |
@@ -136,7 +136,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [danmar/cppcheck](https://github.com/ZhangZhuoSJTU/cppcheck) | `0a5b103` | 2550 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [direnv/direnv](https://github.com/ZhangZhuoSJTU/direnv) | `02040c7` | 986 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [doxygen/doxygen](https://github.com/ZhangZhuoSJTU/doxygen) | `966d98e` | 252 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [Drew-Alleman/DataSurgeon](https://github.com/ZhangZhuoSJTU/DataSurgeon) | `d257cee` | 564 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [Drew-Alleman/DataSurgeon](https://github.com/ZhangZhuoSJTU/DataSurgeon) | `d257cee` | 564 | 498 | — | ⬜ | ⬜ | ⬜ |
 | [ducaale/xh](https://github.com/ZhangZhuoSJTU/xh) | `4a6e44f` | 1266 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [duckdb/duckdb](https://github.com/ZhangZhuoSJTU/duckdb) | `bdb65ec` | 8958 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [dundee/gdu](https://github.com/ZhangZhuoSJTU/gdu) | `ede21d2` | 1553 | N/A | — | ⬜ | ⬜ | ⬜ |
