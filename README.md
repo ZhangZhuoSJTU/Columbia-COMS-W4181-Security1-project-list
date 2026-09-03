@@ -52,10 +52,7 @@ $$
 **Round total:**
 
 $$
-S_{\mathrm{round}} = \underbrace{X\left(1 - \frac{d}{3}\right)}_{\text{submission}}
- + \underbrace{Y \cdot \mathbb{1}\left[\text{bug not discovered}\right]}_{\text{defense}}
- + \underbrace{\sum_{b \in D} \frac{Y}{n_b}}_{\text{attack}}
- + \underbrace{Z \cdot f}_{\text{first blood}}
+S_{\mathrm{round}} = \underbrace{X\left(1 - \frac{d}{3}\right)}_{\text{submission}} + \underbrace{Y \cdot \mathbb{1}\left[\text{bug not discovered}\right]}_{\text{defense}} + \underbrace{\sum_{b \in D} \frac{Y}{n_b}}_{\text{attack}} + \underbrace{Z \cdot f}_{\text{first blood}}
 $$
 
 The final grade is the sum over the three rounds. The concrete values of $X$, $Y$, $Z$ will be
