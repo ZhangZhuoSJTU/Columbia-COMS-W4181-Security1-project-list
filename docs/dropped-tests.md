@@ -162,6 +162,25 @@ Benchmark-side: 326 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## tomnomnom/gron
+
+Instance `tomnomnom__gron.88a6234`: 233 tests shipped, 220 kept.
+
+Benchmark-side: 9 tests dropped by ProgramBench.
+
+- `dummy_pass`: 7
+- `gold_fail`: 2
+
+Course-side: 4 tests dropped by us.
+
+- Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper produces no output regardless of the binary under test.
+  - `bc90bea37ab6/tests.test_gaps.test_colorize_gron_output`
+  - `bc90bea37ab6/tests.test_gaps.test_colorize_json_output_ungron`
+- Expects the exact TLS failure string of the Go version used in the containers ("legacy Common Name field"); newer Go stdlibs report "certificate signed by unknown authority" for the same self-signed cert.
+  - `bc90bea37ab6/tests.test_url_fetch.test_https_self_signed_cert_fails_without_insecure`
+- Expects Linux's errno text ("connection refused") for a dial to port 0; macOS reports "can't assign requested address" for the same call.
+  - `bc90bea37ab6/tests.test_url_fetch.test_fetch_with_invalid_proxy_url_causes_error`
+
 ## wfxr/csview
 
 Instance `wfxr__csview.8ac4de0`: 348 tests shipped, 334 kept.

@@ -89,7 +89,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 11 / 198**
+**Ported so far: 12 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -270,7 +270,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [TheZoraiz/ascii-image-converter](https://github.com/ZhangZhuoSJTU/ascii-image-converter) | `d05a757` | 488 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [tinycc/tinycc](https://github.com/ZhangZhuoSJTU/tinycc) | `9b8765d` | 2062 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [tomarrell/wrapcheck](https://github.com/ZhangZhuoSJTU/wrapcheck) | `c058da1` | 669 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [tomnomnom/gron](https://github.com/ZhangZhuoSJTU/gron) | `88a6234` | 233 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [tomnomnom/gron](https://github.com/ZhangZhuoSJTU/gron) | `88a6234` | 233 | 220 | — | ⬜ | ⬜ | ⬜ |
 | [trasta298/keifu](https://github.com/ZhangZhuoSJTU/keifu) | `3331426` | 413 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [tree-sitter/tree-sitter](https://github.com/ZhangZhuoSJTU/tree-sitter) | `5e23cca` | 1888 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [tstack/lnav](https://github.com/ZhangZhuoSJTU/lnav) | `ee34494` | 1172 | N/A | — | ⬜ | ⬜ | ⬜ |
