@@ -58,6 +58,18 @@ $$
 The final grade is the sum over the three rounds. The concrete values of $X$, $Y$, $Z$ will be
 announced per round.
 
+## Building and testing a project
+
+Each prepared project ships two scripts at the repository root (requirements: the project's
+toolchain — Go, Rust, or a C compiler — plus `python3` and `curl`):
+
+- `./compile.sh` — compiles the current working tree (including any local changes you have made)
+  into a binary named `./executable`.
+- `./test.sh` — recompiles, then downloads (and caches) the ProgramBench test suites and runs all
+  of them against your binary, printing a per-suite and total pass summary.
+
+The intended workflow is simply: edit the code, run `./test.sh`, repeat.
+
 ## Project list
 
 Each project is a fork of an open-source program from ProgramBench, reverted to the exact commit
