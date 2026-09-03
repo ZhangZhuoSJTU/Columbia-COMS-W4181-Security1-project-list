@@ -89,7 +89,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 13 / 198**
+**Ported so far: 14 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -177,7 +177,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [jarun/nnn](https://github.com/ZhangZhuoSJTU/nnn) | `cb2c535` | 1796 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [jesseduffield/lazygit](https://github.com/ZhangZhuoSJTU/lazygit) | `1d0db51` | 1167 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [jhspetersson/fselect](https://github.com/ZhangZhuoSJTU/fselect) | `c3559ca` | 3435 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [JohannesKaufmann/html-to-markdown](https://github.com/ZhangZhuoSJTU/html-to-markdown) | `3006818` | 974 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [JohannesKaufmann/html-to-markdown](https://github.com/ZhangZhuoSJTU/html-to-markdown) | `3006818` | 974 | 884 | — | ⬜ | ⬜ | ⬜ |
 | [johnkerl/miller](https://github.com/ZhangZhuoSJTU/miller) | `8d85b46` | 16070 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [jonas/tig](https://github.com/ZhangZhuoSJTU/tig) | `8334123` | 2239 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [jqlang/jq](https://github.com/ZhangZhuoSJTU/jq) | `b33a763` | 6796 | N/A | — | ⬜ | ⬜ | ⬜ |

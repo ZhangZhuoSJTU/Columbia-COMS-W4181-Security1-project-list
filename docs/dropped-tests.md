@@ -84,6 +84,20 @@ Course-side: 7 tests dropped by us.
   - `c0ff9908837a/tests.test_url_loading.test_http_jpeg_basic`
   - `c0ff9908837a/tests.test_url_loading.test_http_with_scale_fit`
 
+## JohannesKaufmann/html-to-markdown
+
+Instance `johanneskaufmann__html-to-markdown.3006818`: 974 tests shipped, 884 kept.
+
+Benchmark-side: 89 tests dropped by ProgramBench.
+
+- `dummy_pass`: 84
+- `gold_fail`: 5
+
+Course-side: 1 tests dropped by us.
+
+- Exercises case-sensitive glob matching. The default macOS filesystem (APFS) is case-insensitive, unlike the containers' ext4, so files that should be distinct under the glob collide and the tool errors.
+  - `0d82cc7b3089/tests.test_file_io.test_case_sensitive_glob`
+
 ## kisielk/errcheck
 
 Instance `kisielk__errcheck.dacab89`: 532 tests shipped, 340 kept.
