@@ -87,7 +87,7 @@ behavioral tests the benchmark ships for the project; *Tests kept* is the number
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
 may not exist yet). Each project must be validated by all three TAs before it can be selected.
 
-**Ported so far: 5 / 198**
+**Ported so far: 6 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
@@ -98,7 +98,7 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 | [alexpovel/srgn](https://github.com/ZhangZhuoSJTU/srgn) | `89f943b` | 2080 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [altdesktop/i3-style](https://github.com/ZhangZhuoSJTU/i3-style) | `f93821b` | 750 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [AmmarAbouZor/tui-journal](https://github.com/ZhangZhuoSJTU/tui-journal) | `2b4540d` | 1839 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [anordal/shellharden](https://github.com/ZhangZhuoSJTU/shellharden) | `6a6ffd4` | 1292 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [anordal/shellharden](https://github.com/ZhangZhuoSJTU/shellharden) | `6a6ffd4` | 1292 | 1095 | — | ⬜ | ⬜ | ⬜ |
 | [antonmedv/fx](https://github.com/ZhangZhuoSJTU/fx) | `86d0d34` | 3157 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [antonmedv/walk](https://github.com/ZhangZhuoSJTU/walk) | `bf802ef` | 786 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [ariga/atlas](https://github.com/ZhangZhuoSJTU/atlas) | `6d81150` | 1732 | N/A | — | ⬜ | ⬜ | ⬜ |
