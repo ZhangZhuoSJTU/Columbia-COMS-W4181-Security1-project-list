@@ -49,10 +49,16 @@ while read -r branch; do
     # timing-out test fails cleanly instead of killing the pytest worker.
     grep -rlI --null -- /workspace "$dir" | xargs -0 sed -i.pbbak "s|/workspace|$PWD/$dir|g" || true
     find "$dir" -name '*.pbbak' -delete
-    sed -i.pbbak 's/--timeout-method=thread/--timeout-method=signal/g' "$dir/eval/run.sh" \
+    # Some run.sh scripts install the binary into /usr/local/bin so PATH-based
+    # invocations (git hooks, ...) can find it; redirect that into a run-local
+    # bin dir on PATH instead of requiring root.
+    bindir="$PWD/$PB/run/$branch/bin"
+    mkdir -p "$bindir"
+    sed -i.pbbak -e 's/--timeout-method=thread/--timeout-method=signal/g' \
+        -e "s|/usr/local/bin|$bindir|g" "$dir/eval/run.sh" \
         && rm -f "$dir/eval/run.sh.pbbak"
     echo "=== branch $branch ==="
-    (cd "$dir" && bash eval/run.sh > run.log 2>&1 || true)
+    (cd "$dir" && PATH="$bindir:$PATH" bash eval/run.sh > run.log 2>&1 || true)
 done < "$PB/branches.txt"
 
 python3 - <<'EOF'
