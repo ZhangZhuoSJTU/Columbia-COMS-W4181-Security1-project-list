@@ -19,6 +19,9 @@ export TZ=UTC
 # and some tests assert temp paths, so pin it to the container default.
 export TMPDIR=/tmp
 
+# Optional per-project environment overrides (kept in the repo).
+[ -f .programbench/env ] && . .programbench/env
+
 INSTANCE=@@INSTANCE@@
 BASE_URL="https://huggingface.co/datasets/programbench/ProgramBench-Tests/resolve/main/$INSTANCE/tests"
 PB=.programbench
@@ -45,6 +48,10 @@ while read -r branch; do
     # docs, ...) that the tarball does not ship.
     git ls-files -z | tar --null -cf - -T - | tar -xpf - -C "$dir"
     tar xzf "$tar" -C "$dir"
+    # ProgramBench's eval also seeds a synthetic git repo in the workspace;
+    # tools that locate the repo root via .git (rumdl, ripsecrets, ...) must
+    # find the run dir, not this repo's own .git further up.
+    git -C "$dir" init -q
     cp executable "$dir/executable" && chmod +x "$dir/executable"
     # The suites were authored in containers whose workspace root is
     # /workspace, and some tests/goldens embed that absolute path. Rewrite it
