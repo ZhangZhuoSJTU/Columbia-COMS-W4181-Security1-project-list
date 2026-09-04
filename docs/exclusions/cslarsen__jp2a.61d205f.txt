@@ -1,0 +1,10 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# jp2a's rejection of zero width/size (--width=0, --size=0x0) and its
+# terminal-fit / TERM-detection error path differ on macOS: the BSD libc
+# argument handling accepts the zero values (producing empty output) and the
+# tty/TERM check takes a different branch than in the Linux containers.
+a06931aa0fba/eval.tests.test_jp2a_coverage.test_invalid_size_zero
+a06931aa0fba/eval.tests.test_jp2a_coverage.test_invalid_width_zero
+d8f41f37e4f5/eval.tests.test_terminal_fitting.test_term_fit_error_message

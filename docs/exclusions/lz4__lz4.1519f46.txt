@@ -1,0 +1,21 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# lz4's --list --verbose banner prints the compile-time _POSIX_C_SOURCE /
+# _POSIX_VERSION macros, which are 200112L on macOS and 200809L on the Linux
+# glibc containers.
+1379dfae0b18/tests.test_list.test_list_block_independence_verbose
+1379dfae0b18/tests.test_list.test_list_content_checksum
+1379dfae0b18/tests.test_list.test_list_high_compression_level
+1379dfae0b18/tests.test_list.test_list_mixed_checksum_settings
+1379dfae0b18/tests.test_list.test_list_mixed_frame_types_verbose
+1379dfae0b18/tests.test_list.test_list_multiframe_verbose
+1379dfae0b18/tests.test_list.test_list_multiple_same_frames_verbose
+1379dfae0b18/tests.test_list.test_list_multiple_skippable_frames
+1379dfae0b18/tests.test_list.test_list_no_frame_crc_verbose
+1379dfae0b18/tests.test_list.test_list_triple_verbose
+
+# Sparse-file tests assert on-disk size < logical size; macOS APFS handles
+# sparse regions differently, so the allocated size does not shrink as on ext4.
+1379dfae0b18/tests.test_io_modes.test_sparse_file_mode_default_enabled
+1379dfae0b18/tests.test_io_modes.test_sparse_flag_explicitly_enables

@@ -1,0 +1,12 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Verify CRLF output by dumping through od, whose column spacing differs
+# between BSD od (macOS) and GNU od (containers); the bytes are identical.
+1e617f44df07/tests.test_cli_features.test_crlf_output_flag
+1e617f44df07/tests.test_core_gaps.test_crlf_output_line_endings
+1e617f44df07/tests.test_output_gaps.test_csv_crlf_line_endings
+
+# Compares raw compressed bytes; the gzip stream header/encoding differs
+# between the macOS and container zlib builds.
+1e617f44df07/tests.test_reader_importer_gaps.test_multiple_compression_layers_rejected

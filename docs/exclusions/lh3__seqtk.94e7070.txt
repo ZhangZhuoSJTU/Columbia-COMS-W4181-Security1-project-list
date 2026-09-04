@@ -1,0 +1,6 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# fqchk on empty/FASTA input prints NaN statistics; macOS libc printf renders
+# NaN as "nan" while glibc renders "-nan". Same value, different libc spelling.
+5d974fdda794/tests.test_info.test_fqchk_fasta_input_ignored

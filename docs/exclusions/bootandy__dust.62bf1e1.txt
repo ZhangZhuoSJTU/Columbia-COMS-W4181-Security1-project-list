@@ -1,0 +1,47 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# dust renders a disk-usage tree with sizes, percentages, and proportional
+# bars. macOS APFS reports different apparent/allocated block sizes than the
+# containers' ext4, so the sizes, percentage splits, bar widths, and column
+# alignment in the rendered tree differ (the tool is correct; the underlying
+# filesystem accounting differs).
+746762709b06/tests.test_cli.test_apparent_size_flag
+746762709b06/tests.test_cli.test_bars_on_right_flag
+746762709b06/tests.test_cli.test_combined_apparent_size_si
+746762709b06/tests.test_cli.test_combined_ignore_hidden_only_file
+746762709b06/tests.test_cli.test_combined_reverse_depth_nobars
+746762709b06/tests.test_cli.test_combined_screen_reader_full_paths
+746762709b06/tests.test_cli.test_depth_limit
+746762709b06/tests.test_cli.test_depth_with_number_of_lines
+746762709b06/tests.test_cli.test_depth_zero
+746762709b06/tests.test_cli.test_full_paths_flag
+746762709b06/tests.test_cli.test_ignore_hidden_flag
+746762709b06/tests.test_cli.test_multiple_paths
+746762709b06/tests.test_cli.test_no_colors_flag
+746762709b06/tests.test_cli.test_no_percent_bars_flag
+746762709b06/tests.test_cli.test_number_of_lines_limit
+746762709b06/tests.test_cli.test_only_directories_flag
+746762709b06/tests.test_cli.test_only_files_flag
+746762709b06/tests.test_cli.test_output_format_bytes
+746762709b06/tests.test_cli.test_output_format_gib
+746762709b06/tests.test_cli.test_output_format_gigabytes
+746762709b06/tests.test_cli.test_output_format_kib
+746762709b06/tests.test_cli.test_output_format_kilobytes
+746762709b06/tests.test_cli.test_output_format_mb
+746762709b06/tests.test_cli.test_output_format_mebibytes
+746762709b06/tests.test_cli.test_output_format_si
+746762709b06/tests.test_cli.test_output_format_terabytes
+746762709b06/tests.test_cli.test_output_format_tib
+746762709b06/tests.test_cli.test_reverse_flag
+746762709b06/tests.test_cli.test_screen_reader_mode
+746762709b06/tests.test_cli.test_skip_total_flag
+746762709b06/tests.test_cli.test_terminal_width_override
+746762709b06/tests.test_cli.test_threads_single
+746762709b06/tests.test_coverage_push.test_apparent_size_vs_block_size
+746762709b06/tests.test_coverage_push.test_full_paths_no_shortening
+746762709b06/tests.test_filtering.test_regex_case_sensitivity
+746762709b06/tests.test_gap_fill.test_full_paths_flag
+746762709b06/tests.test_harvest.test_unicode_directories
+792aec0b8317/eval.tests.test_edge_cases.test_unicode_filenames
+bfee6b583f6f/eval.tests.test_flags.TestDisplayFlags.test_full_paths

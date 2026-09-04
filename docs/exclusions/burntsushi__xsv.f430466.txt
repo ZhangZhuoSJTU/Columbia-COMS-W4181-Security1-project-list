@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Expects the Linux /dev/full write error "No space left on device" (errno 28);
+# macOS has no /dev/full, so the readonly-write path yields "Operation not
+# permitted" (errno 1) instead.
+291bdfab7f5b/tests.test_main_gapfill.test_csv_error_on_write_to_readonly_location

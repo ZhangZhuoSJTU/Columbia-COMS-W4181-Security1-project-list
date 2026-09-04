@@ -1,0 +1,80 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# zstd's --trace feature is gated on ELF weak symbols (see lib/common/
+# zstd_trace.h, which disables it on __APPLE__). macOS/Mach-O does not resolve
+# the CLI's strong trace callback over the lib's weak default the way ELF does,
+# so --trace is a no-op here and these tests find no trace/dictionary file.
+be378a85aca3/eval.tests.test_23_trace_logging.test_trace_append_mode
+be378a85aca3/eval.tests.test_23_trace_logging.test_trace_basic
+be378a85aca3/eval.tests.test_23_trace_logging.test_trace_decompress
+be378a85aca3/eval.tests.test_23_trace_logging.test_trace_file_header
+be378a85aca3/eval.tests.test_23_trace_logging.test_trace_with_compression_levels
+be378a85aca3/eval.tests.test_23_trace_logging.test_trace_with_threads
+f7278a893d6d/tests.test_trace.test_trace_append_mode_multiple_operations
+f7278a893d6d/tests.test_trace.test_trace_compress_creates_csv_with_header
+f7278a893d6d/tests.test_trace.test_trace_compress_records_correct_fields
+f7278a893d6d/tests.test_trace.test_trace_compression_ratio_calculation
+f7278a893d6d/tests.test_trace.test_trace_decompress_records_method_correctly
+f7278a893d6d/tests.test_trace.test_trace_decompress_with_dictionary
+f7278a893d6d/tests.test_trace.test_trace_different_compression_levels
+f7278a893d6d/tests.test_trace.test_trace_extreme_compression_level
+f7278a893d6d/tests.test_trace.test_trace_force_single_threaded
+f7278a893d6d/tests.test_trace.test_trace_large_file_with_workers
+f7278a893d6d/tests.test_trace.test_trace_mixed_compress_decompress_operations
+f7278a893d6d/tests.test_trace.test_trace_multiple_decompressions
+f7278a893d6d/tests.test_trace.test_trace_multiple_files_in_one_invocation
+f7278a893d6d/tests.test_trace.test_trace_reopen_existing_file_appends
+f7278a893d6d/tests.test_trace.test_trace_speed_calculation
+f7278a893d6d/tests.test_trace.test_trace_stdin_compression
+f7278a893d6d/tests.test_trace.test_trace_streaming_vs_singlepass_mode
+f7278a893d6d/tests.test_trace.test_trace_version_number
+f7278a893d6d/tests.test_trace.test_trace_with_dictionary
+
+# zstd canonicalizes input filenames (realpath) in its verbose progress
+# output, printing /private/tmp/... where the goldens/normalizers use the /tmp
+# symlink form the tests pass; a residual /private prefix remains on macOS.
+be378a85aca3/eval.tests.test_07_dictionaries.test_compress_with_dictionary
+be378a85aca3/eval.tests.test_07_dictionaries.test_decompress_with_dictionary
+be378a85aca3/eval.tests.test_07_dictionaries.test_train_dictionary_basic
+be378a85aca3/eval.tests.test_07_dictionaries.test_train_with_dictID
+be378a85aca3/eval.tests.test_07_dictionaries.test_train_with_maxdict
+be378a85aca3/eval.tests.test_13_filelist.test_filelist_basic
+be378a85aca3/eval.tests.test_14_sparse.test_sparse_mode_with_file
+be378a85aca3/eval.tests.test_16_exclude_compressed.test_exclude_compressed_skips_compressed
+be378a85aca3/eval.tests.test_17_additional_options.test_mmap_dict_option
+be378a85aca3/eval.tests.test_17_additional_options.test_no_dictID_option
+be378a85aca3/eval.tests.test_17_additional_options.test_no_mmap_dict_option
+f7278a893d6d/tests.test_cli_parsing_gap.test_auto_threads_logical
+f7278a893d6d/tests.test_cli_parsing_gap.test_clevel_too_high_reduced
+f7278a893d6d/tests.test_cli_parsing_gap.test_env_clevel_invalid
+f7278a893d6d/tests.test_cli_parsing_gap.test_env_clevel_overflow
+f7278a893d6d/tests.test_cli_parsing_gap.test_env_nbthreads_invalid
+f7278a893d6d/tests.test_cli_parsing_gap.test_env_nbthreads_overflow
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_C_checksum
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_P_compressibility
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_T_threads
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_l_list
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_n_noname_flag
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_t_test
+f7278a893d6d/tests.test_cli_parsing_gap.test_short_z_compress_flag
+f7278a893d6d/tests.test_cli_parsing_gap.test_stream_size_option
+f7278a893d6d/tests.test_cli_parsing_gap.test_ultra_clevel_too_high_reduced
+f7278a893d6d/tests.test_cli_parsing_gap.test_zstd_params_valid
+ff48618e10b3/tests.test_fileio_gap2.test_remove_source_readonly_dir
+ff48618e10b3/tests.test_util_gap2.test_directory_permission_errors
+ff48618e10b3/tests.test_util_gap3.test_compress_very_large_permissions_combination
+ff48618e10b3/tests.test_zstdcli_gap2.test_stdout_console_detection_compression
+
+# --help / advanced-help text varies with the compile-time feature set
+# (bench/dict/trace/legacy), which differs between this build and the
+# containers'.
+f7278a893d6d/tests.test_cli_parsing_gap.test_help_advanced_flag
+ff48618e10b3/tests.test_advanced_decompression.test_sparse_file_with_data_and_holes
+ff48618e10b3/tests.test_advanced_decompression.test_sparse_large_hole_at_end
+ff48618e10b3/tests.test_advanced_decompression.test_sparse_mode_enabled_creates_sparse_file
+ff48618e10b3/tests.test_zstdcli_gap3.test_gzip_mode_help_shows_best_option
+
+# Platform-specific console/tty and version-string detection differences.
+f7278a893d6d/tests.test_cli_parsing_gap.test_version_verbose_mode
+ff48618e10b3/tests.test_zstdcli_gap2.test_stdin_console_detection

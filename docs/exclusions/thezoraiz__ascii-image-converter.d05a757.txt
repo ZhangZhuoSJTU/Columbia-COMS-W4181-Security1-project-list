@@ -1,0 +1,28 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Color-capability tests: the tool selects 24-bit/8-bit/no-color from
+# TERM/COLORTERM. The containers ran headless (no color -> the tool errors
+# 'terminal supports neither 24-bit nor 8-bit colors'); this run inherits the
+# host terminal (TERM=xterm-256color, COLORTERM=truecolor) so the tool emits
+# color instead, and uses 24-bit where the goldens use 8-bit.
+da1ea1b44b41/tests.test_color_modes.test_color_flag_requires_terminal_support
+da1ea1b44b41/tests.test_color_modes.test_color_flag_short_form
+da1ea1b44b41/tests.test_color_modes.test_font_color_requires_terminal_support
+da1ea1b44b41/tests.test_color_modes.test_font_color_validation_boundary_255
+da1ea1b44b41/tests.test_color_modes.test_font_color_validation_boundary_zero
+da1ea1b44b41/tests.test_color_modes.test_grayscale_flag_short_form
+da1ea1b44b41/tests.test_color_modes.test_grayscale_requires_terminal_support
+da1ea1b44b41/tests.test_errors.test_font_color_0_0_0_boundary
+da1ea1b44b41/tests.test_errors.test_font_color_255_255_255_boundary
+da1ea1b44b41/tests.test_output_saving.test_save_img_with_grayscale_flag
+da1ea1b44b41/tests.test_transformations.test_flipx_with_grayscale_flag
+
+# Fetches a URL; DNS failure wording ('no such host') differs and depends on
+# network/resolver behavior.
+da1ea1b44b41/tests.test_input_sources.test_url_unreachable_host
+
+# Charset-override rendering differs at a few glyph positions (image sampling
+# rounding across CPU architectures).
+da1ea1b44b41/tests.test_basic_conversion.test_complex_flag_uses_extended_charset
+da1ea1b44b41/tests.test_basic_conversion.test_complex_overrides_simple_charset

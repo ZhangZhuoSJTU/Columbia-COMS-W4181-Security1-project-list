@@ -1,0 +1,29 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# ninja emits smart-terminal line-eraser control codes (^D\x08\x08) around
+# status output; the containers captured plain goldens. The behavior is not
+# TERM-controlled here, so the captured bytes differ.
+4f1adf8644e5/tests.test_harvest.TestOutput.test_explain_output
+4f1adf8644e5/tests.test_harvest.TestOutput.test_issue_1214
+4f1adf8644e5/tests.test_harvest.TestOutput.test_issue_2499
+4f1adf8644e5/tests.test_harvest.TestOutput.test_ninja_status_quiet
+4f1adf8644e5/tests.test_harvest.TestOutput.test_pr_2540
+4f1adf8644e5/tests.test_harvest.TestOutput.test_tool_compdb_targets
+4f1adf8644e5/tests.test_harvest.TestOutput.test_tool_multi_inputs
+
+# Unknown-flag error messages come from getopt: macOS BSD getopt quotes with
+# backticks and says 'invalid option' where GNU uses straight quotes.
+3ca3ae9cb669/eval.tests.test_argparse_validation.test_unknown_long_flag_is_error_and_mentions_flag
+3ca3ae9cb669/eval.tests.test_argparse_validation.test_unknown_short_flag_is_error_and_mentions_flag
+4f1adf8644e5/tests.test_flags.test_k_flag_with_specific_value
+
+# Platform differences: the `browse` tool starts an interactive server and
+# hangs under capture; depfile tests expect ELF object output but macOS
+# compilers emit Mach-O; console-pool ordering differs.
+470d1be7dca2/eval.tests.test_more_subtools.test_tool_browse_help
+4f1adf8644e5/tests.test_build_execution.test_depfile_with_gcc_deps
+4f1adf8644e5/tests.test_build_execution.test_rule_variables_in_command
+4f1adf8644e5/tests.test_build_execution.test_variable_override_build_statement
+4f1adf8644e5/tests.test_status.test_multiple_parallel_failures
+4f1adf8644e5/tests.test_util_gaps.test_canonicalize_empty_path_returns_error

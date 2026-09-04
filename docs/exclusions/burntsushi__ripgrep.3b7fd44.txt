@@ -1,0 +1,31 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Case-insensitive glob/iglob matching relies on the filesystem; macOS APFS
+# is case-insensitive so match sets differ from the containers' ext4.
+d6be781e3e94/tests.test_glob_advanced.test_glob_case_insensitive_flag
+d6be781e3e94/tests.test_glob_advanced.test_iglob_case_insensitive_matching
+d6be781e3e94/tests.test_glob_advanced.test_multiple_glob_and_iglob_combination
+
+# Decompression error strings for corrupted/truncated gzip/bz2 inputs come
+# from the platform's zlib/bzip2; macOS wording differs from the containers.
+d6be781e3e94/tests.test_compression_edge_cases.test_corrupted_gzip_file
+d6be781e3e94/tests.test_compression_edge_cases.test_truncated_bz2_file
+d6be781e3e94/tests.test_compression_edge_cases.test_truncated_gzip_file
+
+# Directories made unreadable (chmod) to test permission errors; the
+# containers run as root (permissions bypassed), a normal account does not.
+d6be781e3e94/tests.test_harvest.test_r30_dir_without_read_permission
+
+# Build very deep/long paths; macOS enforces a 255-byte per-component limit
+# (errno 63) and errors before the code under test runs.
+d6be781e3e94/tests.test_walk_errors.test_deep_directory_unlimited
+
+# ripgrep selects its search strategy (memory map vs read, binary detection)
+# partly by platform; macOS takes a different (still correct) path than the
+# amd64 Linux containers, so trace/stats assertions on the strategy differ.
+d6be781e3e94/tests.test_help_debug.test_trace_shows_binary_detection
+d6be781e3e94/tests.test_stats.test_stats_binary_file_detection
+
+# Symlink-following default behavior differs on macOS (test skipped/varies).
+d6be781e3e94/tests.test_errors.test_symlink_not_followed_by_default

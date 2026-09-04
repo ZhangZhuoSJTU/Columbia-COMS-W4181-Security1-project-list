@@ -1,0 +1,56 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Searching inside .xz/.lzma files: ag is built +lzma (Homebrew liblzma), but
+# its compressed-search decompression path returns no matches / different error
+# text on macOS than in the Linux containers, so these xz-content searches and
+# the corrupted-xz error test do not reproduce.
+7c5468344bba/tests.test_compression.test_corrupted_xz_file_error_handling
+7c5468344bba/tests.test_compression.test_large_repeating_pattern_xz_buffer_handling
+7c5468344bba/tests.test_compression.test_multiple_xz_files_same_pattern
+7c5468344bba/tests.test_compression.test_xz_basic_pattern_match
+7c5468344bba/tests.test_compression.test_xz_with_context_lines
+7c5468344bba/tests.test_file_utils.test_compressed_xz_file_with_context
+
+# Platform/libc differences: BSD getopt quotes unrecognized options with
+# backticks vs GNU quotes; the linked PCRE version string differs (8.45 vs the
+# container's 8.39); thread-affinity debug output needs Linux sched_setaffinity
+# (absent on macOS); and unicode case-folding/gitignore-home paths differ.
+1802d8be2734/eval.tests.test_ag_externalized.test_ext_ignore_gitignore_global_via_debug
+2a1245c74057/eval.tests.test_special_cases.test_search_compressed_gz
+360371edb47b/eval.tests.test_upstream_ignore_abs_path.test_ignore_abs_path_002
+360371edb47b/eval.tests.test_upstream_ignore_gitignore.test_ignore_gitignore_000
+7c5468344bba/tests.test_compression.test_binary_content_in_compressed_file
+7c5468344bba/tests.test_compression.test_c_include_pattern_in_gzip
+7c5468344bba/tests.test_compression.test_case_insensitive_search_in_gzip
+7c5468344bba/tests.test_compression.test_column_numbers_with_compressed
+7c5468344bba/tests.test_compression.test_count_flag_multiple_compressed_files
+7c5468344bba/tests.test_compression.test_gzip_basic_pattern_match
+7c5468344bba/tests.test_compression.test_gzip_with_color_output
+7c5468344bba/tests.test_compression.test_heading_mode_with_compressed
+7c5468344bba/tests.test_compression.test_large_compressed_file_search
+7c5468344bba/tests.test_compression.test_large_repeating_pattern_gzip_buffer_handling
+7c5468344bba/tests.test_compression.test_list_files_with_matches_compressed
+7c5468344bba/tests.test_compression.test_literal_string_search_in_compressed
+7c5468344bba/tests.test_compression.test_multiline_matches_in_compressed
+7c5468344bba/tests.test_compression.test_multiple_gzip_files_same_pattern
+7c5468344bba/tests.test_compression.test_nofilename_option_with_compressed
+7c5468344bba/tests.test_compression.test_noheading_mode_with_compressed
+7c5468344bba/tests.test_compression.test_only_matching_with_compressed
+7c5468344bba/tests.test_compression.test_recursive_directory_search_compressed
+7c5468344bba/tests.test_compression.test_regex_alternation_in_compressed
+7c5468344bba/tests.test_compression.test_stats_output_with_compressed_file
+7c5468344bba/tests.test_compression.test_vimgrep_format_with_compressed
+7c5468344bba/tests.test_compression.test_word_boundary_match_in_gzip
+7c5468344bba/tests.test_errors.test_unrecognized_option
+7c5468344bba/tests.test_file_utils.test_compressed_file_basic_search
+7c5468344bba/tests.test_file_utils.test_compressed_gzip_detection
+7c5468344bba/tests.test_harvest.test_ignore_gitignore_global
+7c5468344bba/tests.test_harvest.test_unicode_case_insensitive
+7c5468344bba/tests.test_logging.test_debug_flag_shows_debug_messages
+7c5468344bba/tests.test_logging.test_debug_global_git_excludesfile_check
+7c5468344bba/tests.test_logging.test_debug_home_dir_discovery
+7c5468344bba/tests.test_logging.test_debug_messages_go_to_stdout
+7c5468344bba/tests.test_logging.test_debug_output_shows_ignore_file_processing
+7c5468344bba/tests.test_logging.test_debug_thread_affinity_messages
+7c5468344bba/tests.test_main.test_noaffinity_disables_thread_pinning

@@ -1,0 +1,45 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# figlet uses the system getopt/libc for option parsing and error messages.
+# macOS BSD getopt prints 'illegal option' where GNU glibc prints 'invalid
+# option', with different quoting and 'requires an argument' wording, and the
+# usage banner prints argv[0] (the full run-dir executable path here vs the
+# container's /workspace path). Font-name lookups also differ on macOS's
+# case-insensitive APFS. All are platform/libc differences, not figlet bugs.
+0fcd6386d8bb/eval.tests.test_executable_figlet_behavior.test_invalid_option_prints_usage_and_exits_1
+18e5fb09a17a/tests.test_errors.test_invalid_option_Z
+18e5fb09a17a/tests.test_errors.test_missing_control_argument
+18e5fb09a17a/tests.test_errors.test_missing_directory_argument
+18e5fb09a17a/tests.test_errors.test_missing_font_argument
+18e5fb09a17a/tests.test_errors.test_missing_smushmode_argument
+18e5fb09a17a/tests.test_errors.test_missing_width_argument
+18e5fb09a17a/tests.test_errors.test_multiple_invalid_options
+18e5fb09a17a/tests.test_font_loading.test_font_name_case_sensitivity
+18e5fb09a17a/tests.test_info.test_invalid_option_shows_usage
+6dcee9b76d61/eval.tests.test_argument_parsing.TestErrorMessages.test_invalid_option_error_format
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-a]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-b]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-g]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-h]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-i]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-j]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-q]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-u]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-y]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_invalid_short_flag[-z]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_long_flags_not_supported[--help]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_long_flags_not_supported[--invalid]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_long_flags_not_supported[--nonexistent]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_long_flags_not_supported[--test]
+6dcee9b76d61/eval.tests.test_argument_parsing.TestInvalidFlags.test_long_flags_not_supported[--version]
+93a74179a19b/tests.test_subcommand_dispatch.TestErrorMessagesIndicateNoSubcommands.test_error_messages_use_option_terminology
+93a74179a19b/tests.test_subcommand_dispatch.TestNoSubcommandArchitecture.test_no_help_flag_double_dash
+93a74179a19b/tests.test_subcommand_dispatch.TestNoSubcommandHelp.test_no_subcommand_help_pattern
+9dab17bdf7ab/eval.tests.test_help_usage.test_dash_h_is_invalid_and_matches_help_usage_structure
+9dab17bdf7ab/eval.tests.test_help_usage.test_dash_question_is_invalid_and_matches_help_usage_structure
+9dab17bdf7ab/eval.tests.test_help_usage.test_help_mentions_invalid_option
+b9bc734e7193/eval.tests.test_args_parsing.test_unknown_short_flag_reports_invalid_option_and_usage
+c0c84d3b63b9/eval.tests.test_basic_invocation.test_invalid_option
+da979c8ce8b2/eval.tests.test_subcommand_dispatch.test_dash_prefixed_unknown_is_flag_error_not_subcommand
+da979c8ce8b2/eval.tests.test_subcommand_dispatch.test_double_dash_help_is_not_supported_like_subcommand_help

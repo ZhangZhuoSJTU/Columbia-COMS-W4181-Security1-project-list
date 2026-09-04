@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Pass /tmp as a directory input expecting 'is a directory'; on macOS /tmp is
+# a symlink to /private/tmp, so pigz reports 'is a symbolic link' first.
+efe9882e480a/tests.test_decompression.test_decompression_directory_input
+efe9882e480a/tests.test_errors.test_directory_as_input

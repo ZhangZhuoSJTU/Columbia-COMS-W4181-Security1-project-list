@@ -1,0 +1,49 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# TUI interaction tests drive json-tui's interactive interface and assert on
+# captured screen contents; terminal rendering/timing under capture differs on
+# macOS, the documented TUI-snapshot flake class.
+0f7af0de4f7e/tests.test_stdin.test_file_before_flags
+ad017d14d49c/eval.tests.test_array_table_view.test_array_displays
+ad017d14d49c/eval.tests.test_array_table_view.test_expand_array_item
+ad017d14d49c/eval.tests.test_array_table_view.test_navigate_in_array
+ad017d14d49c/eval.tests.test_array_table_view.test_nested_array_navigation
+ad017d14d49c/eval.tests.test_basic_display.test_display_array
+ad017d14d49c/eval.tests.test_basic_display.test_display_empty_array
+ad017d14d49c/eval.tests.test_basic_display.test_display_empty_object
+ad017d14d49c/eval.tests.test_basic_display.test_display_nested_json
+ad017d14d49c/eval.tests.test_basic_display.test_display_simple_json
+ad017d14d49c/eval.tests.test_exit.test_exit_preserves_inline_display
+ad017d14d49c/eval.tests.test_exit.test_fullscreen_mode_exit
+ad017d14d49c/eval.tests.test_expansion.test_collapse_with_minus_key
+ad017d14d49c/eval.tests.test_expansion.test_expand_with_enter
+ad017d14d49c/eval.tests.test_expansion.test_expand_with_plus_key
+ad017d14d49c/eval.tests.test_invalid_input.test_rapid_navigation_keypresses
+ad017d14d49c/eval.tests.test_navigation.test_navigation_G_to_bottom
+ad017d14d49c/eval.tests.test_navigation.test_navigation_gg_to_top
+ad017d14d49c/eval.tests.test_navigation.test_navigation_page_down
+ad017d14d49c/eval.tests.test_navigation.test_navigation_page_up
+ad017d14d49c/eval.tests.test_navigation.test_navigation_with_arrow_down
+ad017d14d49c/eval.tests.test_navigation.test_navigation_with_arrow_up
+ad017d14d49c/eval.tests.test_navigation.test_navigation_with_h_key
+ad017d14d49c/eval.tests.test_navigation.test_navigation_with_j_key
+ad017d14d49c/eval.tests.test_navigation.test_navigation_with_k_key
+ad017d14d49c/eval.tests.test_navigation.test_navigation_with_l_key
+
+# --help output is formatted by the args library, which wraps option text to
+# the detected terminal width; the width/wrapping differs from the containers.
+0991433c996c/eval.tests.test_help_output.test_help_documents_flag_spellings[-k, --key, --keybinding]
+0f7af0de4f7e/tests.test_cli.test_help_flag_long
+0f7af0de4f7e/tests.test_cli.test_help_flag_precedence_over_version
+0f7af0de4f7e/tests.test_cli.test_help_flag_precedence_regardless_of_order
+0f7af0de4f7e/tests.test_cli.test_help_flag_short
+0f7af0de4f7e/tests.test_cli.test_help_with_file_argument_shows_help
+0f7af0de4f7e/tests.test_stdin.test_flag_combination_help_version
+0f7af0de4f7e/tests.test_stdin.test_flag_combination_short_help_version
+666041896444/tests.test_json_tui.TestArgumentParsing.test_help_with_file_argument
+666041896444/tests.test_json_tui.TestCommandLineInterface.test_help_flag
+666041896444/tests.test_json_tui.TestCommandLineInterface.test_help_short_flag
+ad017d14d49c/eval.tests.test_command_line_options.test_fullscreen_option
+ad017d14d49c/eval.tests.test_command_line_options.test_short_fullscreen_option
+fcf880d70098/eval.tests.test_cli_noninteractive.test_help_exact_text_snapshot

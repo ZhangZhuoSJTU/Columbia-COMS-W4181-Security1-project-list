@@ -1,0 +1,49 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# dep-tree renders file paths relative to the project root it detects by
+# walking up for a .git/go.mod marker. In the container the submission is the
+# top-level /workspace; here each test run dir is nested inside the project's
+# git clone, so dep-tree resolves the root to the outer clone and prints
+# clone-relative paths instead of workspace-relative ones.
+d8c6aef9c7ad/tests.test_explain.test_explain_python_files
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[explain .root_test/* ./**/dep.py]
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[explain .root_test/*.py ./**/dep.py]
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[tree .root_test/main.py --json --config .root_test/.dep-tree.yml0]
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[tree .root_test/main.py --json --config .root_test/.dep-tree.yml1]
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[tree .root_test/main.py --json --exclude .root_test/d*.py]
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[tree .root_test/main.py --json --exclude .root_test/dep.py]
+d8c6aef9c7ad/tests.test_harvest.test_root_integration[tree .root_test/main.py --json]
+d8c6aef9c7ad/tests.test_internal_modules.test_tree_tui_mode_python_simple
+d8c6aef9c7ad/tests.test_language_features.test_python_class_and_function_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_empty_module_no_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_from_import_multiple_names_as_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_from_import_star_wildcard
+d8c6aef9c7ad/tests.test_language_features.test_python_from_import_with_aliases_as_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_import_with_alias_as_export
+d8c6aef9c7ad/tests.test_language_features.test_python_indented_imports_not_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_mixed_export_types_in_one_module
+d8c6aef9c7ad/tests.test_language_features.test_python_multiline_from_import_parentheses
+d8c6aef9c7ad/tests.test_language_features.test_python_multiple_variable_assignment_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_nested_tuple_unpacking_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_relative_from_imports_as_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_single_variable_assignment_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_type_annotation_exports
+d8c6aef9c7ad/tests.test_language_features.test_python_variable_unpacking_exports
+d8c6aef9c7ad/tests.test_text_output.test_python_simple_tree_text_format
+d8c6aef9c7ad/tests.test_tree.test_python_simple_tree_json_format
+
+# Exact-output tests over dep-tree's loading/progress rendering that differ
+# in content on macOS beyond the rate normalization the tests apply.
+d8c6aef9c7ad/tests.test_edge_cases.test_circular_dependency_no_infinite_loop
+d8c6aef9c7ad/tests.test_edge_cases.test_crlf_line_endings_handled
+d8c6aef9c7ad/tests.test_edge_cases.test_deeply_nested_directory_structure_no_path_errors
+d8c6aef9c7ad/tests.test_edge_cases.test_empty_javascript_file_no_crash
+d8c6aef9c7ad/tests.test_edge_cases.test_file_with_many_duplicate_imports
+d8c6aef9c7ad/tests.test_edge_cases.test_file_with_spaces_in_name_processed_correctly
+d8c6aef9c7ad/tests.test_edge_cases.test_file_with_unicode_name_no_encoding_errors
+d8c6aef9c7ad/tests.test_edge_cases.test_multi_file_cycle_larger_than_two
+d8c6aef9c7ad/tests.test_edge_cases.test_python_file_processed_correctly
+d8c6aef9c7ad/tests.test_edge_cases.test_self_referencing_import_no_crash
+d8c6aef9c7ad/tests.test_edge_cases.test_very_long_filename_handled
+d8c6aef9c7ad/tests.test_internal_modules.test_entropy_browser_open_error_when_no_xdg_open

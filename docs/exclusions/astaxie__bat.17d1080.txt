@@ -1,0 +1,37 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Simulate a TTY via Linux's `script -q -c <cmd>`; macOS/BSD `script` has a
+# different CLI, so the wrapper fails regardless of the binary under test.
+39dee6c2e271/eval.tests.test_bat.TestPrintOptions.test_print_h_response_headers
+39dee6c2e271/eval.tests.test_bat.TestPrintOptions.test_print_request_headers_tty
+fcc1fea12b08/tests.test_color_output.test_color_constants_used_correctly
+fcc1fea12b08/tests.test_color_output.test_colorful_request_get_method_colored
+fcc1fea12b08/tests.test_color_output.test_colorful_request_post_method_colored
+fcc1fea12b08/tests.test_color_output.test_colorful_response_html_content
+fcc1fea12b08/tests.test_color_output.test_colorful_response_json_array_toplevel
+fcc1fea12b08/tests.test_color_output.test_colorful_response_json_complex_structure
+fcc1fea12b08/tests.test_color_output.test_colorful_response_json_keys_and_values
+fcc1fea12b08/tests.test_color_output.test_colorful_response_json_special_characters
+fcc1fea12b08/tests.test_color_output.test_colorful_response_json_vendor_content_type
+fcc1fea12b08/tests.test_color_output.test_colorful_response_plain_text_content
+fcc1fea12b08/tests.test_color_output.test_colorful_response_xml_content
+fcc1fea12b08/tests.test_verbose_output.test_print_A_all_output
+fcc1fea12b08/tests.test_verbose_output.test_print_B_request_body_only
+fcc1fea12b08/tests.test_verbose_output.test_print_B_with_form_data
+fcc1fea12b08/tests.test_verbose_output.test_print_Bb_bodies_only
+fcc1fea12b08/tests.test_verbose_output.test_print_HB_request_headers_and_body
+fcc1fea12b08/tests.test_verbose_output.test_print_HB_with_PUT
+fcc1fea12b08/tests.test_verbose_output.test_print_H_request_headers_only
+fcc1fea12b08/tests.test_verbose_output.test_print_H_with_form_data
+fcc1fea12b08/tests.test_verbose_output.test_print_Hh_headers_only
+fcc1fea12b08/tests.test_verbose_output.test_print_all_with_GET_no_body
+fcc1fea12b08/tests.test_verbose_output.test_print_b_response_body_only
+fcc1fea12b08/tests.test_verbose_output.test_print_b_with_plain_text
+fcc1fea12b08/tests.test_verbose_output.test_print_h_response_headers_only
+fcc1fea12b08/tests.test_verbose_output.test_print_hb_response_headers_and_body
+
+# Network/proxy validation tests whose error strings ('connection refused',
+# invalid scheme) depend on the platform resolver/socket behavior.
+fcc1fea12b08/tests.test_httplib_final.test_invalid_url_scheme_not_http_https
+fcc1fea12b08/tests.test_url_auth.test_proxy_flag_format_validation
