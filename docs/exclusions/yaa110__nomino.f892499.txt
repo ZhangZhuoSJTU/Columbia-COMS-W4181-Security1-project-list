@@ -1,0 +1,16 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Use accented fixture filenames (café.txt). macOS filesystem APIs return
+# them NFD-decomposed while the tests and goldens use NFC, so matching and
+# printed names diverge despite identical-looking filenames.
+71456d35eecf/tests.test_unicode.test_case_sensitive_unicode_matching_lowercase
+71456d35eecf/tests.test_unicode.test_case_sensitive_unicode_matching_titlecase
+71456d35eecf/tests.test_unicode.test_case_insensitive_unicode_matching
+
+# Compare full rename tables whose row order follows filesystem directory
+# enumeration, which differs between APFS (macOS) and the containers' ext4;
+# entries are identical, permuted.
+71456d35eecf/tests.test_errors.test_conflict_without_overwrite_prepends_underscore
+71456d35eecf/tests.test_placeholder.test_no_placeholders_static_output
+71456d35eecf/tests.test_placeholder.test_large_capture_group_index

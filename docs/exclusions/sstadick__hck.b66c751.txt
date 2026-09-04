@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Verifies gzip output by piping through zcat. macOS ships the compress-era
+# zcat which appends .Z to the filename instead of reading .gz, so the
+# verification command itself fails.
+d307b51db601/tests.test_integration.test_decompress_and_recompress_with_fields

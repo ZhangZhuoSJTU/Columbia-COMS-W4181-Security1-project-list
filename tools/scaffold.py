@@ -26,6 +26,8 @@ GITIGNORE_BLOCK = """
 # ProgramBench course-competition artifacts
 executable
 .programbench/venv/
+.programbench/gitconfig
+.programbench/home/
 .programbench/tests/
 .programbench/run/
 """
@@ -100,7 +102,7 @@ def main() -> None:
         (repo / script).chmod(0o755)
     gitignore = repo / ".gitignore"
     existing = gitignore.read_text() if gitignore.exists() else ""
-    if ".programbench/venv/" not in existing:
+    if ".programbench/gitconfig" not in existing:
         gitignore.write_text(existing.rstrip("\n") + ("\n" if existing else "") + GITIGNORE_BLOCK)
     print(f"scaffolded {repo} at {commit[:7]} — review compile.sh, then run ./test.sh")
 

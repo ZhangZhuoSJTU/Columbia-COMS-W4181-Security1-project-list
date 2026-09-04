@@ -1,0 +1,12 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Reading a directory as an input file yields errno 19 (No such device) on
+# Linux but errno 22 (Invalid argument) on macOS; the golden pins the Linux
+# error string.
+08a92821049f/tests.test_errors.test_directory_as_input_file
+
+# Uses /etc/hostname as an unreadable-input fixture; the file exists on Linux
+# but not on macOS, so the failure mode differs before the code under test is
+# reached.
+08a92821049f/tests.test_gaps.test_failed_jobs_error_display

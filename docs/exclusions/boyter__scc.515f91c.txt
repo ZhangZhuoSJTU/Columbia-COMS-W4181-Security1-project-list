@@ -1,0 +1,18 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Depend on a case-sensitive filesystem: scc's file discovery counts and
+# matches paths differently on macOS's case-insensitive APFS than on the
+# containers' ext4.
+06dabfabaea7/tests.test_errors.test_not_match_case_sensitive_matching
+06dabfabaea7/tests.test_filtering.test_extension_case_insensitive_matching
+
+# Assert COCOMO cost/schedule estimates to full float precision. scc
+# computes them with Go's math.Pow, whose last-digit result differs
+# between arm64 (this machine) and the amd64 containers; the line counts
+# are identical (e.g. estimatedCost 259.8577265051194 vs ...44).
+06dabfabaea7/tests.test_formats.test_format_json2_exact_output_match
+06dabfabaea7/tests.test_formats.test_format_multi_csv_json2_to_stdout
+06dabfabaea7/tests.test_formats.test_json2_locomo_estimates_present
+06dabfabaea7/tests.test_harvest.test_regular_expression_ignore
+06dabfabaea7/tests.test_special.test_mcp_locomo_parameter

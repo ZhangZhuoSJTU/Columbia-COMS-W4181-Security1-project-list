@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Exercises case-sensitive glob matching. The default macOS filesystem (APFS)
+# is case-insensitive, unlike the containers' ext4, so files that should be
+# distinct under the glob collide and the tool errors.
+0d82cc7b3089/tests.test_file_io.test_case_sensitive_glob

@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Configure fblog through XDG_CONFIG_HOME. The dirs crate honors that
+# variable on Linux only; on macOS it resolves the config dir to
+# ~/Library/Application Support, so the binary never reads the test config.
+335611dbee6b/eval.tests.test_config_env.test_xdg_config_home_is_used_for_default_config_path
+335611dbee6b/eval.tests.test_config_env.test_malformed_config_in_default_location_crashes_with_error_message

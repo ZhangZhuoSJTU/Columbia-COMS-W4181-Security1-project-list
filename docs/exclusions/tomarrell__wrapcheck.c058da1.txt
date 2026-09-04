@@ -1,0 +1,17 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Asserts the exact Go parser message "unexpected main, expected ("; newer Go
+# toolchains phrase it "unexpected name main, expected (". wrapcheck invokes
+# the host Go toolchain at runtime.
+20131512a06f/tests.test_analysis.test_syntax_error_graceful_handling
+
+# Expects diagnostics printed relative to the working directory; the
+# go/packages position rendering changed across Go toolchain versions and
+# newer ones report absolute paths here.
+20131512a06f/tests.test_cli.test_diff_flag_with_no_suggestions
+
+# The fixture filename (файл.go) is stored NFC in the tarball, but macOS
+# filesystem APIs return it NFD, so the substring assertion on the printed
+# path fails despite identical-looking names.
+7eef48c36ca2/tests.test_edge_cases.test_unicode_filenames

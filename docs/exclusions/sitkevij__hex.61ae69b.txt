@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Golden pins clap's invalid-value error with the value lowercased; the
+# clap version resolved for local builds echoes the value as given. Rendering
+# depends on the resolved clap release.
+adfa09238fcb/tests.test_exotic_formats.test_format_flag_case_sensitivity

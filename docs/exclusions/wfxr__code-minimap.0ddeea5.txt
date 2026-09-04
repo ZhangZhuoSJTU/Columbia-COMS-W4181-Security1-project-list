@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Simulates a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD
+# `script` has a different CLI, so the wrapper produces no output regardless
+# of the binary under test.
+25bb8e14ea1f/tests.test_errors.test_no_input_when_stdin_is_tty

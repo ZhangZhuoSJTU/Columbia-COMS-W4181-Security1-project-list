@@ -1,0 +1,9 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Goldens capture a dependency panic whose message embeds the build machine
+# s cargo registry path (/root/.cargo/registry/... in the containers). Rust
+# bakes that path at compile time, so local builds cite the local registry
+# path and the normalization in the tests does not cover it.
+df37316a82f6/tests.test_errors.test_streaming_mode_empty_stdin
+df37316a82f6/tests.test_errors.test_empty_file

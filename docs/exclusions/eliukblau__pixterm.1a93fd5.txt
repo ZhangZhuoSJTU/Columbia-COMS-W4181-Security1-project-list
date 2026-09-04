@@ -1,0 +1,16 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Fake a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a
+# different CLI, so the wrapper itself exits 1 regardless of the binary.
+c0ff9908837a/tests.test_info_display.test_credits_flag_tty_contains_ansi_escape_sequences
+c0ff9908837a/tests.test_info_display.test_credits_flag_tty_contains_contributors_after_icon
+c0ff9908837a/tests.test_info_display.test_credits_flag_tty_output_with_icon
+c0ff9908837a/tests.test_info_display.test_credits_flag_tty_icon_includes_version
+
+# Compare exact ANSI pixel bytes; image-scaling floating-point rounding
+# differs across CPU architectures (goldens captured on amd64), so a handful
+# of color channel values drift by one unit on arm64.
+c0ff9908837a/tests.test_terminal_size.test_scale_fit_respects_terminal_size_bounds
+c0ff9908837a/tests.test_url_loading.test_http_jpeg_basic
+c0ff9908837a/tests.test_url_loading.test_http_with_scale_fit

@@ -1,0 +1,6 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Renders output through od, whose column spacing differs between BSD od
+# (macOS) and GNU od (containers); the bytes under test are identical.
+565c68a30560/tests.test_trim_compress.test_compress_with_zero_terminated_lines

@@ -109,7 +109,14 @@ def main() -> None:
                 reason = info.get("ignore_reason") or "no reason recorded"
                 out.append(f"- `{b}` ({len(info['tests'])} tests): {reason}\n")
 
-        local = fork_dir / ".programbench/local_ignored_tests.txt"
+        # Read course-side exclusions from the durable snapshot committed under
+        # docs/exclusions/ (clones get pruned at wave end). Snapshots are
+        # refreshed from the live clone when present so they stay current.
+        snapshot = ROOT / "docs" / "exclusions" / f"{iid}.txt"
+        clone_local = fork_dir / ".programbench/local_ignored_tests.txt"
+        if clone_local.exists():
+            snapshot.write_text(clone_local.read_text())
+        local = snapshot
         if local.exists():
             groups = local_exclusions(local)
             n_local = sum(len(tests) for _, tests in groups)

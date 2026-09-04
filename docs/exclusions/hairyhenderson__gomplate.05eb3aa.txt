@@ -1,0 +1,37 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# AWS integration tests (ec2region/ec2meta/ec2info/ec2dynamic/kms/sts).
+# gomplate's ec2* functions query the EC2 instance-metadata service at
+# 169.254.169.254. The benchmark containers ran on AWS infrastructure where
+# IMDS returned real values (e.g. region us-east-1 overriding a passed
+# default); a non-EC2 machine has no IMDS, so gomplate correctly falls back
+# to defaults/unknown. These need EC2 infrastructure, not a code change.
+1040f6b8a219/tests.test_aws_functions.test_combined_ec2meta_and_ec2info
+1040f6b8a219/tests.test_aws_functions.test_ec2dynamic_instance_identity_document
+1040f6b8a219/tests.test_aws_functions.test_ec2meta_actual_metadata_instance_id
+1040f6b8a219/tests.test_aws_functions.test_ec2meta_ami_id
+1040f6b8a219/tests.test_aws_functions.test_ec2meta_instance_type
+1040f6b8a219/tests.test_aws_functions.test_ec2region_caching
+1040f6b8a219/tests.test_aws_functions.test_ec2region_no_default_on_ec2
+1040f6b8a219/tests.test_aws_functions.test_ec2region_with_default
+1040f6b8a219/tests.test_aws_functions.test_kms_encrypt_invalid_key
+1040f6b8a219/tests.test_aws_functions.test_kms_encrypt_missing_region
+1040f6b8a219/tests.test_aws_functions.test_multiple_aws_functions_in_single_template
+1040f6b8a219/tests.test_aws_functions.test_multiple_ec2meta_calls_caching
+1040f6b8a219/tests.test_aws_functions.test_sts_account
+1040f6b8a219/tests.test_aws_functions.test_sts_arn
+1040f6b8a219/tests.test_aws_functions.test_sts_caching_multiple_calls
+1040f6b8a219/tests.test_aws_functions.test_sts_functions_require_valid_credentials
+1040f6b8a219/tests.test_aws_functions.test_sts_userid
+
+# Converting an out-of-range uint64 to int64 is architecture-defined in
+# Go: arm64 (this machine) saturates to max int64; the amd64 containers
+# wrap to min int64.
+1040f6b8a219/tests.test_conv_functions.test_toint64_with_max_uint64_overflow
+
+# File-output tests whose write path/permission semantics differ from the
+# root-run containers (a plugin exec and a stdin->file-output write).
+1040f6b8a219/tests.test_config_gaps.test_config_with_multiple_plugins
+1040f6b8a219/tests.test_iohelpers_writers_gaps.test_file_write_absolute_path_in_wd_allowed
+1040f6b8a219/tests.test_iohelpers_writers_gaps.test_stdin_template_with_file_output

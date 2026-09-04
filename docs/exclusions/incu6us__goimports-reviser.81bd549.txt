@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Makes a file unreadable (chmod 000) and expects the remaining files to be
+# listed; containers run as root where permissions are bypassed, so the gold
+# behavior differs from any non-root local run.
+12d881a9aa7e/tests.test_directory_ops.test_file_with_read_permission_issues

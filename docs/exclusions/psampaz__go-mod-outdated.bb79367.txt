@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Asserts the nil-pointer panic traceback cites the workspace source path.
+# Go bakes source paths into the binary at compile time, so the traceback
+# shows the repo checkout path (where compile.sh ran), which can never equal
+# the per-run workspace path in this local harness.
+0d7f74667e0b/tests.test_replace_timestamps.test_missing_update_timestamp_causes_crash

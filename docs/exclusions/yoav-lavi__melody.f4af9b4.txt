@@ -1,0 +1,20 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Simulate a TTY via Linux's `script -q [-e] -c <cmd>` syntax to exercise
+# color/no-color output; macOS/BSD `script` has a different CLI, so the
+# wrapper produces no output and the color/error assertions fail.
+79ad6e68ed55/tests.test_cli_edge_cases.test_explicit_stdin_marker_without_pipe
+79ad6e68ed55/tests.test_cli_edge_cases.test_stdin_without_pipe_error
+79ad6e68ed55/tests.test_output.test_colored_error_output_to_tty
+79ad6e68ed55/tests.test_output.test_colored_output_to_tty
+79ad6e68ed55/tests.test_output.test_no_color_flag_strips_ansi_codes
+79ad6e68ed55/tests.test_output.test_no_color_flag_strips_error_ansi
+79ad6e68ed55/tests.test_output.test_no_color_short_flag
+79ad6e68ed55/tests.test_output.test_no_color_stdin
+79ad6e68ed55/tests.test_output.test_test_mode_colored_matched
+79ad6e68ed55/tests.test_output.test_test_mode_colored_not_matched
+
+# The REPL reports the invoking shell; the containers ran bash, this
+# machine runs zsh.
+89cfa1596c50/eval.tests.test_tui_repl.test_repl_exit_command_quits_process

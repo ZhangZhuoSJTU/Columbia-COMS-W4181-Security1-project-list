@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Asserts the panic message cites the workspace-prefixed source path. Rust
+# bakes source paths at compile time (relative src/builder.rs in local
+# builds), so the message can never contain the per-run workspace path in
+# this local harness.
+88384662e66e/eval.tests.test_stress.test_empty_file_input

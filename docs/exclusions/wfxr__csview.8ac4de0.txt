@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Parses the host's /etc/passwd with ':' as delimiter and expects success.
+# macOS's /etc/passwd begins with '##' comment lines whose field counts vary,
+# so csview correctly reports a CSV field-count error there; the test only
+# holds on Linux-shaped /etc/passwd files.
+5f4759b87816/eval.tests.test_rendering_and_options.test_custom_delimiter_colon_on_passwd_head

@@ -1,0 +1,19 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Expects Linux's "open /: is a directory" error string; macOS reports
+# "open /: file exists" for the same call.
+b112ab0c5f2b/tests.test_follow.test_follow_output_file_error_handling
+
+# Compare full rendered tables against goldens whose row order for equal
+# elapsed times depends on Go's unstable sort. The tie order changed across
+# Go toolchain versions, so binaries built with a newer Go than the
+# containers order tied rows differently (deterministically, but not
+# matching the goldens).
+b112ab0c5f2b/tests.test_format.test_plain_format_with_all_flag_shows_test_table
+b112ab0c5f2b/tests.test_format.test_format_basic_with_no_color_env_and_all_flag
+b112ab0c5f2b/tests.test_format.test_basic_format_with_all_flag_shows_test_table
+b112ab0c5f2b/tests.test_format.test_basic_format_nocolor_with_all_flag
+b112ab0c5f2b/tests.test_format.test_markdown_format_with_all_flag_shows_collapsible_details
+b112ab0c5f2b/tests.test_sort.test_sort_cover_with_real_data
+b112ab0c5f2b/tests.test_sort.test_sort_elapsed_with_cached_packages

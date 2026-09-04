@@ -1,0 +1,10 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD
+# `script` has a different CLI, so the wrapper fails regardless of the
+# binary under test.
+7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_blocks
+7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_null_values
+7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_numbers_with_decimals
+7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_with_script

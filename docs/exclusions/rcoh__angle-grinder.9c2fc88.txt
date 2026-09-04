@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD
+# `script` has a different CLI, so the wrapper fails regardless of the
+# binary under test.
+06dabfabaea7/tests.test_tty_rendering.test_tty_min_max_aggregates_with_ansi
+06dabfabaea7/tests.test_tty_rendering.test_tty_multi_group_aggregate_with_ansi

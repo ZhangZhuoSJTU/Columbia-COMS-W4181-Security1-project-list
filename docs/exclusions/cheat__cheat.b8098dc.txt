@@ -1,0 +1,16 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Use an accented cheatsheet filename (café). macOS filesystem APIs return
+# it NFD-decomposed while the tests/goldens use NFC, so listing, sorting,
+# and name matching diverge despite identical-looking names.
+06dabfabaea7/tests.test_list.test_brief_short_flag_b
+06dabfabaea7/tests.test_list.test_list_all_cheatsheets
+06dabfabaea7/tests.test_list.test_list_alphabetical_sorting
+06dabfabaea7/tests.test_list.test_list_brief_format
+06dabfabaea7/tests.test_list.test_list_short_flag_l
+06dabfabaea7/tests.test_list.test_list_unicode_cheatsheet_name
+
+# Expects cheat to error when no editor is configured; cheat detects an
+# editor from the host environment here, so it succeeds instead.
+06dabfabaea7/tests.test_config.test_config_missing_editor_field

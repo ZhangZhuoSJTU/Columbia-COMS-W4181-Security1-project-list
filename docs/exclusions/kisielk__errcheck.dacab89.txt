@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Passes on gold only because the cleanroom container has no Go source at the
+# workspace root (package loading fails there with rc 0); on any real checkout
+# errcheck analyzes its own tree, legitimately finds unchecked errors, and
+# exits 1.
+11c421a3b5f4/eval.tests.test_argparse_validation.test_tags_flag_accepts_comma_or_space_separated_values[tag1 tag2]

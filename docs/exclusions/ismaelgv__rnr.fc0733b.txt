@@ -1,0 +1,13 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Depend on a case-sensitive filesystem: case-only renames and case-sensitive
+# pattern matching behave differently on macOS's case-insensitive APFS than
+# on the containers' ext4.
+7877cb75132e/tests.test_from_file.test_dry_run_no_dump_by_default
+ec95564f8a2f/tests.test_edge_cases.TestEdgeCases.test_case_sensitive_matching
+
+# Uses accented fixture filenames; macOS filesystem APIs return them
+# NFD-decomposed while the test passes NFC, so the path lookup fails before
+# the behavior under test runs.
+7877cb75132e/tests.test_to_ascii.test_special_unicode_characters

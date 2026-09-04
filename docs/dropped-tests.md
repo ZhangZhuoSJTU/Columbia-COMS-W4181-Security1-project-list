@@ -44,6 +44,27 @@ Benchmark-side: 107 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## boyter/scc
+
+Instance `boyter__scc.515f91c`: 476 tests shipped, 457 kept.
+
+Benchmark-side: 12 tests dropped by ProgramBench.
+
+- `gold_fail`: 10
+- `dummy_pass`: 2
+
+Course-side: 7 tests dropped by us.
+
+- Depend on a case-sensitive filesystem: scc's file discovery counts and matches paths differently on macOS's case-insensitive APFS than on the containers' ext4.
+  - `06dabfabaea7/tests.test_errors.test_not_match_case_sensitive_matching`
+  - `06dabfabaea7/tests.test_filtering.test_extension_case_insensitive_matching`
+- Assert COCOMO cost/schedule estimates to full float precision. scc computes them with Go's math.Pow, whose last-digit result differs between arm64 (this machine) and the amd64 containers; the line counts are identical (e.g. estimatedCost 259.8577265051194 vs ...44).
+  - `06dabfabaea7/tests.test_formats.test_format_json2_exact_output_match`
+  - `06dabfabaea7/tests.test_formats.test_format_multi_csv_json2_to_stdout`
+  - `06dabfabaea7/tests.test_formats.test_json2_locomo_estimates_present`
+  - `06dabfabaea7/tests.test_harvest.test_regular_expression_ignore`
+  - `06dabfabaea7/tests.test_special.test_mcp_locomo_parameter`
+
 ## brocode/fblog
 
 Instance `brocode__fblog.3b54330`: 1127 tests shipped, 976 kept.
@@ -59,6 +80,27 @@ Course-side: 2 tests dropped by us.
   - `335611dbee6b/eval.tests.test_config_env.test_xdg_config_home_is_used_for_default_config_path`
   - `335611dbee6b/eval.tests.test_config_env.test_malformed_config_in_default_location_crashes_with_error_message`
 
+## cheat/cheat
+
+Instance `cheat__cheat.b8098dc`: 307 tests shipped, 290 kept.
+
+Benchmark-side: 10 tests dropped by ProgramBench.
+
+- `dummy_pass`: 9
+- `gold_fail`: 1
+
+Course-side: 7 tests dropped by us.
+
+- Use an accented cheatsheet filename (café). macOS filesystem APIs return it NFD-decomposed while the tests/goldens use NFC, so listing, sorting, and name matching diverge despite identical-looking names.
+  - `06dabfabaea7/tests.test_list.test_brief_short_flag_b`
+  - `06dabfabaea7/tests.test_list.test_list_all_cheatsheets`
+  - `06dabfabaea7/tests.test_list.test_list_alphabetical_sorting`
+  - `06dabfabaea7/tests.test_list.test_list_brief_format`
+  - `06dabfabaea7/tests.test_list.test_list_short_flag_l`
+  - `06dabfabaea7/tests.test_list.test_list_unicode_cheatsheet_name`
+- Expects cheat to error when no editor is configured; cheat detects an editor from the host environment here, so it succeeds instead.
+  - `06dabfabaea7/tests.test_config.test_config_missing_editor_field`
+
 ## chmln/sd
 
 Instance `chmln__sd.87d1ba5`: 869 tests shipped, 808 kept.
@@ -68,7 +110,12 @@ Benchmark-side: 59 tests dropped by ProgramBench.
 - `dummy_pass`: 40
 - `gold_fail`: 19
 
-Course-side: none.
+Course-side: 2 tests dropped by us.
+
+- Reading a directory as an input file yields errno 19 (No such device) on Linux but errno 22 (Invalid argument) on macOS; the golden pins the Linux error string.
+  - `08a92821049f/tests.test_errors.test_directory_as_input_file`
+- Uses /etc/hostname as an unreadable-input fixture; the file exists on Linux but not on macOS, so the failure mode differs before the code under test is reached.
+  - `08a92821049f/tests.test_gaps.test_failed_jobs_error_display`
 
 ## clog-tool/clog-cli
 
@@ -101,7 +148,15 @@ Benchmark-side: 62 tests dropped by ProgramBench.
 - `dummy_pass`: 42
 - `gold_fail`: 20
 
-Course-side: none.
+Course-side: 4 tests dropped by us.
+
+- Compare --help output byte-for-byte against a golden captured with a different clap resolution (the golden quotes empty defaults as [default: ""]). Cargo re-resolves this project's outdated lockfile on modern toolchains, so clap's help rendering varies with the resolved version.
+  - `1f8845ada8c0/eval.tests.test_help_usage.test_baseline_help_output_matches_fixture_exactly`
+  - `61d5d5110768/tests.test_seed.test_help_output`
+- Simulates a disk-full write error via file permissions; containers run as root (permissions bypassed), local runs do not, so the error path differs.
+  - `61d5d5110768/tests.test_gap_filling.test_write_error_disk_full_simulation`
+- Output order follows filesystem directory-walk order, which differs between APFS (macOS) and the ext4-based containers; entries are identical, permuted.
+  - `61d5d5110768/tests.test_timing_errors.test_directory_extraction_processes_all_files`
 
 ## eliukblau/pixterm
 
@@ -111,6 +166,118 @@ Benchmark-side: 28 tests dropped by ProgramBench.
 
 - `dummy_pass`: 27
 - `gold_fail`: 1
+
+Course-side: 7 tests dropped by us.
+
+- Fake a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper itself exits 1 regardless of the binary.
+  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_contains_ansi_escape_sequences`
+  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_contains_contributors_after_icon`
+  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_output_with_icon`
+  - `c0ff9908837a/tests.test_info_display.test_credits_flag_tty_icon_includes_version`
+- Compare exact ANSI pixel bytes; image-scaling floating-point rounding differs across CPU architectures (goldens captured on amd64), so a handful of color channel values drift by one unit on arm64.
+  - `c0ff9908837a/tests.test_terminal_size.test_scale_fit_respects_terminal_size_bounds`
+  - `c0ff9908837a/tests.test_url_loading.test_http_jpeg_basic`
+  - `c0ff9908837a/tests.test_url_loading.test_http_with_scale_fit`
+
+## Epistates/treemd
+
+Instance `epistates__treemd.825c6dd`: 1961 tests shipped, 1553 kept.
+
+Benchmark-side: 392 tests dropped by ProgramBench.
+
+- `dummy_pass`: 220
+- `gold_fail`: 170
+- `outcome_dependent_presence`: 2
+
+Course-side: 16 tests dropped by us.
+
+- TUI-snapshot tests: drive the interactive interface inside a tmux pane via libtmux and assert on captured screen contents after fixed sleeps. Terminal rendering timing in tmux differs on macOS, so the capture is empty or partial; this is the documented TUI-snapshot flake class.
+  - `061e09d94da8/eval.tests.test_error_handling_and_tui_smoke.test_tui_starts_and_quits`
+  - `1040f6b8a219/tests.test_tui_help_interactive.test_interactive_mode_exit_i_key`
+  - `f7b44e8c861b/eval.tests.test_tui.test_interactive_mode`
+  - `f7b44e8c861b/eval.tests.test_tui.test_invalid_inputs_dont_crash`
+  - `f7b44e8c861b/eval.tests.test_tui.test_navigation_to_top_and_bottom`
+  - `f7b44e8c861b/eval.tests.test_tui.test_navigation_with_arrows`
+  - `f7b44e8c861b/eval.tests.test_tui.test_navigation_with_j_and_k`
+  - `f7b44e8c861b/eval.tests.test_tui.test_page_navigation`
+  - `f7b44e8c861b/eval.tests.test_tui.test_quit_with_q`
+  - `f7b44e8c861b/eval.tests.test_tui.test_search_mode`
+  - `f7b44e8c861b/eval.tests.test_tui.test_tree_expand_collapse`
+  - `f7b44e8c861b/eval.tests.test_tui.test_tui_launches_successfully`
+  - `f7b44e8c861b/eval.tests.test_tui.test_tui_shows_sections`
+- Case-insensitive path completion (readme vs README) relies on the filesystem; macOS APFS is case-insensitive so the match set differs. --setup-completions reads $SHELL / detects the host shell, which the bare containers lack. XDG_CONFIG_HOME is honored on Linux but not on macOS, so the config-driven output differs. All host-environment, not behavior, differences.
+  - `1040f6b8a219/tests.test_cli_commands_detail.test_completion_prefix_matching_case_insensitive`
+  - `38130e1c42ae/eval.tests.test_config_handling.test_env_xdg_config_home_controls_config_lookup`
+  - `f5c50b00f151/eval.tests.test_argparse_validation.test_setup_completions_errors_without_shell_detection`
+
+## go-critic/go-critic
+
+Instance `go-critic__go-critic.9aea378`: 925 tests shipped, 493 kept.
+
+Benchmark-side: 432 tests dropped by ProgramBench.
+
+- `gold_fail`: 367
+- `dummy_pass`: 133
+- `outcome_dependent_presence`: 2
+
+Course-side: none.
+
+## guumaster/hostctl
+
+Instance `guumaster__hostctl.d6d9699`: 1385 tests shipped, 1051 kept.
+
+Benchmark-side: 334 tests dropped by ProgramBench.
+
+- `dummy_pass`: 254
+- `gold_fail`: 96
+- `outcome_dependent_presence`: 10
+
+Course-side: none.
+
+## hairyhenderson/gomplate
+
+Instance `hairyhenderson__gomplate.05eb3aa`: 3538 tests shipped, 2905 kept.
+
+Benchmark-side: 612 tests dropped by ProgramBench.
+
+- `gold_fail`: 484
+- `dummy_pass`: 176
+
+Course-side: 21 tests dropped by us.
+
+- AWS integration tests (ec2region/ec2meta/ec2info/ec2dynamic/kms/sts). gomplate's ec2* functions query the EC2 instance-metadata service at 169.254.169.254. The benchmark containers ran on AWS infrastructure where IMDS returned real values (e.g. region us-east-1 overriding a passed default); a non-EC2 machine has no IMDS, so gomplate correctly falls back to defaults/unknown. These need EC2 infrastructure, not a code change.
+  - `1040f6b8a219/tests.test_aws_functions.test_combined_ec2meta_and_ec2info`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2dynamic_instance_identity_document`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2meta_actual_metadata_instance_id`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2meta_ami_id`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2meta_instance_type`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2region_caching`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2region_no_default_on_ec2`
+  - `1040f6b8a219/tests.test_aws_functions.test_ec2region_with_default`
+  - `1040f6b8a219/tests.test_aws_functions.test_kms_encrypt_invalid_key`
+  - `1040f6b8a219/tests.test_aws_functions.test_kms_encrypt_missing_region`
+  - `1040f6b8a219/tests.test_aws_functions.test_multiple_aws_functions_in_single_template`
+  - `1040f6b8a219/tests.test_aws_functions.test_multiple_ec2meta_calls_caching`
+  - `1040f6b8a219/tests.test_aws_functions.test_sts_account`
+  - `1040f6b8a219/tests.test_aws_functions.test_sts_arn`
+  - `1040f6b8a219/tests.test_aws_functions.test_sts_caching_multiple_calls`
+  - `1040f6b8a219/tests.test_aws_functions.test_sts_functions_require_valid_credentials`
+  - `1040f6b8a219/tests.test_aws_functions.test_sts_userid`
+- Converting an out-of-range uint64 to int64 is architecture-defined in Go: arm64 (this machine) saturates to max int64; the amd64 containers wrap to min int64.
+  - `1040f6b8a219/tests.test_conv_functions.test_toint64_with_max_uint64_overflow`
+- File-output tests whose write path/permission semantics differ from the root-run containers (a plugin exec and a stdin->file-output write).
+  - `1040f6b8a219/tests.test_config_gaps.test_config_with_multiple_plugins`
+  - `1040f6b8a219/tests.test_iohelpers_writers_gaps.test_file_write_absolute_path_in_wd_allowed`
+  - `1040f6b8a219/tests.test_iohelpers_writers_gaps.test_stdin_template_with_file_output`
+
+## hooklift/gowsdl
+
+Instance `hooklift__gowsdl.2a06cec`: 419 tests shipped, 391 kept.
+
+Benchmark-side: 28 tests dropped by ProgramBench.
+
+- `dummy_pass`: 24
+- `gold_fail`: 4
 
 Course-side: none.
 
@@ -128,6 +295,24 @@ Course-side: 1 tests dropped by us.
 - Makes a file unreadable (chmod 000) and expects the remaining files to be listed; containers run as root where permissions are bypassed, so the gold behavior differs from any non-root local run.
   - `12d881a9aa7e/tests.test_directory_ops.test_file_with_read_permission_issues`
 
+## ismaelgv/rnr
+
+Instance `ismaelgv__rnr.fc0733b`: 742 tests shipped, 680 kept.
+
+Benchmark-side: 59 tests dropped by ProgramBench.
+
+- `dummy_pass`: 56
+- `outcome_dependent_presence`: 2
+- `gold_fail`: 1
+
+Course-side: 3 tests dropped by us.
+
+- Depend on a case-sensitive filesystem: case-only renames and case-sensitive pattern matching behave differently on macOS's case-insensitive APFS than on the containers' ext4.
+  - `7877cb75132e/tests.test_from_file.test_dry_run_no_dump_by_default`
+  - `ec95564f8a2f/tests.test_edge_cases.TestEdgeCases.test_case_sensitive_matching`
+- Uses accented fixture filenames; macOS filesystem APIs return them NFD-decomposed while the test passes NFC, so the path lookup fails before the behavior under test runs.
+  - `7877cb75132e/tests.test_to_ascii.test_special_unicode_characters`
+
 ## JohannesKaufmann/html-to-markdown
 
 Instance `johanneskaufmann__html-to-markdown.3006818`: 974 tests shipped, 884 kept.
@@ -142,6 +327,116 @@ Course-side: 1 tests dropped by us.
 - Exercises case-sensitive glob matching. The default macOS filesystem (APFS) is case-insensitive, unlike the containers' ext4, so files that should be distinct under the glob collide and the tool errors.
   - `0d82cc7b3089/tests.test_file_io.test_case_sensitive_glob`
 
+## johnkerl/miller
+
+Instance `johnkerl__miller.8d85b46`: 16070 tests shipped, 14543 kept.
+
+Benchmark-side: 1433 tests dropped by ProgramBench.
+
+- `dummy_pass`: 1081
+- `gold_fail`: 389
+
+Course-side: 94 tests dropped by us.
+
+- Harvested upstream regression cases whose DSL writes output via emit/tee/print redirects to ENV["CASEDIR"], which the harvested harness never exports. With CASEDIR empty the writes target /out.* at the filesystem root; that only succeeds because the benchmark containers run as root. On a normal user account the write is denied and the command exits 1. This is a harness/root artifact, not a miller behavior change.
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0033-case_dir2128]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0037-case_dir2132]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0041-case_dir2136]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0045-case_dir2140]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0049-case_dir2144]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0053-case_dir2148]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0057-case_dir2152]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0061-case_dir2156]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0065-case_dir2160]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0069-case_dir2164]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0005-case_dir2414]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0006-case_dir2415]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0007-case_dir2416]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0008-case_dir2417]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0031-case_dir2436]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0032-case_dir2437]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0033-case_dir2438]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0034-case_dir2439]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0038-case_dir2442]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0039-case_dir2443]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0040-case_dir2444]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0041-case_dir2445]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0045-case_dir2449]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0046-case_dir2450]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0047-case_dir2451]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0048-case_dir2452]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0052-case_dir2455]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0053-case_dir2456]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0054-case_dir2457]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0055-case_dir2458]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0059-case_dir2462]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0060-case_dir2463]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0061-case_dir2464]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0062-case_dir2465]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0066-case_dir2468]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0070-case_dir2472]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0074-case_dir2476]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0078-case_dir2480]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0082-case_dir2484]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0083-case_dir2485]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0084-case_dir2486]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0085-case_dir2487]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0089-case_dir2490]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0090-case_dir2491]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0091-case_dir2492]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0092-case_dir2493]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0096-case_dir2496]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0097-case_dir2497]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0098-case_dir2498]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0099-case_dir2499]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0103-case_dir2502]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0104-case_dir2503]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0105-case_dir2504]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0106-case_dir2505]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0110-case_dir2508]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0114-case_dir2512]`
+  - `4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0126-case_dir2522]`
+- The test helper invokes a relative "./executable" with cwd set to a temp dir. Python 3.12 resolves a relative program relative to that cwd (where no executable exists) rather than the parent process cwd as older Pythons (and the containers' interpreter) did, raising FileNotFoundError.
+  - `79acf88a93fa/eval.tests.test_all_verbs_systematic.test_tee_verb`
+  - `79acf88a93fa/eval.tests.test_all_verbs_systematic.test_template_verb`
+  - `79acf88a93fa/eval.tests.test_all_verbs_systematic.test_top_verb`
+  - `79acf88a93fa/eval.tests.test_all_verbs_systematic.test_unflatten_verb`
+  - `79acf88a93fa/eval.tests.test_all_verbs_systematic.test_uniq_with_count`
+  - `79acf88a93fa/eval.tests.test_all_verbs_systematic.test_unspace_verb`
+  - `79acf88a93fa/eval.tests.test_final_coverage_push.test_special_variables`
+- Simulate a TTY via Linux's `script -q -c <cmd>`; macOS/BSD `script` has a different CLI, so the wrapper fails regardless of the binary.
+  - `4e01bbf3b7b0/tests.test_repl_entry.test_custom_prompts_via_env_vars`
+  - `4e01bbf3b7b0/tests.test_repl_entry.test_prompt_with_escape_sequences`
+  - `4e01bbf3b7b0/tests.test_repl_entry.test_startup_banner_shown_without_quiet_flag`
+- Platform numeric/system differences: floating-point formatting (libm), seeded RNG sequences, system-info builtins (hostname/OS/user), and a few line-ending/format edge cases whose goldens were captured on the Linux containers.
+  - `4e01bbf3b7b0/tests.test_aggregation.test_stats2_weak_correlation`
+  - `4e01bbf3b7b0/tests.test_analysis_verbs.test_summary_all_stats`
+  - `4e01bbf3b7b0/tests.test_analysis_verbs.test_summary_all_transpose`
+  - `4e01bbf3b7b0/tests.test_analysis_verbs.test_summary_exclude_stats`
+  - `4e01bbf3b7b0/tests.test_bifs_math.test_math_with_extremely_small_numbers`
+  - `4e01bbf3b7b0/tests.test_bifs_math.test_math_with_large_numbers`
+  - `4e01bbf3b7b0/tests.test_bifs_random.test_urandrange_variations`
+  - `4e01bbf3b7b0/tests.test_bifs_system.test_system_info_functions_with_csv_format`
+  - `4e01bbf3b7b0/tests.test_help_system.test_shorthand_F`
+  - `4e01bbf3b7b0/tests.test_help_system.test_shorthand_K`
+  - `4e01bbf3b7b0/tests.test_help_system.test_shorthand_L`
+  - `4e01bbf3b7b0/tests.test_stats2_gap.test_linreg_pca_verbose_output`
+  - `4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_basic_regression`
+  - `4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_boundary_classification`
+  - `4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_grouped`
+  - `4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_iterative_stats`
+  - `4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_with_fit`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0033`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0037`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0041`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0045`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0049`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0053`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0057`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0061`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0065`
+  - `6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0069`
+
 ## kisielk/errcheck
 
 Instance `kisielk__errcheck.dacab89`: 532 tests shipped, 340 kept.
@@ -155,6 +450,34 @@ Course-side: 1 tests dropped by us.
 
 - Passes on gold only because the cleanroom container has no Go source at the workspace root (package loading fails there with rc 0); on any real checkout errcheck analyzes its own tree, legitimately finds unchecked errors, and exits 1.
   - `11c421a3b5f4/eval.tests.test_argparse_validation.test_tags_flag_accepts_comma_or_space_separated_values[tag1 tag2]`
+
+## kyoh86/richgo
+
+Instance `kyoh86__richgo.313114f`: 787 tests shipped, 531 kept.
+
+Benchmark-side: 241 tests dropped by ProgramBench.
+
+- `gold_fail`: 141
+- `dummy_pass`: 121
+
+Course-side: 15 tests dropped by us.
+
+- richgo is a thin wrapper over the host `go` toolchain: it forwards `go version`, `go env`, `go help`, and passthrough commands straight to whatever go is installed. These tests assert the container's toolchain (go1.21.0 linux/amd64: GOARCH amd64, that version's help text and env); this machine runs a newer go on darwin/arm64, so the forwarded output legitimately differs. Not a richgo behavior change.
+  - `161b993de396/eval.tests.test_cli_basics.test_dash_dash_help_matches_golden_on_stderr`
+  - `161b993de396/eval.tests.test_cli_basics.test_help_command_matches_golden_on_stdout`
+  - `aedc381a5a8d/tests.test_core.test_env_command_pass_through`
+  - `aedc381a5a8d/tests.test_core.test_env_command_without_args`
+  - `aedc381a5a8d/tests.test_core.test_help_command_pass_through`
+  - `aedc381a5a8d/tests.test_core.test_no_arguments_shows_help`
+  - `aedc381a5a8d/tests.test_core.test_version_pass_through`
+  - `aedc381a5a8d/tests.test_integration.test_go_passthrough_for_non_test_commands`
+  - `db156070d060/tests.test_cli.test_env_command_passthrough`
+  - `db156070d060/tests.test_cli.test_help_command_shows_go_help`
+  - `db156070d060/tests.test_cli.test_list_command_passthrough`
+  - `db156070d060/tests.test_cli.test_no_args_shows_go_help`
+  - `db156070d060/tests.test_cli.test_version_command_exact_output`
+  - `db156070d060/tests.test_gaps.test_no_arguments_runs_go_help`
+  - `db156070d060/tests.test_samples.test_all_samples_combined@go_test`
 
 ## mfridman/tparse
 
@@ -189,6 +512,17 @@ Benchmark-side: 603 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## mgechev/revive
+
+Instance `mgechev__revive.201451e`: 886 tests shipped, 727 kept.
+
+Benchmark-side: 159 tests dropped by ProgramBench.
+
+- `dummy_pass`: 133
+- `gold_fail`: 33
+
+Course-side: none.
+
 ## mibk/dupl
 
 Instance `mibk__dupl.1bf052b`: 450 tests shipped, 370 kept.
@@ -205,6 +539,22 @@ Course-side: 3 tests dropped by us.
   - `9dea7bde779b/tests.test_main_gaps.test_stdout_write_error_text_mode`
 - Golden captures one specific ordering of clones inside clone groups; dupl's output order follows filesystem directory-walk order, which differs between APFS (macOS) and the ext4-based containers. Entries are identical, permuted.
   - `9dea7bde779b/tests.test_large_scale.test_very_permissive_threshold_finds_many_clones`
+
+## mikefarah/yq
+
+Instance `mikefarah__yq.602586d`: 2046 tests shipped, 1996 kept.
+
+Benchmark-side: 46 tests dropped by ProgramBench.
+
+- `dummy_pass`: 46
+
+Course-side: 4 tests dropped by us.
+
+- Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper fails regardless of the binary under test.
+  - `7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_blocks`
+  - `7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_null_values`
+  - `7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_numbers_with_decimals`
+  - `7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_with_script`
 
 ## mookid/diffr
 
@@ -262,7 +612,37 @@ Benchmark-side: 206 tests dropped by ProgramBench.
 
 - `dummy_pass`: 206
 
-Course-side: none.
+Course-side: 1 tests dropped by us.
+
+- Asserts the panic message cites the workspace-prefixed source path. Rust bakes source paths at compile time (relative src/builder.rs in local builds), so the message can never contain the per-run workspace path in this local harness.
+  - `88384662e66e/eval.tests.test_stress.test_empty_file_input`
+
+## pier-cli/pier
+
+Instance `pier-cli__pier.5e1bde9`: 779 tests shipped, 680 kept.
+
+Benchmark-side: 87 tests dropped by ProgramBench.
+
+- `gold_fail`: 63
+- `dummy_pass`: 34
+
+Course-side: 12 tests dropped by us.
+
+- pier resolves its config directory through the Rust `dirs` crate, which returns ~/.config (and honors $XDG_CONFIG_HOME) on Linux but returns ~/Library/Application Support and IGNORES $XDG_CONFIG_HOME on macOS. These tests set $XDG_CONFIG_HOME and/or exercise config-init at the default location; config_init uses fs::create_dir (single level, not mkdir -p), so on macOS the deeper "Library/Application Support/pier" path cannot be created from a fresh test home. This is an OS config-convention difference, not a behavior fault.
+  - `0cbbf0f495db/eval.tests.test_config_init_and_list.test_config_init_creates_config_file_and_is_idempotent_error`
+  - `358fc390ba61/tests.test_config.test_config_init_creates_default_config`
+  - `358fc390ba61/tests.test_config.test_xdg_config_home_fallback`
+  - `cbac4879c9b3/eval.tests.test_config_init.test_config_init_creates_file`
+  - `cbac4879c9b3/eval.tests.test_config_init.test_init_alias_works`
+- The same config-dir divergence changes whether a default config is found on a clean machine, so these "no default config" and default-lookup tests take a different (still correct) branch on macOS than on the Linux containers.
+  - `0cbbf0f495db/eval.tests.test_help_and_errors.test_no_config_file_error_goes_to_stdout_and_exit_zero`
+  - `358fc390ba61/tests.test_config.test_invalid_toml_in_fallback_path_produces_parse_error`
+  - `358fc390ba61/tests.test_errors.test_config_file_not_found_with_path`
+  - `358fc390ba61/tests.test_errors.test_no_default_config_exists`
+  - `c63bcc7af922/eval.tests.test_argparse_validation.test_double_dash_treats_dash_prefixed_values_as_positional_for_run`
+- Goldens embed container-specific literals: HOME=/root (the container's home) and the container's bash version string (5.1.16); macOS reports its own HOME and bash 3.2.57.
+  - `358fc390ba61/tests.test_run.test_environment_variable_passthrough`
+  - `358fc390ba61/tests.test_run.test_explicit_bash_interpreter`
 
 ## psampaz/go-mod-outdated
 
@@ -277,6 +657,22 @@ Course-side: 1 tests dropped by us.
 
 - Asserts the nil-pointer panic traceback cites the workspace source path. Go bakes source paths into the binary at compile time, so the traceback shows the repo checkout path (where compile.sh ran), which can never equal the per-run workspace path in this local harness.
   - `0d7f74667e0b/tests.test_replace_timestamps.test_missing_update_timestamp_causes_crash`
+
+## rcoh/angle-grinder
+
+Instance `rcoh__angle-grinder.9c2fc88`: 1143 tests shipped, 1126 kept.
+
+Benchmark-side: 15 tests dropped by ProgramBench.
+
+- `dummy_pass`: 11
+- `gold_flaky`: 2
+- `gold_fail`: 2
+
+Course-side: 2 tests dropped by us.
+
+- Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper fails regardless of the binary under test.
+  - `06dabfabaea7/tests.test_tty_rendering.test_tty_min_max_aggregates_with_ansi`
+  - `06dabfabaea7/tests.test_tty_rendering.test_tty_multi_group_aggregate_with_ansi`
 
 ## riquito/tuc
 
@@ -395,6 +791,31 @@ Benchmark-side: 68 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## sharkdp/pastel
+
+Instance `sharkdp__pastel.b60e899`: 1256 tests shipped, 1103 kept.
+
+Benchmark-side: 142 tests dropped by ProgramBench.
+
+- `dummy_pass`: 140
+- `gold_fail`: 2
+
+Course-side: 11 tests dropped by us.
+
+- Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper fails regardless of the binary under test.
+  - `3f777d104aa1/eval.tests.test_env_config.test_invalid_pastel_color_mode_errors`
+  - `3f777d104aa1/eval.tests.test_env_config.test_no_color_env_disables_color_even_when_forced_24bit`
+  - `3f777d104aa1/eval.tests.test_env_config.test_pastel_color_mode_24bit_forces_truecolor_when_tty`
+  - `3f777d104aa1/eval.tests.test_env_config.test_pastel_color_mode_8bit_forces_8bit_when_tty`
+  - `3f777d104aa1/eval.tests.test_env_config.test_pastel_color_mode_off_disables_color_even_when_tty`
+  - `90a556e7078f/tests.test_output_ansi.test_color_tty_24bit_visual_display`
+  - `90a556e7078f/tests.test_output_ansi.test_color_tty_8bit_visual_display`
+  - `90a556e7078f/tests.test_output_ansi.test_list_24bit_colored_output`
+  - `90a556e7078f/tests.test_output_ansi.test_list_8bit_colored_output`
+  - `90a556e7078f/tests.test_output_ansi.test_list_off_no_ansi_codes`
+- `pastel pick` probes for an external color-picker tool; on this host a picker exists and the command waits interactively instead of failing fast as in the bare containers.
+  - `1aa1f7fab351/eval.tests.test_ansi_and_errors.test_pick_missing_external_tool_error_message`
+
 ## sibprogrammer/xq
 
 Instance `sibprogrammer__xq.b89f681`: 879 tests shipped, 791 kept.
@@ -409,6 +830,20 @@ Course-side: 1 tests dropped by us.
 - The golden captures one specific interleaving of partial formatted output and the syntax-error message on stdout. The two are flushed independently, and the interleaving order differs between environments, so identical bytes arrive in a different order locally.
   - `0ce13a636ff1/tests.test_io_modes.test_malformed_xml_error`
 
+## simeg/eureka
+
+Instance `simeg__eureka.df3796c`: 400 tests shipped, 343 kept.
+
+Benchmark-side: 56 tests dropped by ProgramBench.
+
+- `dummy_pass`: 51
+- `gold_fail`: 6
+
+Course-side: 1 tests dropped by us.
+
+- Creates a deeply nested directory path to test long-path handling. macOS enforces a 255-byte per-component limit and errors (errno 63, File name too long) before the code under test runs; Linux allows the longer path.
+  - `b31afd05cac9/eval.tests.test_config_format.test_config_with_very_long_path`
+
 ## sirwart/ripsecrets
 
 Instance `sirwart__ripsecrets.34c9e03`: 937 tests shipped, 611 kept.
@@ -419,6 +854,33 @@ Benchmark-side: 326 tests dropped by ProgramBench.
 - `gold_fail`: 4
 
 Course-side: none.
+
+## sitkevij/hex
+
+Instance `sitkevij__hex.61ae69b`: 877 tests shipped, 822 kept.
+
+Benchmark-side: 54 tests dropped by ProgramBench.
+
+- `dummy_pass`: 54
+
+Course-side: 1 tests dropped by us.
+
+- Golden pins clap's invalid-value error with the value lowercased; the clap version resolved for local builds echoes the value as given. Rendering depends on the resolved clap release.
+  - `adfa09238fcb/tests.test_exotic_formats.test_format_flag_case_sensitivity`
+
+## sstadick/hck
+
+Instance `sstadick__hck.b66c751`: 884 tests shipped, 854 kept.
+
+Benchmark-side: 29 tests dropped by ProgramBench.
+
+- `dummy_pass`: 27
+- `gold_fail`: 2
+
+Course-side: 1 tests dropped by us.
+
+- Verifies gzip output by piping through zcat. macOS ships the compress-era zcat which appends .Z to the filename instead of reading .gz, so the verification command itself fails.
+  - `d307b51db601/tests.test_integration.test_decompress_and_recompress_with_fields`
 
 ## tomarrell/wrapcheck
 
@@ -496,3 +958,47 @@ Benchmark-side: 40 tests dropped by ProgramBench.
 - `gold_fail`: 1
 
 Course-side: none.
+
+## yaa110/nomino
+
+Instance `yaa110__nomino.f892499`: 338 tests shipped, 307 kept.
+
+Benchmark-side: 25 tests dropped by ProgramBench.
+
+- `dummy_pass`: 25
+
+Course-side: 6 tests dropped by us.
+
+- Use accented fixture filenames (café.txt). macOS filesystem APIs return them NFD-decomposed while the tests and goldens use NFC, so matching and printed names diverge despite identical-looking filenames.
+  - `71456d35eecf/tests.test_unicode.test_case_sensitive_unicode_matching_lowercase`
+  - `71456d35eecf/tests.test_unicode.test_case_sensitive_unicode_matching_titlecase`
+  - `71456d35eecf/tests.test_unicode.test_case_insensitive_unicode_matching`
+- Compare full rename tables whose row order follows filesystem directory enumeration, which differs between APFS (macOS) and the containers' ext4; entries are identical, permuted.
+  - `71456d35eecf/tests.test_errors.test_conflict_without_overwrite_prepends_underscore`
+  - `71456d35eecf/tests.test_placeholder.test_no_placeholders_static_output`
+  - `71456d35eecf/tests.test_placeholder.test_large_capture_group_index`
+
+## yoav-lavi/melody
+
+Instance `yoav-lavi__melody.f4af9b4`: 1438 tests shipped, 1194 kept.
+
+Benchmark-side: 233 tests dropped by ProgramBench.
+
+- `dummy_pass`: 232
+- `gold_fail`: 1
+
+Course-side: 11 tests dropped by us.
+
+- Simulate a TTY via Linux's `script -q [-e] -c <cmd>` syntax to exercise color/no-color output; macOS/BSD `script` has a different CLI, so the wrapper produces no output and the color/error assertions fail.
+  - `79ad6e68ed55/tests.test_cli_edge_cases.test_explicit_stdin_marker_without_pipe`
+  - `79ad6e68ed55/tests.test_cli_edge_cases.test_stdin_without_pipe_error`
+  - `79ad6e68ed55/tests.test_output.test_colored_error_output_to_tty`
+  - `79ad6e68ed55/tests.test_output.test_colored_output_to_tty`
+  - `79ad6e68ed55/tests.test_output.test_no_color_flag_strips_ansi_codes`
+  - `79ad6e68ed55/tests.test_output.test_no_color_flag_strips_error_ansi`
+  - `79ad6e68ed55/tests.test_output.test_no_color_short_flag`
+  - `79ad6e68ed55/tests.test_output.test_no_color_stdin`
+  - `79ad6e68ed55/tests.test_output.test_test_mode_colored_matched`
+  - `79ad6e68ed55/tests.test_output.test_test_mode_colored_not_matched`
+- The REPL reports the invoking shell; the containers ran bash, this machine runs zsh.
+  - `89cfa1596c50/eval.tests.test_tui_repl.test_repl_exit_command_quits_process`

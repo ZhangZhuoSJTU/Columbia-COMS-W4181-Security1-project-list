@@ -1,0 +1,24 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# richgo is a thin wrapper over the host `go` toolchain: it forwards
+# `go version`, `go env`, `go help`, and passthrough commands straight to
+# whatever go is installed. These tests assert the container's toolchain
+# (go1.21.0 linux/amd64: GOARCH amd64, that version's help text and env);
+# this machine runs a newer go on darwin/arm64, so the forwarded output
+# legitimately differs. Not a richgo behavior change.
+161b993de396/eval.tests.test_cli_basics.test_dash_dash_help_matches_golden_on_stderr
+161b993de396/eval.tests.test_cli_basics.test_help_command_matches_golden_on_stdout
+aedc381a5a8d/tests.test_core.test_env_command_pass_through
+aedc381a5a8d/tests.test_core.test_env_command_without_args
+aedc381a5a8d/tests.test_core.test_help_command_pass_through
+aedc381a5a8d/tests.test_core.test_no_arguments_shows_help
+aedc381a5a8d/tests.test_core.test_version_pass_through
+aedc381a5a8d/tests.test_integration.test_go_passthrough_for_non_test_commands
+db156070d060/tests.test_cli.test_env_command_passthrough
+db156070d060/tests.test_cli.test_help_command_shows_go_help
+db156070d060/tests.test_cli.test_list_command_passthrough
+db156070d060/tests.test_cli.test_no_args_shows_go_help
+db156070d060/tests.test_cli.test_version_command_exact_output
+db156070d060/tests.test_gaps.test_no_arguments_runs_go_help
+db156070d060/tests.test_samples.test_all_samples_combined@go_test

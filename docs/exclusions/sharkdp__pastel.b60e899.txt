@@ -1,0 +1,21 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD
+# `script` has a different CLI, so the wrapper fails regardless of the
+# binary under test.
+3f777d104aa1/eval.tests.test_env_config.test_invalid_pastel_color_mode_errors
+3f777d104aa1/eval.tests.test_env_config.test_no_color_env_disables_color_even_when_forced_24bit
+3f777d104aa1/eval.tests.test_env_config.test_pastel_color_mode_24bit_forces_truecolor_when_tty
+3f777d104aa1/eval.tests.test_env_config.test_pastel_color_mode_8bit_forces_8bit_when_tty
+3f777d104aa1/eval.tests.test_env_config.test_pastel_color_mode_off_disables_color_even_when_tty
+90a556e7078f/tests.test_output_ansi.test_color_tty_24bit_visual_display
+90a556e7078f/tests.test_output_ansi.test_color_tty_8bit_visual_display
+90a556e7078f/tests.test_output_ansi.test_list_24bit_colored_output
+90a556e7078f/tests.test_output_ansi.test_list_8bit_colored_output
+90a556e7078f/tests.test_output_ansi.test_list_off_no_ansi_codes
+
+# `pastel pick` probes for an external color-picker tool; on this host a
+# picker exists and the command waits interactively instead of failing
+# fast as in the bare containers.
+1aa1f7fab351/eval.tests.test_ansi_and_errors.test_pick_missing_external_tool_error_message

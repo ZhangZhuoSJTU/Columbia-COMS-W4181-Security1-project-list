@@ -1,0 +1,12 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Requires Linux's /dev/full device to simulate stdout write errors; macOS has
+# no functional equivalent (opening it raises PermissionError in the test).
+9dea7bde779b/tests.test_main_gaps.test_stdout_write_error_html_mode
+9dea7bde779b/tests.test_main_gaps.test_stdout_write_error_text_mode
+
+# Golden captures one specific ordering of clones inside clone groups; dupl's
+# output order follows filesystem directory-walk order, which differs between
+# APFS (macOS) and the ext4-based containers. Entries are identical, permuted.
+9dea7bde779b/tests.test_large_scale.test_very_permissive_threshold_finds_many_clones

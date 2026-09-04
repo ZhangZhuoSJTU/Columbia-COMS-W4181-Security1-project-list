@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Creates a deeply nested directory path to test long-path handling. macOS
+# enforces a 255-byte per-component limit and errors (errno 63, File name too
+# long) before the code under test runs; Linux allows the longer path.
+b31afd05cac9/eval.tests.test_config_format.test_config_with_very_long_path

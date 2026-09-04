@@ -1,0 +1,31 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# pier resolves its config directory through the Rust `dirs` crate, which
+# returns ~/.config (and honors $XDG_CONFIG_HOME) on Linux but returns
+# ~/Library/Application Support and IGNORES $XDG_CONFIG_HOME on macOS. These
+# tests set $XDG_CONFIG_HOME and/or exercise config-init at the default
+# location; config_init uses fs::create_dir (single level, not mkdir -p), so on
+# macOS the deeper "Library/Application Support/pier" path cannot be created
+# from a fresh test home. This is an OS config-convention difference, not a
+# behavior fault.
+0cbbf0f495db/eval.tests.test_config_init_and_list.test_config_init_creates_config_file_and_is_idempotent_error
+358fc390ba61/tests.test_config.test_config_init_creates_default_config
+358fc390ba61/tests.test_config.test_xdg_config_home_fallback
+cbac4879c9b3/eval.tests.test_config_init.test_config_init_creates_file
+cbac4879c9b3/eval.tests.test_config_init.test_init_alias_works
+
+# The same config-dir divergence changes whether a default config is found on
+# a clean machine, so these "no default config" and default-lookup tests take a
+# different (still correct) branch on macOS than on the Linux containers.
+0cbbf0f495db/eval.tests.test_help_and_errors.test_no_config_file_error_goes_to_stdout_and_exit_zero
+358fc390ba61/tests.test_config.test_invalid_toml_in_fallback_path_produces_parse_error
+358fc390ba61/tests.test_errors.test_config_file_not_found_with_path
+358fc390ba61/tests.test_errors.test_no_default_config_exists
+c63bcc7af922/eval.tests.test_argparse_validation.test_double_dash_treats_dash_prefixed_values_as_positional_for_run
+
+# Goldens embed container-specific literals: HOME=/root (the container's home)
+# and the container's bash version string (5.1.16); macOS reports its own HOME
+# and bash 3.2.57.
+358fc390ba61/tests.test_run.test_environment_variable_passthrough
+358fc390ba61/tests.test_run.test_explicit_bash_interpreter

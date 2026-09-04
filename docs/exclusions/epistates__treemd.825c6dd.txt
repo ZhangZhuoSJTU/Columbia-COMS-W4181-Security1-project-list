@@ -1,0 +1,30 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# TUI-snapshot tests: drive the interactive interface inside a tmux pane
+# via libtmux and assert on captured screen contents after fixed sleeps.
+# Terminal rendering timing in tmux differs on macOS, so the capture is
+# empty or partial; this is the documented TUI-snapshot flake class.
+061e09d94da8/eval.tests.test_error_handling_and_tui_smoke.test_tui_starts_and_quits
+1040f6b8a219/tests.test_tui_help_interactive.test_interactive_mode_exit_i_key
+f7b44e8c861b/eval.tests.test_tui.test_interactive_mode
+f7b44e8c861b/eval.tests.test_tui.test_invalid_inputs_dont_crash
+f7b44e8c861b/eval.tests.test_tui.test_navigation_to_top_and_bottom
+f7b44e8c861b/eval.tests.test_tui.test_navigation_with_arrows
+f7b44e8c861b/eval.tests.test_tui.test_navigation_with_j_and_k
+f7b44e8c861b/eval.tests.test_tui.test_page_navigation
+f7b44e8c861b/eval.tests.test_tui.test_quit_with_q
+f7b44e8c861b/eval.tests.test_tui.test_search_mode
+f7b44e8c861b/eval.tests.test_tui.test_tree_expand_collapse
+f7b44e8c861b/eval.tests.test_tui.test_tui_launches_successfully
+f7b44e8c861b/eval.tests.test_tui.test_tui_shows_sections
+
+# Case-insensitive path completion (readme vs README) relies on the
+# filesystem; macOS APFS is case-insensitive so the match set differs.
+# --setup-completions reads $SHELL / detects the host shell, which the
+# bare containers lack. XDG_CONFIG_HOME is honored on Linux but not on
+# macOS, so the config-driven output differs. All host-environment,
+# not behavior, differences.
+1040f6b8a219/tests.test_cli_commands_detail.test_completion_prefix_matching_case_insensitive
+38130e1c42ae/eval.tests.test_config_handling.test_env_xdg_config_home_controls_config_lookup
+f5c50b00f151/eval.tests.test_argparse_validation.test_setup_completions_errors_without_shell_detection

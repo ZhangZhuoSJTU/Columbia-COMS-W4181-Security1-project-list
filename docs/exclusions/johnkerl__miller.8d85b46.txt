@@ -1,0 +1,116 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Harvested upstream regression cases whose DSL writes output via
+# emit/tee/print redirects to ENV["CASEDIR"], which the harvested harness
+# never exports. With CASEDIR empty the writes target /out.* at the
+# filesystem root; that only succeeds because the benchmark containers run
+# as root. On a normal user account the write is denied and the command
+# exits 1. This is a harness/root artifact, not a miller behavior change.
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0033-case_dir2128]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0037-case_dir2132]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0041-case_dir2136]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0045-case_dir2140]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0049-case_dir2144]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0053-case_dir2148]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0057-case_dir2152]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0061-case_dir2156]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0065-case_dir2160]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-output-redirects/0069-case_dir2164]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0005-case_dir2414]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0006-case_dir2415]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0007-case_dir2416]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0008-case_dir2417]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0031-case_dir2436]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0032-case_dir2437]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0033-case_dir2438]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0034-case_dir2439]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0038-case_dir2442]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0039-case_dir2443]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0040-case_dir2444]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0041-case_dir2445]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0045-case_dir2449]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0046-case_dir2450]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0047-case_dir2451]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0048-case_dir2452]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0052-case_dir2455]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0053-case_dir2456]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0054-case_dir2457]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0055-case_dir2458]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0059-case_dir2462]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0060-case_dir2463]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0061-case_dir2464]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0062-case_dir2465]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0066-case_dir2468]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0070-case_dir2472]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0074-case_dir2476]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0078-case_dir2480]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0082-case_dir2484]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0083-case_dir2485]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0084-case_dir2486]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0085-case_dir2487]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0089-case_dir2490]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0090-case_dir2491]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0091-case_dir2492]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0092-case_dir2493]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0096-case_dir2496]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0097-case_dir2497]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0098-case_dir2498]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0099-case_dir2499]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0103-case_dir2502]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0104-case_dir2503]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0105-case_dir2504]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0106-case_dir2505]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0110-case_dir2508]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0114-case_dir2512]
+4e01bbf3b7b0/tests.test_harvest.test_miller_regression[dsl-redirects/0126-case_dir2522]
+
+# The test helper invokes a relative "./executable" with cwd set to a temp
+# dir. Python 3.12 resolves a relative program relative to that cwd (where
+# no executable exists) rather than the parent process cwd as older
+# Pythons (and the containers' interpreter) did, raising FileNotFoundError.
+79acf88a93fa/eval.tests.test_all_verbs_systematic.test_tee_verb
+79acf88a93fa/eval.tests.test_all_verbs_systematic.test_template_verb
+79acf88a93fa/eval.tests.test_all_verbs_systematic.test_top_verb
+79acf88a93fa/eval.tests.test_all_verbs_systematic.test_unflatten_verb
+79acf88a93fa/eval.tests.test_all_verbs_systematic.test_uniq_with_count
+79acf88a93fa/eval.tests.test_all_verbs_systematic.test_unspace_verb
+79acf88a93fa/eval.tests.test_final_coverage_push.test_special_variables
+
+# Simulate a TTY via Linux's `script -q -c <cmd>`; macOS/BSD `script` has a
+# different CLI, so the wrapper fails regardless of the binary.
+4e01bbf3b7b0/tests.test_repl_entry.test_custom_prompts_via_env_vars
+4e01bbf3b7b0/tests.test_repl_entry.test_prompt_with_escape_sequences
+4e01bbf3b7b0/tests.test_repl_entry.test_startup_banner_shown_without_quiet_flag
+
+# Platform numeric/system differences: floating-point formatting (libm),
+# seeded RNG sequences, system-info builtins (hostname/OS/user), and a few
+# line-ending/format edge cases whose goldens were captured on the Linux
+# containers.
+4e01bbf3b7b0/tests.test_aggregation.test_stats2_weak_correlation
+4e01bbf3b7b0/tests.test_analysis_verbs.test_summary_all_stats
+4e01bbf3b7b0/tests.test_analysis_verbs.test_summary_all_transpose
+4e01bbf3b7b0/tests.test_analysis_verbs.test_summary_exclude_stats
+4e01bbf3b7b0/tests.test_bifs_math.test_math_with_extremely_small_numbers
+4e01bbf3b7b0/tests.test_bifs_math.test_math_with_large_numbers
+4e01bbf3b7b0/tests.test_bifs_random.test_urandrange_variations
+4e01bbf3b7b0/tests.test_bifs_system.test_system_info_functions_with_csv_format
+4e01bbf3b7b0/tests.test_help_system.test_shorthand_F
+4e01bbf3b7b0/tests.test_help_system.test_shorthand_K
+4e01bbf3b7b0/tests.test_help_system.test_shorthand_L
+4e01bbf3b7b0/tests.test_stats2_gap.test_linreg_pca_verbose_output
+4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_basic_regression
+4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_boundary_classification
+4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_grouped
+4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_iterative_stats
+4e01bbf3b7b0/tests.test_stats2_gap.test_logireg_with_fit
+6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0033
+6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0037
+6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0041
+6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0045
+6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0049
+6d3d0da46d76/eval.tests.test_upstream_cases_2100.test_case_dsl_output_redirects_0053
+6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0057
+6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0061
+6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0065
+6d3d0da46d76/eval.tests.test_upstream_cases_2150.test_case_dsl_output_redirects_0069
