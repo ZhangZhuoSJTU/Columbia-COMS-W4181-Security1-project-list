@@ -1,0 +1,9 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Both compare sox's floating-point stat/resampler output byte-for-byte against a
+# golden captured on x86 Linux. The DSP math rounds differently on arm64 macOS
+# (last-place differences in the printed amplitude/level figures), so the gold
+# binary itself no longer reproduces the captured numbers here.
+269b33cf14ef/tests.test_effects_advanced_comp.test_vad_removes_all_silence
+269b33cf14ef/tests.test_effects_resample_internal.test_downsample_max_factor_16384

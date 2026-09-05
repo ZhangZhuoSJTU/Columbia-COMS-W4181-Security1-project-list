@@ -1,0 +1,15 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# rhit renders its --help through termimad, which derives the code-block
+# background/foreground grays from the detected terminal theme. On macOS termimad
+# picks 48;5;237 / 38;5;252 where the Linux container captured 48;5;235 /
+# 38;5;249; the shades are not selectable via COLORFGBG/TERM, so these exact-byte
+# help goldens never match (COLUMNS=50 already aligns the layout/centering):
+5acb4aa8bf92/tests.test_basic.test_help_message
+e9f6c581cb54/eval.tests.test_help_baseline.test_help_plain_output_matches_baseline_exactly
+e9f6c581cb54/eval.tests.test_help_behavior.test_help_respects_color_no
+# This TUI test asserts the shell prompt after rhit quits contains "root@" or
+# "#"; the container ran as root, but on macOS the pane returns to a normal user
+# prompt:
+b3951d4fd957/eval.tests.test_tui_rhit.test_quit_key_exits_cleanly

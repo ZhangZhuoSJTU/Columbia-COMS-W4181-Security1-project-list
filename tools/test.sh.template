@@ -54,8 +54,69 @@ PB=.programbench
 ./compile.sh
 
 [ -d "$PB/venv" ] || python3 -m venv "$PB/venv"
-"$PB/venv/bin/pip" install -q pytest pytest-timeout pytest-xdist pytest-rerunfailures tomli libtmux
+"$PB/venv/bin/pip" install -q pytest pytest-timeout pytest-xdist pytest-rerunfailures pytest-dependency tomli libtmux pexpect
 export PATH="$PWD/$PB/venv/bin:$PATH"
+
+# macOS has no GNU coreutils `timeout` and ships BSD `script` (incompatible
+# flags: no -c, no long options). Many Linux-authored suites shell out to these,
+# so provide translating shims on PATH; otherwise those tests die with
+# "command not found" / "illegal option" instead of running. The shims call the
+# real /usr/bin/script and never shadow a coreutils `timeout` if one is present.
+SHIM="$PWD/$PB/shims"
+mkdir -p "$SHIM"
+if ! command -v timeout >/dev/null 2>&1; then
+    cat > "$SHIM/timeout" <<'SH'
+#!/bin/bash
+# Minimal GNU-timeout shim: [-s SIG] [-k DUR] DURATION CMD...; returns 124 on timeout.
+[ "$1" = "-s" ] && shift 2; [ "$1" = "-k" ] && shift 2
+dur="$1"; shift
+"$@" & pid=$!
+( sleep "$dur" 2>/dev/null; kill -TERM "$pid" 2>/dev/null; sleep 1; kill -KILL "$pid" 2>/dev/null ) & w=$!
+wait "$pid" 2>/dev/null; rc=$?
+if kill -0 "$w" 2>/dev/null; then kill "$w" 2>/dev/null; else rc=124; fi
+exit $rc
+SH
+    chmod +x "$SHIM/timeout"
+fi
+cat > "$SHIM/script" <<'SH'
+#!/bin/bash
+# Translate GNU `script [-a][-e][-f][-q][-c CMD] [FILE]` to BSD `script [-aeq] [FILE [cmd...]]`.
+# BSD script echoes the child's closing EOF as a literal "^D\b\b" at the very
+# start of the typescript; GNU script does not, and suites that assert exact
+# output would see that 4-byte prefix. Strip it (harmless to length-only checks).
+opts=""; cmd=""; file="/dev/null"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -c) cmd="$2"; shift 2;;
+    --command=*) cmd="${1#--command=}"; shift;;
+    -*c) case "$1" in *q*) opts="$opts -q";; esac; case "$1" in *a*) opts="$opts -a";; esac
+         case "$1" in *e*) opts="$opts -e";; esac; cmd="$2"; shift 2;;
+    -*) case "$1" in *q*) opts="$opts -q";; esac; case "$1" in *a*) opts="$opts -a";; esac
+        case "$1" in *e*) opts="$opts -e";; esac; shift;;
+    *) file="$1"; shift;;
+  esac
+done
+if [ -n "$cmd" ]; then
+  /usr/bin/script $opts "$file" /bin/sh -c "$cmd" | perl -pe 's/\x5e\x44\x08\x08//g'
+  exit "${PIPESTATUS[0]}"
+else
+  exec /usr/bin/script $opts "$file"
+fi
+SH
+chmod +x "$SHIM/script"
+export PATH="$SHIM:$PATH"
+
+# Terminal-UI suites drive the binary through tmux (libtmux). Two macOS issues:
+# (1) the default login shell is an interactive zsh whose nvm/conda/theme init
+# takes ~1s and prints banners, so a command sent to a pane has not run yet when
+# the test captures the pane; force panes to a bare, instant /bin/sh. (2) libtmux
+# talks to the *default* tmux server, which may be the user's own; point tmux at
+# a private socket dir so our sessions and kill-server never touch it. Harmless
+# for suites that never launch tmux.
+export SHELL=/bin/sh
+export TMUX_TMPDIR="$PWD/$PB/tmux"
+mkdir -p "$TMUX_TMPDIR"
+tmux kill-server 2>/dev/null || true
 
 mkdir -p "$PB/tests"
 while read -r branch; do

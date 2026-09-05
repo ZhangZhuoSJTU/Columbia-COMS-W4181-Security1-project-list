@@ -1,6 +1,6 @@
 # Course-side exclusions: tests that are environment-sensitive outside the
 # benchmark containers. Format: <branch>/<classname>.<testname>
-#
+
 # git-trim is a thin wrapper over git/libgit2, so its behavior tracks the host
 # git version, filesystem case-sensitivity, TTY, and network. The exclusions
 # below all fail on the unmodified gold binary on macOS for those reasons.

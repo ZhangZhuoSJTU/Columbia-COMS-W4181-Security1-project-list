@@ -1,0 +1,10 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Pipes b3sum's raw output through `od -A x -t x1z -v`; BSD od on macOS does not
+# support the "z" (ASCII gutter) format character that GNU od does, so od errors
+# and produces no output to compare against the golden.
+06dabfabaea7/tests.test_platform4.test_xof_5120_bytes_input_1024_raw_output
+# Creates a filename with invalid/non-UTF-8 bytes; macOS (APFS) rejects it where
+# Linux filesystems accept arbitrary byte sequences.
+06dabfabaea7/tests.test_harvest.test_invalid_unicode_on_unix

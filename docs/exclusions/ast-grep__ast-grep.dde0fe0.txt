@@ -1,0 +1,65 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# All of these fail for the gold binary on macOS due to platform differences,
+# not the implementation:
+#  * errno numbers/text differ (macOS ELOOP=62, ENAMETOOLONG=63 vs Linux 40/36);
+#  * ast-grep's embedded HTML/CSS/JS scanning and custom languages load
+#    tree-sitter grammars as dynamic libraries -- dlopen/dylib symbol errors and
+#    load behavior differ from Linux .so, so those scans and their error goldens
+#    diverge;
+#  * the interactive-edit tests drive $EDITOR through a pexpect pty; a real editor
+#    hangs headless on macOS and a no-op editor makes pexpect hit EOF, so the
+#    interaction cannot be reproduced;
+#  * APFS is case-insensitive, so "case-sensitive rule name" collisions error;
+#  * macOS canonicalizes temp paths under /private, and lists directory entries
+#    in a different order, so path-bearing error goldens and rule-summary ordering
+#    do not match; and one test creates a non-UTF-8 filename APFS rejects.
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_absolute_library_path
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_case_sensitive_names
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_empty_extensions_array
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_file_type_detection
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_invalid_symbol_error
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_metavar_char_configuration
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_multiple_extensions
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_relative_library_path
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_symlink_to_library
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_unknown_language_in_rule
+5946c18eda4c/eval.tests.test_custom_languages.test_custom_language_unsupported_platform_error
+5946c18eda4c/eval.tests.test_error_diagnostics.test_invalid_rule_id_non_utf8_filename
+5946c18eda4c/eval.tests.test_errors.test_circular_symlink
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_accept_all_subsequent_prompts
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_default_editor_when_env_not_set
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_editor_command_not_found
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_editor_invocation_failure
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_editor_invocation_success
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_multiple_overlapping_matches_in_sequence
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_quit_immediately
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_scan_view_mode_edit
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_scan_view_mode_quit
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_stdin_mode_with_update_all_flag
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_stdin_without_update_all_errors
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_tab_navigation_cycle
+5946c18eda4c/eval.tests.test_interactive_advanced.test_interactive_update_all_with_file
+5946c18eda4c/eval.tests.test_interactive.test_interactive_counter_tracks_acceptances
+5946c18eda4c/eval.tests.test_interactive.test_interactive_summary_message_shows_count
+5946c18eda4c/eval.tests.test_language_features.test_all_style_blocks_extracted_from_html
+5946c18eda4c/eval.tests.test_language_features.test_css_media_query_in_html_style_tags
+5946c18eda4c/eval.tests.test_language_features.test_css_selector_specificity_in_html
+5946c18eda4c/eval.tests.test_language_features.test_empty_and_whitespace_script_tags
+5946c18eda4c/eval.tests.test_language_features.test_js_only_in_script_not_inline_handlers
+5946c18eda4c/eval.tests.test_language_features.test_multiple_style_tags_with_hover_selector
+5946c18eda4c/eval.tests.test_language_features.test_typescript_in_html_with_lang_attribute
+5946c18eda4c/eval.tests.test_new_advanced.test_new_rule_very_long_name_error
+5946c18eda4c/eval.tests.test_new_advanced.test_new_test_very_long_name_error
+5946c18eda4c/eval.tests.test_new_advanced.test_new_util_very_long_name_error
+5946c18eda4c/eval.tests.test_new_edge_cases.test_new_rule_case_sensitive_names
+5946c18eda4c/eval.tests.test_parameterized_advanced.test_empty_parameterized_utility_call
+5946c18eda4c/eval.tests.test_parameterized_advanced.test_error_extra_argument
+5946c18eda4c/eval.tests.test_parameterized_advanced.test_error_missing_first_argument
+5946c18eda4c/eval.tests.test_parameterized_advanced.test_error_missing_middle_argument
+5946c18eda4c/eval.tests.test_parameterized_advanced.test_error_undefined_utility
+5946c18eda4c/eval.tests.test_parameterized.test_error_missing_utility_argument
+5946c18eda4c/eval.tests.test_parameterized.test_error_unexpected_utility_arguments
+5946c18eda4c/eval.tests.test_parameterized.test_error_unknown_utility_argument
+5946c18eda4c/eval.tests.test_verify_reporter.test_multiple_rules_with_mixed_status_summary

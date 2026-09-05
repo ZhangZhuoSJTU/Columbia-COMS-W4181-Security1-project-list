@@ -1,0 +1,10 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# summary of an empty interval set divides 0/0; glibc's printf prints the mean
+# as "-nan" while macOS libc prints "nan", so the golden's "-nan" never matches.
+b0846e00e790/tests.test_misc_tools.test_summary_empty_input
+# annotate -s (same-strand) counts one fewer overlap for interval1 on the macOS
+# build than the Linux golden captured (1 vs 2); the gold binary itself diverges
+# here on macOS, so the captured golden is stale for this toolchain.
+b0846e00e790/tests.test_annotate.test_annotate_mixed_strand_diff_strand_filter

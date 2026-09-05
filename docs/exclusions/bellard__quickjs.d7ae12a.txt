@@ -1,0 +1,37 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# All of these assert Linux/glibc-specific behavior that differs on macOS and so
+# fails identically for the gold binary and any correct re-implementation here:
+#
+# libm formatting/precision (arm64 macOS vs x86 glibc: e.g. Math.sinh/cbrt/pow
+# print different last digits or "3" vs "3.0000000000000004"):
+e1d7a4e20e53/tests.test_final_mixed.test_math_modern_methods
+e1d7a4e20e53/tests.test_quickjs_builtins_gaps.test_math_pow_exp_edge_cases
+e1d7a4e20e53/tests.test_quickjs_builtins_gaps.test_math_hyperbolic_functions
+e1d7a4e20e53/tests.test_quickjs_numeric_ops.test_math_cbrt_negative_and_special
+e1d7a4e20e53/tests.test_quickjs_ultra_final_push.test_math_misc
+e1d7a4e20e53/tests.test_integration_workflows.test_number_methods_math_edge_cases_parsing
+e1d7a4e20e53/tests.test_runtime_final_mega_sweep.test_math_functions_with_special_values
+# macOS canonicalizes /tmp -> /private/tmp, so realpath/chdir/exec-cwd output differs:
+e1d7a4e20e53/tests.test_libc_advanced.test_realpath_resolution
+e1d7a4e20e53/tests.test_libc_gaps.test_os_realpath
+e1d7a4e20e53/tests.test_libc_gaps.test_os_exec_cwd_option
+e1d7a4e20e53/tests.test_libc_final_gaps.test_os_chdir
+e1d7a4e20e53/tests.test_stdlib.test_os_chdir
+# macOS errno strings/codes differ from Linux (EIO vs EINVAL reading a dir, etc.):
+e1d7a4e20e53/tests.test_errors.test_directory_as_file
+e1d7a4e20e53/tests.test_libc_urls_http.test_file_error_handling
+e1d7a4e20e53/tests.test_libc_urls_http.test_file_system_operations
+e1d7a4e20e53/tests.test_libc_final_final_gaps.test_popen_nonexistent_command
+e1d7a4e20e53/tests.test_integration.test_process_execution_with_os_exec
+e1d7a4e20e53/tests.test_integration.test_environment_variable_operations
+# these open /etc/hostname, which does not exist on macOS (std.open returns null):
+e1d7a4e20e53/tests.test_libc_final_final_gaps.test_file_seek_negative_position
+e1d7a4e20e53/tests.test_libc_final_final_gaps.test_file_seek_invalid_whence
+# os.platform reports "darwin", readdir ordering, -d memory stats layout, and
+# async-timer stderr all reflect the host OS/toolchain rather than the program:
+e1d7a4e20e53/tests.test_stdlib.test_os_platform_info
+e1d7a4e20e53/tests.test_libc_gaps.test_os_readdir
+e1d7a4e20e53/tests.test_flags.test_dump_flag_shows_memory_statistics
+e1d7a4e20e53/tests.test_libc_workers_timers_async.test_timer_exception_in_callback

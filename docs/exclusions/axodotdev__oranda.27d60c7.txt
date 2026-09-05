@@ -1,0 +1,9 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# This test builds a workspace whose member Cargo.toml declares no targets and
+# expects `cargo metadata` to succeed. The container's older cargo tolerated
+# that; the newer cargo on this machine rejects it ("no targets specified in the
+# manifest"), so oranda's `cargo metadata` call fails. It is a cargo-toolchain
+# version difference, not an oranda behavior.
+3007289124ea/tests.test_workspace.test_workspace_docs_path

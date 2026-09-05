@@ -1,0 +1,6 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# macOS enforces a 255-byte per-component filename limit and errors with
+# ENAMETOOLONG (Errno 63) where Linux accepts the very long path this test builds.
+aa89e180e290/tests.test_edge_cases.test_add_very_long_path

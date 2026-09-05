@@ -1,0 +1,42 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# walk is a TUI file browser; these tests drive it through tmux and snapshot the
+# pane. walk's header renders the current directory's ABSOLUTE path, and the
+# reference goldens were captured in a container whose workspace root was the
+# 10-char "/workspace", so the header fit the fixed 80-column pane. On any real
+# checkout the path is far longer (here ~130 chars under the deep course-repo
+# clone path), so walk truncates it to the pane width and the captured header no
+# longer matches the golden. This is purely a function of where the repo is
+# cloned (it would fail identically for a correct re-implementation on any
+# machine whose path is longer than "/workspace"), so it cannot discriminate a
+# submission and is excluded. The two 03e585 tests depend on a status-listing
+# test that captures the same path-bearing header.
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_size_large_files
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_env_combined_expression
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_size_huge_files
+fcc1fea12b08/tests.test_edge_cases.test_file_path_instead_of_directory
+fcc1fea12b08/tests.test_cli_config.test_hide_hidden_all_files_hidden
+fcc1fea12b08/tests.test_cli_config.test_dir_only_empty_directory
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_env_size_function
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_sprintf_function
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_env_mode_function
+fcc1fea12b08/tests.test_cli_config.test_walk_status_bar_padleft_function
+fcc1fea12b08/tests.test_gap_statusbar.test_size_zero_bytes
+fcc1fea12b08/tests.test_gap_statusbar.test_padright_function
+fcc1fea12b08/tests.test_gap_statusbar.test_size_megabytes
+fcc1fea12b08/tests.test_gap_statusbar.test_padleft_function
+fcc1fea12b08/tests.test_gap_statusbar.test_size_gigabytes
+fcc1fea12b08/tests.test_gap_statusbar.test_size_padleft_combination
+fcc1fea12b08/tests.test_gap_statusbar.test_padright_with_size_combined
+fcc1fea12b08/tests.test_gap_statusbar.test_sprintf_function_combined
+fcc1fea12b08/tests.test_gap_statusbar.test_padleft_padright_combination
+03e585f50172/eval.tests.test_tui_walk.test_navigation_down_changes_selection_indicator
+03e585f50172/eval.tests.test_tui_walk.test_fuzzy_search_opens_and_accepts_query
+#
+# walk panics ("could not open a new tty: open /dev/tty: device not configured")
+# when started without a controlling terminal, before it validates its path
+# argument. pytest runs it with no controlling tty on macOS, so this test that
+# expects a graceful "no such file" path error instead sees the tty panic. The
+# containers ran under a PTY, so walk reached path validation there.
+16ef6579ec7c/eval.tests.test_cli_deterministic.test_takes_optional_path_arg_nonexistent

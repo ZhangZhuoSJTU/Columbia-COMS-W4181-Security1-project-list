@@ -1,0 +1,48 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# hwatch renders the watched command and its output inside a fixed-width (80-col)
+# tmux pane. The reference goldens were captured with the command running against
+# "/workspace/..." (short) so the header fit; the harness then rewrites that to
+# this deep checkout path (~130 chars), which no longer fits 80 columns, so
+# hwatch truncates the header while the golden text carries the full untruncated
+# path -- a mismatch that is purely a function of the checkout path length. This
+# also covers the tab-expansion/diff-render tests whose captured line embeds that
+# long command path. In addition, a few tests assert shell/printf error text that
+# differs between the Linux container's dash (/bin/sh) and macOS's bash-as-sh
+# (e.g. "sh: 1: x: not found" vs "sh: x: command not found", printf usage), and
+# the arg-parser "Illegal option" wording that follows the platform getopt.
+4764369abc4f/tests.test_diff_modes.test_diff_with_ansi_color_codes_in_output
+4764369abc4f/tests.test_diff_modes.test_diff_with_reverse_flag
+4764369abc4f/tests.test_diff_modes.test_diff_with_tab_expansion
+4764369abc4f/tests.test_diff_modes.test_line_diff_completely_different_outputs
+4764369abc4f/tests.test_diff_modes.test_line_diff_with_custom_tab_size
+4764369abc4f/tests.test_edge_cases.test_aftercommand_accepted
+4764369abc4f/tests.test_edge_cases.test_command_not_found
+4764369abc4f/tests.test_edge_cases.test_shell_command_custom
+4764369abc4f/tests.test_integration.test_batch_custom_shell
+4764369abc4f/tests.test_output_gaps.test_diff_only_lines_flag
+4764369abc4f/tests.test_output_gaps.test_empty_lines_preservation
+4764369abc4f/tests.test_output_gaps.test_line_diff_mode_with_color_tui
+4764369abc4f/tests.test_output_gaps.test_output_mode_stderr_only
+4764369abc4f/tests.test_output_gaps.test_output_mode_stdout_only
+4764369abc4f/tests.test_output_gaps.test_reverse_mode_output_order
+4764369abc4f/tests.test_output_gaps.test_tab_expansion_position_calculation
+4764369abc4f/tests.test_output_gaps.test_tab_expansion_size_0_strips_tabs
+4764369abc4f/tests.test_output_gaps.test_tab_expansion_size_4
+4764369abc4f/tests.test_output_gaps.test_tab_expansion_size_8
+4764369abc4f/tests.test_output_gaps.test_tabs_at_line_start_and_multiple
+4764369abc4f/tests.test_output_gaps.test_tabs_with_ansi_sequences
+4764369abc4f/tests.test_output_gaps.test_tabs_with_line_numbers
+4764369abc4f/tests.test_output_gaps.test_watch_diff_tui_ansi_escape_literal
+4764369abc4f/tests.test_output_gaps.test_watch_mode_zero_width_space_for_empty_lines
+ce9a9928c42a/eval.tests.test_argparse_validation.test_tokens_after_options_are_treated_as_command_and_may_loop[args0-Illegal option --]
+ce9a9928c42a/eval.tests.test_argparse_validation.test_tokens_after_options_are_treated_as_command_and_may_loop[args1-Illegal option --]
+ce9a9928c42a/eval.tests.test_argparse_validation.test_tokens_after_options_are_treated_as_command_and_may_loop[args2-Illegal option --]
+dd8712fc730b/eval.tests.test_complex_scenarios.test_tab_separated_values
+dd8712fc730b/eval.tests.test_edge_cases.test_bell_character
+dd8712fc730b/eval.tests.test_edge_cases.test_carriage_return
+dd8712fc730b/eval.tests.test_edge_cases.test_escape_sequences
+dd8712fc730b/eval.tests.test_edge_cases.test_newline_variations
+dd8712fc730b/eval.tests.test_visual_modes.test_tab_size_custom
+dd8712fc730b/eval.tests.test_visual_modes.test_tab_size_default

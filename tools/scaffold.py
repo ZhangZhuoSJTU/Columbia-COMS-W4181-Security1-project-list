@@ -30,6 +30,8 @@ executable
 .programbench/home/
 .programbench/tests/
 .programbench/run/
+.programbench/shims/
+.programbench/tmux/
 """
 
 

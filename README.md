@@ -89,31 +89,31 @@ may not exist yet). Each project must be validated by all three TAs before it ca
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 91 / 198**
+**Ported so far: 109 / 198**
 
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
-| [abishekvashok/cmatrix](https://github.com/ZhangZhuoSJTU/cmatrix) | `5c082c6` | 769 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [agourlay/zip-password-finder](https://github.com/ZhangZhuoSJTU/zip-password-finder) | `704700d` | 792 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [ajeetdsouza/zoxide](https://github.com/ZhangZhuoSJTU/zoxide) | `67ca1bc` | 577 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [abishekvashok/cmatrix](https://github.com/ZhangZhuoSJTU/cmatrix) | `5c082c6` | 769 | 491 | — | ⬜ | ⬜ | ⬜ |
+| [agourlay/zip-password-finder](https://github.com/ZhangZhuoSJTU/zip-password-finder) | `704700d` | 792 | 680 | — | ⬜ | ⬜ | ⬜ |
+| [ajeetdsouza/zoxide](https://github.com/ZhangZhuoSJTU/zoxide) | `67ca1bc` | 577 | 530 | — | ⬜ | ⬜ | ⬜ |
 | [alecthomas/chroma](https://github.com/ZhangZhuoSJTU/chroma) | `8d04def` | 531 | 503 | — | ⬜ | ⬜ | ⬜ |
 | [alexpovel/srgn](https://github.com/ZhangZhuoSJTU/srgn) | `89f943b` | 2080 | 1852 | — | ⬜ | ⬜ | ⬜ |
-| [altdesktop/i3-style](https://github.com/ZhangZhuoSJTU/i3-style) | `f93821b` | 750 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [altdesktop/i3-style](https://github.com/ZhangZhuoSJTU/i3-style) | `f93821b` | 750 | 539 | — | ⬜ | ⬜ | ⬜ |
 | [AmmarAbouZor/tui-journal](https://github.com/ZhangZhuoSJTU/tui-journal) | `2b4540d` | 1839 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [anordal/shellharden](https://github.com/ZhangZhuoSJTU/shellharden) | `6a6ffd4` | 1292 | 1095 | — | ⬜ | ⬜ | ⬜ |
-| [antonmedv/fx](https://github.com/ZhangZhuoSJTU/fx) | `86d0d34` | 3157 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [antonmedv/walk](https://github.com/ZhangZhuoSJTU/walk) | `bf802ef` | 786 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [ariga/atlas](https://github.com/ZhangZhuoSJTU/atlas) | `6d81150` | 1732 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [arq5x/bedtools2](https://github.com/ZhangZhuoSJTU/bedtools2) | `dd57059` | 1093 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [antonmedv/fx](https://github.com/ZhangZhuoSJTU/fx) | `86d0d34` | 3157 | 2044 | — | ⬜ | ⬜ | ⬜ |
+| [antonmedv/walk](https://github.com/ZhangZhuoSJTU/walk) | `bf802ef` | 786 | 404 | — | ⬜ | ⬜ | ⬜ |
+| [ariga/atlas](https://github.com/ZhangZhuoSJTU/atlas) | `6d81150` | 1732 | 1312 | — | ⬜ | ⬜ | ⬜ |
+| [arq5x/bedtools2](https://github.com/ZhangZhuoSJTU/bedtools2) | `dd57059` | 1093 | 1051 | — | ⬜ | ⬜ | ⬜ |
 | [ArthurSonzogni/json-tui](https://github.com/ZhangZhuoSJTU/json-tui) | `17a22b6` | 894 | 715 | — | ⬜ | ⬜ | ⬜ |
-| [ast-grep/ast-grep](https://github.com/ZhangZhuoSJTU/ast-grep) | `dde0fe0` | 895 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [ast-grep/ast-grep](https://github.com/ZhangZhuoSJTU/ast-grep) | `dde0fe0` | 895 | 830 | — | ⬜ | ⬜ | ⬜ |
 | [astaxie/bat](https://github.com/ZhangZhuoSJTU/bat-astaxie) | `17d1080` | 1462 | 1062 | — | ⬜ | ⬜ | ⬜ |
 | [astro/deadnix](https://github.com/ZhangZhuoSJTU/deadnix) | `d590041` | 709 | 602 | — | ⬜ | ⬜ | ⬜ |
-| [axodotdev/oranda](https://github.com/ZhangZhuoSJTU/oranda) | `27d60c7` | 978 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [bellard/quickjs](https://github.com/ZhangZhuoSJTU/quickjs) | `d7ae12a` | 3044 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [bensadeh/tailspin](https://github.com/ZhangZhuoSJTU/tailspin) | `6278437` | 785 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [blacknon/hwatch](https://github.com/ZhangZhuoSJTU/hwatch) | `edfcb62` | 1321 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [BLAKE3-team/BLAKE3](https://github.com/ZhangZhuoSJTU/BLAKE3) | `15e83a5` | 687 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [axodotdev/oranda](https://github.com/ZhangZhuoSJTU/oranda) | `27d60c7` | 978 | 766 | — | ⬜ | ⬜ | ⬜ |
+| [bellard/quickjs](https://github.com/ZhangZhuoSJTU/quickjs) | `d7ae12a` | 3044 | 3010 | — | ⬜ | ⬜ | ⬜ |
+| [bensadeh/tailspin](https://github.com/ZhangZhuoSJTU/tailspin) | `6278437` | 785 | 611 | — | ⬜ | ⬜ | ⬜ |
+| [blacknon/hwatch](https://github.com/ZhangZhuoSJTU/hwatch) | `edfcb62` | 1321 | 982 | — | ⬜ | ⬜ | ⬜ |
+| [BLAKE3-team/BLAKE3](https://github.com/ZhangZhuoSJTU/BLAKE3) | `15e83a5` | 687 | 645 | — | ⬜ | ⬜ | ⬜ |
 | [bootandy/dust](https://github.com/ZhangZhuoSJTU/dust) | `62bf1e1` | 965 | 545 | — | ⬜ | ⬜ | ⬜ |
 | [boyter/scc](https://github.com/ZhangZhuoSJTU/scc) | `515f91c` | 476 | 457 | — | ⬜ | ⬜ | ⬜ |
 | [brocode/fblog](https://github.com/ZhangZhuoSJTU/fblog) | `3b54330` | 1127 | 976 | — | ⬜ | ⬜ | ⬜ |
@@ -121,14 +121,14 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [BurntSushi/xsv](https://github.com/ZhangZhuoSJTU/xsv) | `f430466` | 1323 | 1181 | — | ⬜ | ⬜ | ⬜ |
 | [Byron/dua-cli](https://github.com/ZhangZhuoSJTU/dua-cli) | `8570c15` | 1003 | 668 | — | ⬜ | ⬜ | ⬜ |
 | [Canop/broot](https://github.com/ZhangZhuoSJTU/broot) | `d6c798e` | 850 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [Canop/rhit](https://github.com/ZhangZhuoSJTU/rhit) | `ae90bcb` | 1088 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [Canop/rhit](https://github.com/ZhangZhuoSJTU/rhit) | `ae90bcb` | 1088 | 813 | — | ⬜ | ⬜ | ⬜ |
 | [cheat/cheat](https://github.com/ZhangZhuoSJTU/cheat) | `b8098dc` | 307 | 290 | — | ⬜ | ⬜ | ⬜ |
-| [chirlu/sox](https://github.com/ZhangZhuoSJTU/sox) | `42b3557` | 1260 | N/A | — | ⬜ | ⬜ | ⬜ |
-| [chmln/handlr](https://github.com/ZhangZhuoSJTU/handlr) | `90e78ba` | 908 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [chirlu/sox](https://github.com/ZhangZhuoSJTU/sox) | `42b3557` | 1260 | 1194 | — | ⬜ | ⬜ | ⬜ |
+| [chmln/handlr](https://github.com/ZhangZhuoSJTU/handlr) | `90e78ba` | 908 | 667 | — | ⬜ | ⬜ | ⬜ |
 | [chmln/sd](https://github.com/ZhangZhuoSJTU/sd) | `87d1ba5` | 869 | 808 | — | ⬜ | ⬜ | ⬜ |
 | [clog-tool/clog-cli](https://github.com/ZhangZhuoSJTU/clog-cli) | `7066cba` | 778 | 575 | — | ⬜ | ⬜ | ⬜ |
 | [cmatsuoka/figlet](https://github.com/ZhangZhuoSJTU/figlet) | `202a0a8` | 1044 | 836 | — | ⬜ | ⬜ | ⬜ |
-| [codesnap-rs/codesnap](https://github.com/ZhangZhuoSJTU/codesnap) | `f81e4f3` | 871 | N/A | — | ⬜ | ⬜ | ⬜ |
+| [codesnap-rs/codesnap](https://github.com/ZhangZhuoSJTU/codesnap) | `f81e4f3` | 871 | 571 | — | ⬜ | ⬜ | ⬜ |
 | [cordx56/rustowl](https://github.com/ZhangZhuoSJTU/rustowl) | `655bc5c` | 763 | N/A | — | ⬜ | ⬜ | ⬜ |
 | [crowdagger/crowbook](https://github.com/ZhangZhuoSJTU/crowbook) | `ea214d7` | 887 | 807 | — | ⬜ | ⬜ | ⬜ |
 | [cslarsen/jp2a](https://github.com/ZhangZhuoSJTU/jp2a) | `61d205f` | 714 | 628 | — | ⬜ | ⬜ | ⬜ |

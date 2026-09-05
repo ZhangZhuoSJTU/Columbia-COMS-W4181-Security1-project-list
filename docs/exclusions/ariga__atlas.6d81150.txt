@@ -1,0 +1,17 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# These external-command datasource tests shell out to `cat /etc/hostname`,
+# which does not exist on macOS:
+cbaf9db6ea2e/tests.test_datasources.TestExternalDatasource.test_external_command_with_args
+cbaf9db6ea2e/tests.test_datasources.TestExternalDatasource.test_external_command_stderr_on_failure
+# macOS returns a different "file not found" errno string than Linux:
+cbaf9db6ea2e/tests.test_datasources.TestRuntimeVarDatasource.test_runtimevar_file_not_found
+# formatting a read-only file: macOS denies the write that Linux (as the
+# container's root) allowed, so `schema fmt` exits non-zero here:
+cbaf9db6ea2e/tests.test_schema_fmt.test_read_only_file_formatting
+# atlas prints the per-statement timing as "-- ok (350µs)" on fast arm64 macOS
+# (sub-millisecond), but the test's regex only matches the millisecond form
+# "-- ok (X.Xms)" the slower Linux container produced:
+cbaf9db6ea2e/tests.test_ent_orm_coverage.TestEntRevisionOperations.test_ent_revision_create
+cbaf9db6ea2e/tests.test_ent_orm_coverage.TestEntClientInitialization.test_ent_with_schema_parameter

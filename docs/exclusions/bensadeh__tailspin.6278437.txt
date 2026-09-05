@@ -1,0 +1,15 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# On macOS /tmp is a symlink to /private/tmp. tailspin canonicalizes a "/tmp/..."
+# argument to "/private/tmp/..." but then mishandles the result (it feeds
+# linemux a path that has lost its leading slash, e.g. joined onto the cwd), so
+# any --print of a file passed under /tmp errors "Could not add file to linemux:
+# No such file or directory". Files passed under /private/tmp work. The gold
+# binary hits this too, so these are gold-failing on macOS:
+ae3c6e3d6566/eval.tests.test_tailspin.TestBasicInputOutput.test_read_from_file
+e40109405290/eval.tests.test_io_behavior.test_file_input_with_print_option_outputs_to_stdout
+# tailspin's miette error reporter hard-wraps the "No such file or directory"
+# message to the (narrower, no-tty) terminal width on macOS, splitting the
+# phrase across lines so the substring assertion fails:
+4b122006061d/tests.test_advanced_modes.test_file_not_exist_error

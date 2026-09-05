@@ -1,0 +1,69 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# handlr is a Linux XDG desktop-integration tool. On macOS three whole families
+# of its tests cannot pass, for the gold binary or any re-implementation:
+#  * handlr.toml config: handlr locates its TOML config via the `directories`
+#    crate, which on macOS is hard-wired to ~/Library/Preferences/rs.handlr and
+#    ignores XDG_CONFIG_HOME (only its mimeapps.list, via the `xdg` crate, honors
+#    it). Tests that assert the config lands in $XDG_CONFIG_HOME/handlr therefore
+#    fail -- including the one that explicitly checks XDG is respected.
+#  * .desktop autocomplete: these expect real freedesktop .desktop application
+#    entries (python3.10.desktop, ...) that only exist on a Linux desktop.
+#  * open/handler invocation: `handlr open` launches the associated .desktop
+#    Exec handler, which does not exist on macOS.
+08a92821049f/tests.test_autocomplete.test_autocomplete_both_flags_desktop_takes_precedence
+08a92821049f/tests.test_autocomplete.test_autocomplete_desktop_files_no_duplicate_filenames
+08a92821049f/tests.test_autocomplete.test_autocomplete_desktop_flag_alone_works
+08a92821049f/tests.test_autocomplete.test_autocomplete_flag_order_d_then_m
+08a92821049f/tests.test_config_advanced.test_config_created_with_defaults_on_first_run
+08a92821049f/tests.test_config_advanced.test_config_enable_selector_false_by_default
+08a92821049f/tests.test_config_advanced.test_config_enables_selector_flag_variations
+08a92821049f/tests.test_config_advanced.test_config_preserves_custom_selector_command
+08a92821049f/tests.test_config_advanced.test_config_preserves_enable_selector_true
+08a92821049f/tests.test_config_advanced.test_config_selector_default_rofi_command
+08a92821049f/tests.test_config_advanced.test_config_serialization_roundtrip
+08a92821049f/tests.test_config_advanced.test_config_with_invalid_toml_causes_panic
+08a92821049f/tests.test_config_advanced.test_selector_command_with_arguments_parsed_correctly
+08a92821049f/tests.test_config_advanced.test_selector_disabled_uses_first_handler
+08a92821049f/tests.test_config_advanced.test_selector_invoked_with_multiple_handlers
+08a92821049f/tests.test_config_advanced.test_selector_join_with_newlines
+08a92821049f/tests.test_config_advanced.test_selector_output_trimmed_of_trailing_whitespace
+08a92821049f/tests.test_config_advanced.test_selector_process_spawn_failure_falls_back_to_first_handler
+08a92821049f/tests.test_config_advanced.test_selector_returns_chosen_handler
+08a92821049f/tests.test_config_advanced.test_selector_with_multiple_word_names_matched_correctly
+08a92821049f/tests.test_config_advanced.test_selector_with_single_handler_not_invoked
+08a92821049f/tests.test_config.test_config_handlr_toml_created_on_first_run
+08a92821049f/tests.test_list.test_list_after_unset_removes_entry
+08a92821049f/tests.test_list.test_list_all_flag_shows_default_and_system_sections
+08a92821049f/tests.test_list.test_list_all_with_added_associations_section
+08a92821049f/tests.test_list.test_list_duplicate_mime_in_config_deduplicated
+08a92821049f/tests.test_list.test_list_empty_after_all_unset
+08a92821049f/tests.test_list.test_list_empty_handler_in_config_skipped
+08a92821049f/tests.test_list.test_list_malformed_mime_in_config_skipped
+08a92821049f/tests.test_list.test_list_many_associations_maintains_format
+08a92821049f/tests.test_list.test_list_mime_type_ordering_strict_alphabetical
+08a92821049f/tests.test_list.test_list_mixed_default_and_wildcard
+08a92821049f/tests.test_list.test_list_multiple_associations_sorted_alphabetically
+08a92821049f/tests.test_list.test_list_redirected_to_file_same_format
+08a92821049f/tests.test_list.test_list_scheme_handler_mime_type
+08a92821049f/tests.test_list.test_list_short_flag_a_equivalent_to_all
+08a92821049f/tests.test_list.test_list_short_mime_type_proper_table
+08a92821049f/tests.test_list.test_list_single_association_shows_table
+08a92821049f/tests.test_list.test_list_table_structure_parsing
+08a92821049f/tests.test_list.test_list_very_long_mime_type_truncation
+08a92821049f/tests.test_list.test_list_wide_mime_types_table_alignment
+08a92821049f/tests.test_list.test_list_wildcard_mime_types
+08a92821049f/tests.test_open.test_open_file_url_scheme
+08a92821049f/tests.test_open.test_open_file_with_extension_mime_detection
+08a92821049f/tests.test_open.test_open_mixed_urls_and_files
+08a92821049f/tests.test_open.test_open_multiple_files_different_handlers
+08a92821049f/tests.test_open.test_open_multiple_files_same_handler_batching
+08a92821049f/tests.test_open.test_open_multiple_files_without_batch_support
+08a92821049f/tests.test_open.test_open_single_text_file
+08a92821049f/tests.test_user_edge_cases.test_list_handlers_autocomplete
+3023c86fbab3/eval.tests.test_set.test_set_creates_config
+7a2c25964028/eval.tests.test_config_env.test_creates_default_config_at_xdg_location_when_missing
+7a2c25964028/eval.tests.test_config_env.test_malformed_config_panics_and_exits_nonzero
+7a2c25964028/eval.tests.test_config_env.test_xdg_config_home_is_respected_for_config_location
+ef68f5cfbae5/eval.tests.test_additional_coverage_fixed.test_launch_with_empty_args_fixed

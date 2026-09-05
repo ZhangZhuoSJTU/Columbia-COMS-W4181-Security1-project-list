@@ -1,0 +1,27 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# cmatrix calls ncurses initscr()/newterm(). These tests all assert cmatrix's
+# behavior in a *broken-terminal* environment (no usable TERM): they expect it
+# to exit and print Linux ncurses' exact "Error opening terminal: unknown."
+# string, or to not enter the render loop. On macOS the inherited/valid TERM has
+# real terminfo, so cmatrix renders instead of failing, and where it does fail
+# macOS ncurses prints a different message ("cannot initialize terminal type").
+# The reference containers were generated with a broken TERM; that env cannot be
+# reproduced on macOS without breaking the sibling branch that asserts the render
+# loop *does* run (f53d318371c8). So these are excluded as environment-divergent.
+28d2b640a014/eval.tests.test_cmatrix_cli.test_invalid_color_is_case_sensitive_like_original
+28d2b640a014/eval.tests.test_cmatrix_cli.test_non_tty_default_errors_opening_terminal
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[remove]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[show]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[add]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[nonexistent]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[list]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[init]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[help]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestInvalidArguments.test_common_subcommand_names_not_recognized[version]
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestDefaultBehavior.test_no_arguments_behavior
+4325cb75f082/eval.tests.test_subcommand_dispatch.TestDefaultBehavior.test_no_default_subcommand
+47e777b60c5e/tests.test_cmatrix.TestColorArgument.test_color_case_sensitivity
+79b69dd3fd98/tests.test_error_handling.test_tty_regular_file
+f40262460d4c/eval.tests.test_tui_requires_tty.test_running_without_tty_fails_fast_with_error_message
