@@ -1,0 +1,76 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# duc's `gui` subcommand needs X11; macOS has no native X11 (only XQuartz), so
+# it is built with --disable-x11 and the gui help/option tests cannot pass.
+63ece4f28ebd/tests.test_additional_coverage.test_help_all_detailed
+63ece4f28ebd/tests.test_additional_coverage_phase2.TestBytesFlag.test_gui_bytes
+63ece4f28ebd/tests.test_additional_coverage_phase2.TestCountOption.test_gui_count
+63ece4f28ebd/tests.test_additional_coverage_phase2.TestGUIOptions.test_gui_with_dark
+63ece4f28ebd/tests.test_additional_coverage_phase2.TestGradientOption.test_gui_gradient
+63ece4f28ebd/tests.test_additional_coverage_phase2.TestLevelsOption.test_gui_levels
+63ece4f28ebd/tests.test_additional_coverage_phase2.TestPaletteOption.test_gui_palette
+63ece4f28ebd/tests.test_comprehensive_new.TestGuiCommandOptions.test_gui_dark_option
+63ece4f28ebd/tests.test_comprehensive_new.TestHelpForAllSubcommands.test_help_gui
+63ece4f28ebd/tests.test_config.test_subcommand_specific_help
+63ece4f28ebd/tests.test_coverage_boost.TestGuiCommandOptions.test_gui_dark_option
+63ece4f28ebd/tests.test_coverage_boost.TestGuiCommandOptions.test_gui_gradient_option
+63ece4f28ebd/tests.test_coverage_boost.TestManualCommand.test_manual_command_documents_all_subcommands
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_apparent_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_bytes_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_count_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_fuzz_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_gradient_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_levels_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_palette_option
+63ece4f28ebd/tests.test_coverage_targeted.TestGuiOptions.test_gui_ring_gap_option
+63ece4f28ebd/tests.test_coverage_targeted.TestManualCommand.test_manual_documents_all_subcommands
+63ece4f28ebd/tests.test_error_conditions.test_help_for_all_subcommands
+63ece4f28ebd/tests.test_extensive_options.TestRingGapOption.test_gui_ring_gap
+63ece4f28ebd/tests.test_extensive_options.TestVisualizationColorOptions.test_gui_dark_option
+63ece4f28ebd/tests.test_final_50_percent.TestOutputFormatting.test_bytes_option_documented
+63ece4f28ebd/tests.test_final_50_percent.TestOutputFormatting.test_count_option_documented
+63ece4f28ebd/tests.test_final_50_percent.TestSubcommandExistence.test_all_subcommands_in_main_help
+63ece4f28ebd/tests.test_final_50_percent.TestUiGuiCommandErrorPaths.test_gui_with_all_options
+63ece4f28ebd/tests.test_final_50_percent.TestUiGuiCommandErrorPaths.test_gui_with_gradient_palette
+63ece4f28ebd/tests.test_gui.test_gui_help
+63ece4f28ebd/tests.test_gui.test_gui_help_shows_all_options
+63ece4f28ebd/tests.test_more_coverage.TestSubcommandHelp.test_help_gui_complete
+63ece4f28ebd/tests.test_option_combinations.test_gui_all_options
+63ece4f28ebd/tests.test_option_combinations.test_help_with_all_subcommands
+b591f1a07fe0/tests.test_seed.test_help_command
+ccd0f2f3dd9a/eval.tests.test_help_main.test_main_help_lists_expected_subcommand[gui]
+
+# APFS block allocation and filesystem detection differ from the container's
+# ext4: sparse-file apparent-vs-actual sizes, --fs-include/--fs-exclude and the
+# "big filesystem" guard all diverge.
+b591f1a07fe0/tests.test_index.test_index_fs_exclude_multiple_types
+b591f1a07fe0/tests.test_index.test_index_fs_exclude_option_accepts_value
+b591f1a07fe0/tests.test_index.test_index_fs_include_option_accepts_value
+b591f1a07fe0/tests.test_index.test_index_fs_include_single_type_matching
+b591f1a07fe0/tests.test_index.test_index_readonly_directory_handles_gracefully
+b591f1a07fe0/tests.test_index.test_index_sparse_files_apparent_vs_actual
+b591f1a07fe0/tests.test_info_histogram_topn.test_info_apparent_vs_actual_with_sparse_file
+b591f1a07fe0/tests.test_ui.test_ui_toggle_apparent_size
+
+# macOS enforces a 255-byte filename limit; the deep-nesting fixtures exceed it
+# (OSError: File name too long) where Linux allowed the path.
+b591f1a07fe0/tests.test_harvest.test_deep_directory_nesting
+b591f1a07fe0/tests.test_harvest.test_full_integration
+b591f1a07fe0/tests.test_harvest.test_ls_output_checksum
+
+# The test expects duc to abort (SIGABRT) on an out-of-range value; macOS clamps
+# and exits 0 instead.
+b591f1a07fe0/tests.test_index.test_index_topn_exceeds_max_limit
+
+# The ncurses `ui` snapshot tests render differently under this terminal.
+b591f1a07fe0/tests.test_ui.test_ui_backspace_navigation
+b591f1a07fe0/tests.test_ui.test_ui_basic_launch_and_display
+b591f1a07fe0/tests.test_ui.test_ui_option_database
+
+# duc emits color only to a real TTY; captured (piped) output has none, so the
+# color-output assertions cannot hold here.
+b591f1a07fe0/tests.test_ls.test_color_output_on_tty
+b591f1a07fe0/tests.test_ls.test_color_threshold_yellow_and_red
+b591f1a07fe0/tests.test_ls.test_color_with_graph_recursive_ascii
+

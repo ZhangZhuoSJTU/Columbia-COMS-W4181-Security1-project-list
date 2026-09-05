@@ -1,0 +1,34 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+#
+# git-trim is a thin wrapper over git/libgit2, so its behavior tracks the host
+# git version, filesystem case-sensitivity, TTY, and network. The exclusions
+# below all fail on the unmodified gold binary on macOS for those reasons.
+
+# Host git error-message wording differs from the Linux container's git:
+# macOS git says "cannot delete branch 'feature' used by worktree at" while the
+# golden expects "Cannot delete branch 'feature' checked out at", and macOS git
+# creates an extra origin/HEAD symref the container's git did not.
+df37316a82f6/tests.test_subprocess.test_branch_delete_with_worktree_protection
+df37316a82f6/tests.test_harvest.test_non_trackings_merged_non_upstream
+
+# Fetch/credential behavior: the golden captures "Fetching origin" followed by a
+# fetch error, but macOS libgit2 prints "fatal: could not read Username ..."
+# without the progress line (the container reached its real origin; here the
+# remote is unreachable and network is unavailable).
+df37316a82f6/tests.test_main_errors.test_explicit_update_flag_forces_fetch
+df37316a82f6/tests.test_main_errors.test_old_fetch_head_with_prune_enabled
+df37316a82f6/tests.test_main_errors.test_should_update_missing_fetch_head
+df37316a82f6/tests.test_main_errors.test_should_update_with_fetch_prune_disabled
+df37316a82f6/tests.test_main_errors.test_should_update_with_zero_interval
+df37316a82f6/tests.test_subprocess.test_remote_update_unreachable
+df37316a82f6/tests.test_subprocess.test_remote_update_with_prune
+df37316a82f6/tests.test_errors.test_invalid_ref_name_in_bases
+
+# APFS is case-insensitive: branches that differ only in case collide, so these
+# case-sensitivity assertions cannot hold on macOS.
+df37316a82f6/tests.test_defensive_paths.test_refspec_case_sensitivity
+df37316a82f6/tests.test_utils.test_glob_case_sensitive_matching
+
+# Interactive confirmation prompt is skipped when stdin is not a TTY.
+df37316a82f6/tests.test_main_gaps.test_confirmation_cancelled

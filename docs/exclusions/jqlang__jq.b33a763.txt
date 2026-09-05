@@ -1,0 +1,70 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# These two branches ship test modules that all `from conftest import run`,
+# but the benchmark tarball omits conftest.py, so every test errors at
+# collection (a test-packaging defect, not a submission fault).
+5142c79c4513/.eval.tests.test_args_and_files
+5142c79c4513/.eval.tests.test_cli_basics
+5142c79c4513/.eval.tests.test_filters_and_io
+5142c79c4513/.eval.tests.test_streaming
+9130f7b96d1f/.eval.tests.test_additional_coverage
+9130f7b96d1f/.eval.tests.test_advanced_features
+9130f7b96d1f/.eval.tests.test_arithmetic_logic
+9130f7b96d1f/.eval.tests.test_basic_operations
+9130f7b96d1f/.eval.tests.test_builtin_functions
+9130f7b96d1f/.eval.tests.test_corrections
+9130f7b96d1f/.eval.tests.test_datetime_functions
+9130f7b96d1f/.eval.tests.test_error_handling
+9130f7b96d1f/.eval.tests.test_final_fixes
+9130f7b96d1f/.eval.tests.test_fixes
+9130f7b96d1f/.eval.tests.test_input_options
+9130f7b96d1f/.eval.tests.test_math_functions
+9130f7b96d1f/.eval.tests.test_missing_features
+9130f7b96d1f/.eval.tests.test_output_formatting
+9130f7b96d1f/.eval.tests.test_string_functions
+9130f7b96d1f/.eval.tests.test_type_constructors
+
+# jq date builtins delegate to the C library; macOS BSD strptime/strftime
+# differ from glibc (timezone names, %z colon offsets, weekday-name case,
+# out-of-range handling), so these fail on the gold binary on macOS.
+ff26b33afe1a/tests.test_util_gaps.test_strptime_12_hour_noon_without_ampm_becomes_zero
+ff26b33afe1a/tests.test_util_gaps.test_strptime_abbreviated_weekday
+ff26b33afe1a/tests.test_util_gaps.test_strptime_abbreviated_weekday_three_letter
+ff26b33afe1a/tests.test_util_gaps.test_strptime_case_insensitive_weekday_matching
+ff26b33afe1a/tests.test_util_gaps.test_strptime_day_and_month_names_case_sensitivity
+ff26b33afe1a/tests.test_util_gaps.test_strptime_day_of_year_j
+ff26b33afe1a/tests.test_util_gaps.test_strptime_day_of_year_january_1
+ff26b33afe1a/tests.test_util_gaps.test_strptime_empty_format_string_returns_defaults
+ff26b33afe1a/tests.test_util_gaps.test_strptime_empty_string_input
+ff26b33afe1a/tests.test_util_gaps.test_strptime_epoch_timestamp_s_negative_value_rejected
+ff26b33afe1a/tests.test_util_gaps.test_strptime_format_string_only_literals_no_conversion
+ff26b33afe1a/tests.test_util_gaps.test_strptime_format_string_only_whitespace
+ff26b33afe1a/tests.test_util_gaps.test_strptime_hour_12_with_pm_l
+ff26b33afe1a/tests.test_util_gaps.test_strptime_hour_and_ampm_contradiction_hour_wins
+ff26b33afe1a/tests.test_util_gaps.test_strptime_hour_space_padded_k
+ff26b33afe1a/tests.test_util_gaps.test_strptime_invalid_12hour_format_zero
+ff26b33afe1a/tests.test_util_gaps.test_strptime_invalid_day_lower_bound
+ff26b33afe1a/tests.test_util_gaps.test_strptime_iso_week_date_complete_format
+ff26b33afe1a/tests.test_util_gaps.test_strptime_iso_week_v
+ff26b33afe1a/tests.test_util_gaps.test_strptime_iso_week_year_full_g
+ff26b33afe1a/tests.test_util_gaps.test_strptime_iso_week_year_g
+ff26b33afe1a/tests.test_util_gaps.test_strptime_iso_week_year_g_four_digit
+ff26b33afe1a/tests.test_util_gaps.test_strptime_iso_week_year_g_two_digit
+ff26b33afe1a/tests.test_util_gaps.test_strptime_locale_date_x
+ff26b33afe1a/tests.test_util_gaps.test_strptime_p_ampm_standalone_sets_weekday
+ff26b33afe1a/tests.test_util_gaps.test_strptime_sunday_weekday_zero
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_name_z_unrecognized_accepts_silently
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_negative_offset
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_offset_with_colon
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_offset_z
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_offset_z_invalid_large_value
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_offset_z_positive_with_colon
+ff26b33afe1a/tests.test_util_gaps.test_strptime_timezone_z_letter
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_full_name_format_a
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_monday_based_u
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_name_abbreviated_case_variations
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_name_full_case_variations
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_number_w
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_u_monday_based_monday_is_one
+ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_u_monday_based_sunday_is_seven

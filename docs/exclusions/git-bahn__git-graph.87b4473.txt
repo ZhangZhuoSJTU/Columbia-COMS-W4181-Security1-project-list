@@ -1,0 +1,20 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# These run git-graph on the workspace repo itself and expect many commits.
+# The container's workspace was the submission's real repo with full history;
+# this harness seeds a synthetic one-commit repo, so multi-commit assertions
+# fail. git-graph's rendering logic is covered by the passing git_repo-fixture
+# tests that build controlled histories.
+0b06f4c07ef7/tests.test_edge_cases.test_local_flag_excludes_remote_branches
+0b06f4c07ef7/tests.test_options.test_ansi_color_structure_validation
+0b06f4c07ef7/tests.test_options.test_max_count_with_sparse_flag
+800f83026235/eval.tests.test_additional_coverage.test_svg_output_multiple_commits
+800f83026235/eval.tests.test_commit_filtering.test_max_count_100
+800f83026235/eval.tests.test_output_validation.test_graph_structure_multiple_commits
+
+# Platform: 256-color vs truecolor palette selection, config-model creation
+# under ~/.config vs macOS config dir, and case-sensitive model-name lookup on
+# APFS.
+800f83026235/eval.tests.test_branching_models.test_model_case_sensitive
+c111fc3b90c5/eval.tests.test_config_handling.test_models_created_under_home_and_xdg_config_home

@@ -1,0 +1,33 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# argc reports/uses the shell path; macOS bash is /bin/bash, the containers'
+# is /usr/bin/bash.
+724a02c0cfbd/tests.test_create_run.test_argc_run_script_not_found
+bc90bea37ab6/tests.test_cli.test_shell_path_returns_valid_shell
+bc90bea37ab6/tests.test_harvest.test_cli_shell_path
+bc90bea37ab6/tests.test_runner.test_argc_shell_path_command
+bc90bea37ab6/tests.test_runtime.test_argc_run_invalid_script_path
+bc90bea37ab6/tests.test_runtime.test_argc_shell_path_output
+
+# Script/PWD path tests: argc canonicalizes paths (macOS /tmp -> /private/tmp)
+# while the goldens hardcode the /tmp form, so the resolved paths differ.
+724a02c0cfbd/tests.test_completions.test_compgen_path_absolute
+724a02c0cfbd/tests.test_main_dispatch.test_argc_run_sets_argc_pwd
+724a02c0cfbd/tests.test_main_dispatch.test_argc_script_path_with_custom_name
+724a02c0cfbd/tests.test_validation.test_prefix_option_notation
+bc90bea37ab6/tests.test_runtime.test_argc_script_path_custom_name
+
+# Argcfile lookup with case variants relies on a case-sensitive filesystem;
+# macOS APFS is case-insensitive, so a differently-cased file resolves.
+724a02c0cfbd/tests.test_main_dispatch.test_argc_create_in_existing_dir
+724a02c0cfbd/tests.test_main_dispatch.test_argc_script_path_lowercase_variants
+724a02c0cfbd/tests.test_main_dispatch.test_argc_script_path_recursive_search
+724a02c0cfbd/tests.test_main_dispatch.test_argc_script_path_uppercase_variants
+724a02c0cfbd/tests.test_main_dispatch.test_argc_script_path_with_sh_extension
+bc90bea37ab6/tests.test_cli.test_create_respects_alternative_names
+bc90bea37ab6/tests.test_cli.test_script_path_with_case_variants
+bc90bea37ab6/tests.test_runtime.test_argc_create_already_exists_error
+
+# Minor option-notation/message wording differences.
+724a02c0cfbd/tests.test_env.test_required_option_missing_without_env

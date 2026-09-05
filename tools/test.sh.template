@@ -71,17 +71,26 @@ while read -r branch; do
     # docs, ...) that the tarball does not ship.
     git ls-files -z | tar --null -cf - -T - | tar -xpf - -C "$dir"
     tar xzf "$tar" -C "$dir"
-    # ProgramBench's eval also seeds a synthetic git repo in the workspace;
-    # tools that locate the repo root via .git (rumdl, ripsecrets, ...) must
-    # find the run dir, not this repo's own .git further up.
+    # ProgramBench's eval seeds a synthetic git repo in the workspace with one
+    # commit of the whole tree (deterministic fixed identity/date). Tools that
+    # locate the repo root via .git (rumdl, ripsecrets, ...) find this run dir,
+    # and tools that read commit history (git-graph, ...) see a non-empty repo
+    # instead of erroring on a commit-less one.
     git -C "$dir" init -q
+    ( cd "$dir" && git add -A 2>/dev/null && \
+        GIT_AUTHOR_DATE='2000-01-01T00:00:00Z' GIT_COMMITTER_DATE='2000-01-01T00:00:00Z' \
+        git -c user.email=gold@local -c user.name=gold -c commit.gpgsign=false \
+        commit -q --allow-empty -m gold ) >/dev/null 2>&1 || true
     cp executable "$dir/executable" && chmod +x "$dir/executable"
     # The suites were authored in containers whose workspace root is
     # /workspace, and some tests/goldens embed that absolute path. Rewrite it
     # to this run dir in every text file so path-sensitive assertions hold.
+    # LC_ALL=C keeps BSD sed from aborting the whole xargs batch on a file
+    # with non-UTF-8 bytes ("illegal byte sequence"), which would leave later
+    # files (e.g. HTML goldens) un-rewritten.
     # Also use signal-based timeouts (as programbench eval does) so a
     # timing-out test fails cleanly instead of killing the pytest worker.
-    grep -rlI --null -- /workspace "$dir" | xargs -0 sed -i.pbbak "s|/workspace|$PWD/$dir|g" || true
+    grep -rlI --null -- /workspace "$dir" | LC_ALL=C xargs -0 sed -i.pbbak "s|/workspace|$PWD/$dir|g" || true
     find "$dir" -name '*.pbbak' -delete
     # Some run.sh scripts install the binary into /usr/local/bin so PATH-based
     # invocations (git hooks, ...) can find it; redirect that into a run-local

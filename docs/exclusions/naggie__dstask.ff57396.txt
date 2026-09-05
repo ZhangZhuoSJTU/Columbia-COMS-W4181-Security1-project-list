@@ -1,0 +1,11 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# macOS git auto-derives a committer identity from username@hostname (with a
+# warning) instead of failing, so `add` exits 0 where the test expects the
+# container's identity-less git to exit 1.
+61029044208c/eval.tests.test_io_behavior.test_add_requires_git_identity_exit_1_and_error_on_stderr
+
+# Host-syscall error wording: on a corrupted .git/objects, macOS reports
+# "not a directory" while the golden expects Linux's "readdirent" string.
+ec2f3d2ab85c/tests.test_git_errors.test_git_commit_with_corrupted_git_objects_directory

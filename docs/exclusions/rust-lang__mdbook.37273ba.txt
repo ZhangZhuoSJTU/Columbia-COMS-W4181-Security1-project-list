@@ -1,0 +1,23 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# `mdbook clean` reports the total on-disk size of the files/directories it
+# removes. macOS APFS reports different allocated block sizes for files and
+# especially directories than the containers' ext4, so the byte totals differ
+# (the correct files are removed; only the reported size accounting differs).
+26df40b96ca8/tests.test_cli.test_clean_1023_bytes_below_kib_threshold
+26df40b96ca8/tests.test_cli.test_clean_bytes_formatting_kib
+26df40b96ca8/tests.test_cli.test_clean_bytes_formatting_under_1024
+26df40b96ca8/tests.test_cli.test_clean_combination_files_dirs_symlinks
+26df40b96ca8/tests.test_cli.test_clean_empty_subdirectories_multiple_levels
+26df40b96ca8/tests.test_cli.test_clean_exact_1024_bytes_boundary
+26df40b96ca8/tests.test_cli.test_clean_hard_linked_files
+26df40b96ca8/tests.test_cli.test_clean_large_directory_tree
+26df40b96ca8/tests.test_cli.test_clean_mixed_files_and_directories
+26df40b96ca8/tests.test_cli.test_clean_multiple_directories_nested
+26df40b96ca8/tests.test_cli.test_clean_nested_directories_with_files
+26df40b96ca8/tests.test_cli.test_clean_only_directories_no_files_with_bytes
+26df40b96ca8/tests.test_cli.test_clean_single_directory_empty
+26df40b96ca8/tests.test_cli.test_clean_single_file
+26df40b96ca8/tests.test_cli.test_clean_very_small_file_single_byte
+26df40b96ca8/tests.test_cli.test_clean_with_symlinks

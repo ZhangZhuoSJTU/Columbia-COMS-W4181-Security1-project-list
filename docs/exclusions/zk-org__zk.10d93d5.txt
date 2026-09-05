@@ -1,0 +1,68 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# zk list output embeds relative timestamps ("(just now)" vs "(N months ago)"),
+# which drift from the goldens captured right after the fixtures were built.
+# Covers all match/mention/link/date filter scenarios and the short/snippet formats.
+ad0a74fcd352/tests.test_core_coverage.test_note_format_snippet_generation_on_search
+ad0a74fcd352/tests.test_core_coverage.test_note_id_isvalid_list_operations_work
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-date_scenario_1]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-date_scenario_2]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-date_scenario_3]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-date_scenario_4]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-link_scenario_0]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-link_scenario_1]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-link_scenario_2]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-link_scenario_3]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-link_scenario_4]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-link_scenario_5]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-exact_scenario_0]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-exact_scenario_1]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-exact_scenario_2]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-exact_scenario_3]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_0]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_1]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_2]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_3]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_4]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_5]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_6]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_7]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-fts_scenario_8]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-re_scenario_0]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-re_scenario_1]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-match-re_scenario_2]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-mention_scenario_0]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-mention_scenario_1]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-mention_scenario_2]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-filter-mention_scenario_3]
+ad0a74fcd352/tests.test_list_format.test_format_short
+ad0a74fcd352/tests.test_utils.test_date_filter_natural_language_yesterday
+
+# Sort-by-created order depends on note timestamps that resolve to extraction
+# mtimes on macOS, so the tie order differs from the goldens.
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-sort_scenario_11]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-sort_scenario_12]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-sort_scenario_13]
+ad0a74fcd352/tests.test_list_format.test_sort_by_created
+ad0a74fcd352/tests.test_list_format.test_sort_by_created_descending
+
+# macOS APFS stores filenames in NFD (decomposed); the accented note filename
+# indexes differently, so link/orphan resolution differs.
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[issue-47]
+
+# zk renders markdown list bullets as a unicode triangular bullet here vs the
+# golden's ASCII "-" (unicode-support/locale rendering difference).
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-format-predefined_scenario_0]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-format-predefined_scenario_4]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-format-predefined_scenario_5]
+ad0a74fcd352/tests.test_harvest.test_tesh_scenario[cmd-list-format-predefined_scenario_6]
+
+# Invalid-path init reports the macOS errno string ("Read-only file system")
+# rather than the container's "No such file or directory".
+ad0a74fcd352/tests.test_init.test_init_invalid_path_fails
+ad0a74fcd352/tests.test_init.test_init_proc_invalid_path_fails
+
+# APFS is case-insensitive, so an extension-case-sensitivity test cannot hold.
+ad0a74fcd352/tests.test_index.test_index_extension_case_sensitive
+

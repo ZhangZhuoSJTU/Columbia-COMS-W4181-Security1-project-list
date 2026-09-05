@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# macOS keeps the C++ standard headers in the Command Line Tools SDK, not in
+# /usr/include, so cppcheck cannot find <string> in the default system include
+# paths and the test skips itself ("<string> header file not found").
+1040f6b8a219/tests.test_harvest_other.test_preprocess_system_include
+b9729b57ee68/tests.other_test.test_preprocess_system_include

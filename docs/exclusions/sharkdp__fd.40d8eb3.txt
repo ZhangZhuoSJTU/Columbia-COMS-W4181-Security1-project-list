@@ -1,0 +1,56 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# --owner tests chown fixtures to root/nobody/nogroup; macOS has no nogroup
+# group and a non-root account cannot chown to root, so the fixture setup
+# fails before fd runs.
+035fc64252a5/eval.tests.test_owner_filter.test_owner_by_group
+7af3fcb896a2/tests.test_owner_filtering.test_owner_by_gid
+7af3fcb896a2/tests.test_owner_filtering.test_owner_user_and_group
+ed161504d233/tests.test_filtering.test_owner_by_group_only
+ed161504d233/tests.test_filtering.test_owner_by_numeric_gid
+ed161504d233/tests.test_filtering.test_owner_by_numeric_uid
+ed161504d233/tests.test_filtering.test_owner_by_user_and_group
+ed161504d233/tests.test_filtering.test_owner_by_username
+ed161504d233/tests.test_filtering.test_owner_combined_with_pattern_and_size
+ed161504d233/tests.test_filtering.test_owner_exclude_user
+ed161504d233/tests.test_harvest.test_owner_current_group
+ed161504d233/tests.test_walk_edge_cases.test_owner_filter_matches
+ed161504d233/tests.test_walk_edge_cases.test_owner_filter_without_metadata
+
+# fd's case-sensitive / smart-case / case-insensitive matching relies on the
+# filesystem's case behavior. macOS APFS is case-insensitive, so files that
+# differ only in case collide and the match sets differ from the containers'
+# ext4.
+035fc64252a5/eval.tests.test_extensions.test_extension_case_insensitive
+035fc64252a5/eval.tests.test_pattern_matching.test_case_insensitive_default
+035fc64252a5/eval.tests.test_pattern_matching.test_case_sensitive_flag
+7af3fcb896a2/tests.test_case_sensitivity.test_case_sensitive_flag
+7af3fcb896a2/tests.test_case_sensitivity.test_case_sensitive_overrides_smart
+7af3fcb896a2/tests.test_case_sensitivity.test_case_sensitive_short_flag
+7af3fcb896a2/tests.test_case_sensitivity.test_ignore_case_flag
+7af3fcb896a2/tests.test_case_sensitivity.test_ignore_case_overrides_smart
+7af3fcb896a2/tests.test_case_sensitivity.test_ignore_case_short_flag
+7af3fcb896a2/tests.test_case_sensitivity.test_smart_case_default_lowercase
+c04bee337c86/eval.tests.test_case.test_case_sensitive_glob
+c04bee337c86/eval.tests.test_case.test_ignore_case_flag
+c04bee337c86/eval.tests.test_case.test_ignore_case_short_flag
+c04bee337c86/eval.tests.test_case.test_smart_case_lowercase_pattern
+c04bee337c86/eval.tests.test_case.test_smart_case_uppercase_pattern
+c04bee337c86/eval.tests.test_case.test_smart_case_with_glob
+d88e32789489/eval.tests.test_fd_behavior.test_basic_pattern_is_case_insensitive_by_default
+d88e32789489/eval.tests.test_fd_behavior.test_exec_batch_receives_all_paths
+d88e32789489/eval.tests.test_fd_behavior.test_no_args_lists_all_non_hidden_non_ignored
+d88e32789489/eval.tests.test_fd_behavior.test_regex_anchors_match_whole_filename
+d88e32789489/eval.tests.test_fd_behavior.test_smart_case_uppercase_makes_case_sensitive
+ed161504d233/tests.test_edge_cases.test_case_insensitive_flag_overrides_smart_case
+ed161504d233/tests.test_edge_cases.test_case_sensitive_smart_case_uppercase_pattern
+ed161504d233/tests.test_edge_cases.test_very_deep_directory_tree
+ed161504d233/tests.test_harvest.test_list_details
+ed161504d233/tests.test_main_edge_cases.test_gen_completions_without_shell_argument_error
+ed161504d233/tests.test_misc_edge_cases.test_broken_symlink_with_color_and_details
+ed161504d233/tests.test_misc_edge_cases.test_broken_symlinks_with_list_details
+ed161504d233/tests.test_patterns.test_glob_ignore_case_flag
+ed161504d233/tests.test_patterns.test_regex_ignore_case_flag
+ed161504d233/tests.test_type_filtering.test_empty_no_extension_files
+ed161504d233/tests.test_type_filtering.test_empty_with_hidden_flag

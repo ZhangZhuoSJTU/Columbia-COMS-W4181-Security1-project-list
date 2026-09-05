@@ -1,0 +1,35 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# macOS BSD getopt prints "illegal option" where the goldens expect GNU's
+# "invalid option", so all bad-flag / unknown-option error tests differ.
+365dd4330326/eval.tests.test_help_and_usage.test_dash_dash_help_is_invalid_option_and_exit_1
+81a205a18540/eval.tests.test_help_usage.test_double_dash_help_is_invalid_option_and_suggests_dash_h
+89cd9b86383b/eval.tests.test_subcommand_dispatch.test_double_dash_help_is_not_supported_like_gnu_tools
+89cd9b86383b/eval.tests.test_subcommand_dispatch.test_unknown_option_errors
+98c8763e38d2/tests.test_cli.test_invalid_flag_shows_error_and_usage
+aa2ac39b58a8/tests.test_basic_invocation.test_invalid_option
+b302f6e95c77/eval.tests.test_argparse_validation.test_unknown_long_option_double_dash_is_not_supported
+b302f6e95c77/eval.tests.test_argparse_validation.test_unknown_short_option_errors_and_exit_1
+bcc0b83fd418/tests.test_basic_invocation.test_invalid_long_option
+
+# The shell's echo/printf renders escapes and -n differently on macOS (BSD),
+# so binary-output and pager tests capture literal text instead of raw bytes.
+85e09b688d6c/eval.tests.test_env_and_config.test_env_pager_default_is_set_to_cat_when_unset
+bcc0b83fd418/tests.test_edge_cases.test_utility_with_binary_output
+bcc0b83fd418/tests.test_output_handling.test_output_binary_data
+
+# entr uses kqueue on macOS vs inotify on Linux; file truncation does not fire
+# the same event and modify-during-run fires an extra event.
+98c8763e38d2/tests.test_file_watching.test_file_truncation_triggers_command
+98c8763e38d2/tests.test_integration.test_utility_that_modifies_watched_files
+
+# Permission-denied file handling differs (macOS opens/errors differently).
+98c8763e38d2/tests.test_error_paths.test_file_with_permission_denied_error
+
+# Test hangs on macOS (blocking watch / system install), timing out and, in one
+# branch, crashing a pytest-xdist worker (reported as an internal error).
+98c8763e38d2/tests.test_env_status.test_status_filter_single_x_fails
+a603a1c0c055/pytest.internal
+a603a1c0c055/eval.tests.test_system_externalized.test_ext_install_default_status_script
+

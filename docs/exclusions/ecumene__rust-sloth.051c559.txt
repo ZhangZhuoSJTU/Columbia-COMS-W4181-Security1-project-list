@@ -1,0 +1,9 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# When run without a TTY, rust-sloth's terminal ioctl fails with a different
+# OS message on macOS ('Operation not supported by device', errno 19) than on
+# the Linux containers ('Inappropriate ioctl for device', ENOTTY).
+a892469c7f5b/eval.tests.test_argparse_validation.test_double_dash_with_only_input_runs_default_renderer
+f20665bb95a9/eval.tests.test_errors.test_interactive_mode_requires_tty_and_errors_without_one
+f20665bb95a9/eval.tests.test_image_subcommand.test_invalid_subcommand_yields_nonzero_and_message
