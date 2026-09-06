@@ -29,10 +29,13 @@ from picking your Round 2 program and studying it earlier.
 - **Your injected bug.** Fork our fork of the program (linked from the table below), inject the bug
   on a branch, and open a pull request against our fork with your UNI in the title. Attach
   `poc.sh` as a **password-protected zip** to the pull request description, then email the pull
-  request link to the TAs, CC the instructor. The email timestamp is your submission time.
+  request link to the TAs, CC the instructor. The time the pull request was opened is your
+  submission time; the email just tells the TAs where to look.
 - **An attack.** Reproduce the crash on the target pull request's branch, then comment on that pull
   request with your UNI and your `poc.sh` as a password-protected zip, and email the comment link
   to the TAs, CC the instructor. The comment timestamp decides first blood.
+- **GitHub time is the time.** Every timestamp that matters comes from GitHub: when the pull request
+  was opened and when the reply was posted. Never from the emails.
 
 ### Scoring
 
