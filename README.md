@@ -85,14 +85,9 @@ $$
 S_{\mathrm{round}} = \underbrace{A\left(1 - \frac{d}{3}\right)}_{\text{submission}} + \underbrace{B \cdot \mathbb{1}\left[\text{bug not discovered}\right]}_{\text{defense}} + \underbrace{\sum_{b \in \mathcal{B}} \frac{B}{n_b}}_{\text{attack}} + \underbrace{\sum_{b \in \mathcal{B}} c_b}_{\text{first blood}} + \underbrace{D \cdot \mathbb{1}\left[\text{first PR on a fresh project}\right]}_{\text{fresh bonus}}
 $$
 
-**Course grade.** Let $x$ be the sum of your two round totals and $x_{\max}$ the highest such sum
-in the class. The competition grade, out of 100 and worth 40% of the course, is
-
-$$
-10 \sqrt{ \frac{x}{\max\left(x_{\max},\; A_1 + A_2 + 1.5\,B_1 + 1.5\,B_2\right)} \times 100 }
-$$
-
-where $A_i$ and $B_i$ are the weights of round $i$. The concrete values of $A$, $B$, $C$, $D$
+**Course grade.** The sum of your two round totals is curved before it goes into the course
+grade: after the curve, the class median sits at 85% of the competition points. The curved score
+is 40% of the course. The concrete values of $A$, $B$, $C$, $D$ will be announced per round.
 will be announced per round.
 
 ## Building and testing a project
