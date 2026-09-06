@@ -1,0 +1,6 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# Pipes `echo -e ...` through the shell; macOS /bin/sh (bash) prints the literal
+# "-e" where the Linux container's dash interprets it, so stdin content differs.
+2cb9872af9d3/eval.tests.test_iteration.test_stdin_piped

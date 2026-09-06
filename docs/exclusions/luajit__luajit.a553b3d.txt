@@ -1,0 +1,49 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# LuaJIT is a JIT compiler; these tests inspect architecture-specific internals
+# that necessarily differ between the x86-64 Linux reference and arm64 macOS:
+#  * jit.status()/-O flag output lists x86 CPU features (SSE3, SSE4.1, BMI2) that
+#    do not exist on arm64;
+#  * the JIT hot-loop / trace tests (trace aborts, side exits, hot-loop
+#    compilation, type specialization, etc.) assert x86 trace behavior;
+#  * -b bytecode tooling needs the jit.* Lua modules installed (only present under
+#    the source tree here);
+#  * FFI ABI reports arch=arm64 vs the golden's x64;
+#  * PRNG seeding is arch-dependent, and APFS is case-insensitive.
+179f5c5f1982/eval.tests.test_bytecode.test_list_to_file
+179f5c5f1982/eval.tests.test_bytecode.test_list_bytecode
+179f5c5f1982/eval.tests.test_bytecode_extended.test_bytecode_listing_detailed
+179f5c5f1982/eval.tests.test_bytecode.test_list_bytecode_from_string
+179f5c5f1982/eval.tests.test_final_coverage_push.test_jit_trace_abort_reasons
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_extremely_hot_loop
+179f5c5f1982/eval.tests.test_final_coverage_push.test_jit_side_exits
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_ffi_in_hot_loop
+179f5c5f1982/eval.tests.test_jit_triggers.test_hot_loop_compilation
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_many_function_calls
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_table_access_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_array_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_mixed_arithmetic_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_string_in_loop
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_comparison_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_upvalue_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_bitop_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_math_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_nested_hot_loops
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_type_specialized_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_constant_folding_hot
+179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_loop_unrolling_candidate
+877073963e37/tests.test_ffi.test_abi_queries_platform_info
+877073963e37/tests.test_jit.test_optimization_flag_individual_opts
+877073963e37/tests.test_jit.test_command_line_joff_flag
+877073963e37/tests.test_math_lib.test_randomseed_deterministic
+877073963e37/tests.test_jit.test_command_line_jon_flag
+877073963e37/tests.test_jit.test_jit_status_on_by_default
+877073963e37/tests.test_package_lib.test_module_names_case_sensitive
+877073963e37/tests.test_jit.test_optimization_flag_O0
+877073963e37/tests.test_jit.test_jit_off_disables_jit
+877073963e37/tests.test_jit.test_optimization_flag_O1
+877073963e37/tests.test_jit.test_optimization_flag_O2
+877073963e37/tests.test_jit.test_optimization_flag_O3
+877073963e37/tests.test_jit.test_optimization_flag_minus_fold
+877073963e37/tests.test_jit.test_jit_opt_module_start_level_0

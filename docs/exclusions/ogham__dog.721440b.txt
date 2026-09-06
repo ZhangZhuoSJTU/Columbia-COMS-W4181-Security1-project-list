@@ -1,0 +1,25 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# dog is a DNS client; these tests hit live DNS (8.8.8.8, google.com) and depend
+# on network/IPv6 availability and OS error text that differ here: AAAA/IPv6
+# lookups return no records in this environment, and connection/lookup errors use
+# macOS errno numbers and getaddrinfo wording (e.g. "os error 61"/"nodename nor
+# servname" vs Linux "os error 111"/"Name or service not known"). The pytest
+# internal-error entry is an xdist worker artifact, not a test.
+78e6b2a03639/eval.tests.test_edge_cases.test_numeric_ip_query
+78e6b2a03639/eval.tests.test_final_coverage_boost.test_ipv6_only_query
+78e6b2a03639/eval.tests.test_dns_queries.test_aaaa_query
+db7d53e19106/tests.test_dns_library.test_aaaa_record_json_structure
+db7d53e19106/tests.test_dns_library.test_multiple_record_types_in_answer_section
+db7d53e19106/tests.test_dns_library.test_aaaa_ipv6_address_format_colons
+db7d53e19106/tests.test_errors.test_nonexistent_nameserver_lookup_error
+db7d53e19106/tests.test_errors.test_connection_refused_tcp
+db7d53e19106/tests.test_errors.test_invalid_nameserver_address
+db7d53e19106/tests.test_errors.test_malformed_ipv6_address
+db7d53e19106/tests.test_errors.test_ipv6_address_family_not_supported
+db7d53e19106/tests.test_errors.test_tls_connection_refused
+db7d53e19106/tests.test_errors.test_https_invalid_domain
+db7d53e19106/tests.test_json_output.test_json_aaaa_record_structure
+db7d53e19106/tests.test_output_formatting.test_short_format_aaaa_records
+db7d53e19106/pytest.internal

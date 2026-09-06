@@ -917,6 +917,37 @@ Benchmark-side: 300 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## cordx56/rustowl
+
+Instance `cordx56__rustowl.655bc5c`: 763 tests shipped, 572 kept.
+
+Benchmark-side: 174 tests dropped by ProgramBench.
+
+- `dummy_pass`: 128
+- `gold_fail`: 49
+- `outcome_dependent_presence`: 1
+
+Course-side: 17 tests dropped by us.
+
+- rustowl's toolchain manager tests (install/uninstall/check a Rust sysroot) depend on Linux filesystem and environment behavior that differs on macOS: removing a directory that contains read-only files, the runtime/sysroot path location (resolved via the directories crate -> ~/Library on macOS, not the Linux XDG/home layout the tests assert), symlink handling, and toolchain download (which hangs/times out here). They fail for the gold binary on macOS.
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_removes_sysroot_when_present`
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_preserves_other_sysroot_versions`
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_multiple_times_in_sequence`
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_removes_nested_sysroot_structure`
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_with_symlinks_in_sysroot`
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_with_readonly_files_in_sysroot`
+  - `db975e1644f7/tests.test_toolchain.test_uninstall_with_empty_directories_in_sysroot`
+  - `db975e1644f7/tests.test_toolchain.test_recursive_read_dir_with_deeply_nested_empty_directories`
+  - `db975e1644f7/tests.test_toolchain.test_check_command_with_incomplete_sysroot_missing_bin`
+  - `db975e1644f7/tests.test_toolchain.test_check_command_without_project_path_uses_current_dir`
+  - `db975e1644f7/tests.test_toolchain.test_get_executable_path_not_in_sysroot_or_same_dir`
+  - `db975e1644f7/tests.test_toolchain.test_toolchain_install_starts_downloading_first_component`
+  - `db975e1644f7/tests.test_toolchain.test_toolchain_uninstall_with_symlinks_in_sysroot`
+  - `db975e1644f7/tests.test_toolchain.test_fallback_runtime_dir_uses_home_directory`
+  - `db975e1644f7/tests.test_toolchain.test_executable_path_same_directory_fallback`
+  - `db975e1644f7/tests.test_toolchain.test_check_with_valid_sysroot_finds_executables`
+  - `db975e1644f7/tests.test_toolchain.test_check_with_executable_in_same_directory_as_binary`
+
 ## crowdagger/crowbook
 
 Instance `crowdagger__crowbook.ea214d7`: 887 tests shipped, 807 kept.
@@ -970,6 +1001,23 @@ Course-side: 2 tests dropped by us.
   - `1040f6b8a219/tests.test_harvest_other.test_preprocess_system_include`
   - `b9729b57ee68/tests.other_test.test_preprocess_system_include`
 
+## direnv/direnv
+
+Instance `direnv__direnv.02040c7`: 986 tests shipped, 847 kept.
+
+Benchmark-side: 137 tests dropped by ProgramBench.
+
+- `dummy_pass`: 111
+- `gold_fail`: 26
+- `outcome_dependent_presence`: 2
+
+Course-side: 2 tests dropped by us.
+
+- macOS enforces a 255-byte filename limit; this test builds a longer name (ENAMETOOLONG).
+  - `642420bd4df9/tests.test_rc_gaps.test_pathhash_with_hasher_write_error_path`
+- The systemd env dump includes host-injected vars; macOS (launchd/iTerm2) sets entries like LaunchInstanceID / __CFBundleIdentifier that the test's strict variable-name regex rejects and that do not exist in the Linux containers.
+  - `642420bd4df9/tests.test_shell_exporters.test_systemd_dump_format`
+
 ## Drew-Alleman/DataSurgeon
 
 Instance `drew-alleman__datasurgeon.d257cee`: 564 tests shipped, 498 kept.
@@ -988,6 +1036,20 @@ Course-side: 4 tests dropped by us.
   - `61d5d5110768/tests.test_gap_filling.test_write_error_disk_full_simulation`
 - Output order follows filesystem directory-walk order, which differs between APFS (macOS) and the ext4-based containers; entries are identical, permuted.
   - `61d5d5110768/tests.test_timing_errors.test_directory_extraction_processes_all_files`
+
+## ducaale/xh
+
+Instance `ducaale__xh.4a6e44f`: 1266 tests shipped, 1170 kept.
+
+Benchmark-side: 95 tests dropped by ProgramBench.
+
+- `dummy_pass`: 82
+- `gold_fail`: 14
+
+Course-side: 1 tests dropped by us.
+
+- The test's mock server (Python http.server) emits "Server: BaseHTTP/0.6 Python/3.10.12" in the response headers; this machine's Python version differs, so the captured header never matches the golden.
+  - `06aaf86cdfa9/tests.test_output_formatting.test_headers_only_print_flag`
 
 ## ecumene/rust-sloth
 
@@ -1093,6 +1155,147 @@ Course-side: 18 tests dropped by us.
   - `a603a1c0c055/pytest.internal`
   - `a603a1c0c055/eval.tests.test_system_externalized.test_ext_install_default_status_script`
 
+## Esubaalew/run
+
+Instance `esubaalew__run.0fb9dec`: 1507 tests shipped, 1084 kept.
+
+Benchmark-side: 295 tests dropped by ProgramBench.
+
+- `gold_fail`: 262
+- `dummy_pass`: 38
+
+Course-side: 128 tests dropped by us.
+
+- `run` executes code through the host toolchain and captures its output. On macOS the bash path/version differ ("/bin/bash: cmd: command not found" vs the container's "/usr/bin/bash: line 1: ..."), and the C/C++ compilers, REPL banners, and error text differ from the Linux reference, so these engine tests capture host-specific output rather than a property of `run`.
+  - `1978239ed7fd/tests.test_bash_engine.test_file_execution_pipes`
+  - `1978239ed7fd/tests.test_bash_engine.test_error_command_not_found`
+  - `1978239ed7fd/tests.test_bash_engine.test_error_nonexistent_file`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_simple_expression_evaluation`
+  - `1978239ed7fd/tests.test_bash_engine.test_environment_variables`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_variable_persistence`
+  - `1978239ed7fd/tests.test_bash_engine.test_repl_session_error_recovery`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_function_definition_and_call`
+  - `1978239ed7fd/tests.test_bash_engine.test_repl_reset_command`
+  - `1978239ed7fd/tests.test_bash_engine.test_multiline_script_without_trailing_newlines_in_session`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_arithmetic_expressions`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_hello_world_implicit_printf`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_argc_argv_signature`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_syntax_error_detection`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_syntax_error_detection`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_link_error_undeclared_function`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_link_error_undeclared_function`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_template_type_error`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_missing_namespace_prefix`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_private_member_access_error`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_ambiguous_member_access`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_const_cast_undefined_behavior`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_with_block_comment`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_with_string_containing_main`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_with_char_literal`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_with_escaped_string`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_empty_input`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_with_escaped_char`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_params_with_comment`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_params_multiple_comments`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_line_comment_after_params`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_block_comment_after_params`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_mymain_not_detected`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_main2_not_detected`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_float_expressions`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_preprocessor_define`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_expression_without_semicolon`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_type_prefix_not_expression`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_enum_definition_and_usage`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_nested_parentheses`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_main_detection_function_pointer_parameter`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_static_keyword`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_array_declaration_and_access`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_function_definition_with_body`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_function_with_return_value`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_bitwise_operations`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_logical_operations`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_comparison_operations`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_cast_operations`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_ternary_operator`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_sizeof_operator`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_comma_operator`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_parentheses_precedence`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_with_line_comment`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_in_string_literal`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_in_block_comment`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_session_negative_numbers`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_standalone_linker_error_undefined_reference`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_standalone_compilation_syntax_error`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_c_standalone_runtime_assert_failure`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_repl_typedef_definition`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_session_template_persistence`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_repl_function_declaration_with_semicolon`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_with_comment_after_params`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_with_block_comment_after_params`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_with_nested_parens_in_params`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_with_string_in_params`
+  - `1978239ed7fd/tests.test_c_cpp_engines.test_cpp_session_help_command`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_like_identifier_before_main`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_without_opening_brace`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_detection_function_pointer_not_main`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_detection_with_whitespace_variations`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_detection_void_main_variant`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_parameters_int_argc_char_argv`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_parameters_char_array_syntax`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_repl_control_flow_if_statement_not_item`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_repl_compilation_error_rollback_item`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_comment_inside_string_followed_by_real_comment`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_string_containing_backslash_before_quote`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_char_literal_backslash`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_unterminated_block_comment_detection`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_keyword_prefix`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_partial_match_remains`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_repl_expression_with_function_call`
+  - `1978239ed7fd/tests.test_c_engine_gaps.test_c_main_detection_with_unclosed_comment`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_string_containing_comment_syntax`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_char_containing_escape_sequences`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_string_containing_escaped_quotes`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_block_comment_containing_main_keyword`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_nested_block_comments_syntax`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_line_comment_before_brace`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_block_comment_after_params_before_brace`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_repl_multiline_prevents_expression_mode`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_repl_preprocessor_pragma_classification`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_detection_with_string_containing_brace`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_detection_with_nested_parens_in_params`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_before_identifier_word_boundary_check`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_after_identifier_word_boundary_check`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_line_comment_containing_block_comment_syntax`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_block_comment_containing_line_comment_syntax`
+  - `1978239ed7fd/tests.test_cpp_deep_coverage.test_cpp_main_conflicting_declarations_error`
+  - `1978239ed7fd/tests.test_detect.test_python_extension_detection`
+  - `1978239ed7fd/tests.test_detect.test_c_include_triggers_detection_even_without_main`
+  - `1978239ed7fd/tests.test_engine_module.test_bash_engine_execution`
+  - `1978239ed7fd/tests.test_engine_module.test_file_extension_rb_maps_to_ruby`
+  - `1978239ed7fd/tests.test_engine_module.test_file_extension_js_variants_all_map_to_javascript`
+  - `1978239ed7fd/tests.test_errors.test_ruby_interpreter_not_available`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_empty_params_whitespace_variations`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_detection_requires_opening_brace`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_comments_and_strings_mixed`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_without_return_type`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_repl_include_directive_is_not_item`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_repl_function_declaration_two_word_return_type`
+  - `1978239ed7fd/tests.test_c_session_classification.test_c_main_with_only_whitespace_before_brace`
+  - `1978239ed7fd/tests.test_cli.test_positional_file_with_java_extension_no_compiler`
+  - `1978239ed7fd/tests.test_cli.test_directory_as_file_argument`
+  - `1978239ed7fd/tests.test_cpp_advanced.test_cpp_no_main_link_error`
+  - `1978239ed7fd/tests.test_cpp_advanced.test_cpp_compile_error_type_mismatch`
+  - `1978239ed7fd/tests.test_python_engine.test_type_error_exception`
+  - `1978239ed7fd/tests.test_python_engine.test_index_error_out_of_bounds`
+  - `1978239ed7fd/tests.test_python_engine.test_key_error_missing_dict_key`
+  - `1978239ed7fd/tests.test_python_engine.test_assert_statement_failure`
+  - `1978239ed7fd/tests.test_python_engine.test_attribute_error_nonexistent_attr`
+  - `1978239ed7fd/tests.test_python_engine.test_file_not_found_error`
+  - `1978239ed7fd/tests.test_python_engine.test_file_indentation_error`
+  - `1978239ed7fd/tests.test_python_engine.test_inline_sys_version_info`
+  - `1978239ed7fd/tests.test_python_engine.test_inline_platform_system`
+  - `1978239ed7fd/tests.test_python_engine.test_stdlib_imports_file`
+
 ## facebook/zstd
 
 Instance `facebook__zstd.1168da0`: 2372 tests shipped, 1975 kept.
@@ -1171,6 +1374,25 @@ Course-side: 63 tests dropped by us.
 - Platform-specific console/tty and version-string detection differences.
   - `f7278a893d6d/tests.test_cli_parsing_gap.test_version_verbose_mode`
   - `ff48618e10b3/tests.test_zstdcli_gap2.test_stdin_console_detection`
+
+## FiloSottile/age
+
+Instance `filosottile__age.706dfc1`: 839 tests shipped, 672 kept.
+
+Benchmark-side: 163 tests dropped by ProgramBench.
+
+- `dummy_pass`: 119
+- `gold_fail`: 44
+
+Course-side: 4 tests dropped by us.
+
+- macOS enforces a 255-byte filename limit (ENAMETOOLONG) where Linux allows the long path this stress test builds.
+  - `8ebac061b133/tests.test_stress.test_maximum_path_length`
+- No-tty passphrase prompt: macOS emits a different "could not read passphrase" error text than the Linux containers.
+  - `8ebac061b133/tests.test_ssh_encrypted_keys_gaps.test_encrypted_ed25519_key_no_tty_error`
+  - `8ebac061b133/tests.test_ssh_encrypted_keys_gaps.test_encrypted_rsa_key_no_tty_error`
+- The gold binary orders the "-r"/filename hint differently on macOS than the test expects (arg-formatting divergence), so gold fails this here.
+  - `8ebac061b133/tests.test_main_gaps.test_input_before_flags_helpful_hint`
 
 ## foriequal0/git-trim
 
@@ -1767,6 +1989,22 @@ Course-side: 326 tests dropped by us.
 - macOS libpng accepts a truncated/corrupt PNG the container's libpng rejected, so chafa exits 0 where the test expects a non-zero error.
   - `20ebc3204b43/eval.tests.test_input_handling.test_corrupt_file_handling`
 
+## hush-shell/hush
+
+Instance `hush-shell__hush.560c33a`: 1298 tests shipped, 1198 kept.
+
+Benchmark-side: 97 tests dropped by ProgramBench.
+
+- `dummy_pass`: 96
+- `gold_fail`: 3
+
+Course-side: 3 tests dropped by us.
+
+- hush is a shell; on macOS /tmp is a symlink to /private/tmp, so `cd /tmp; pwd` reports /private/tmp where the Linux containers report /tmp.
+  - `6a555d8a1a6a/tests.test_commands.test_builtin_cd_changes_directory`
+  - `6a555d8a1a6a/tests.test_stdlib.test_cd_cwd`
+  - `6a555d8a1a6a/tests.test_stdlib_gaps.test_cd_changes_directory`
+
 ## incu6us/goimports-reviser
 
 Instance `incu6us__goimports-reviser.81bd549`: 597 tests shipped, 512 kept.
@@ -1780,6 +2018,92 @@ Course-side: 1 tests dropped by us.
 
 - Makes a file unreadable (chmod 000) and expects the remaining files to be listed; containers run as root where permissions are bypassed, so the gold behavior differs from any non-root local run.
   - `12d881a9aa7e/tests.test_directory_ops.test_file_with_read_permission_issues`
+
+## ip7z/7zip
+
+Instance `ip7z__7zip.839151e`: 1085 tests shipped, 970 kept.
+
+Benchmark-side: 42 tests dropped by ProgramBench.
+
+- `gold_fail`: 27
+- `dummy_pass`: 16
+
+Course-side: 73 tests dropped by us.
+
+- All architecture/OS-divergent on arm64 macOS vs the x86-64 Linux reference: * 7za prints "(arm64)" in its banner where the goldens have "(x64)", so every command-parsing test that captures the banner mismatches; * the BCJ executable-filter tests compress a prebuilt x86/Linux test binary, extract it, and try to execute it -> "Exec format error" on arm64 macOS; * symlink archiving/restoration differs on macOS.
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_arm64_filter_compress_and_extract`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_sparc_filter_compress_and_extract`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_filter_with_compression_level_9`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj2_filter_with_compression_level_1`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_solid_archive_multiple_executables`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj2_extract_from_prebuilt_archive`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_extract_from_prebuilt_archive`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_filter_compress_x86_executable`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_armt_filter_compress_and_extract`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj2_filter_compress_x86_executable`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_ia64_filter_compress_and_extract`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_with_lzma_compression`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj2_with_lzma2_compression`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_extract_with_method_info`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj2_extract_with_method_info`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_with_static_executable`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_mx_letters_value`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_password_flag_with_value`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj2_with_stripped_executable`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_output_dir_with_space`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_bcj_with_mixed_executable_and_text_files`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_file_with_leading_dash`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_arm_filter_on_x86_executable`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_file_with_double_dash_separator`
+  - `ea7a9f0674dc/tests.test_bcj_filters.test_ppc_filter_compress_and_extract`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_flag_after_filename`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_rename_command_odd_number_args`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_charset_name`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_m_method_value`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_volume_size_zero_bytes`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_solid_mode_value`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_listfile_syntax_at_symbol`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_listfile_nonexistent_file`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_listfile_malformed_encoding`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_update_action_string`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_volume_size_suffix`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_volume_size_overflow`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_mx_negative_value`
+  - `ea7a9f0674dc/tests.test_errors.test_extract_nonexistent_archive`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_memory_limit_value`
+  - `ea7a9f0674dc/tests.test_errors.test_no_arguments_shows_help`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_fullpath_mode_value`
+  - `ea7a9f0674dc/tests.test_errors.test_invalid_command_rejected`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_slashmark_mode_value`
+  - `ea7a9f0674dc/tests.test_errors.test_invalid_volume_size_zero`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_invalid_include_wildcard_marker`
+  - `ea7a9f0674dc/tests.test_errors.test_invalid_volume_size_letters`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_duplicate_wildcard_matching_modifier`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_duplicate_markmode_modifier`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_many_files_on_command_line`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_multiple_m_flags_combined`
+  - `ea7a9f0674dc/tests.test_commandline_parsing.test_uppercase_flag_accepted`
+  - `ea7a9f0674dc/tests.test_symlinks.test_absolute_vs_relative_symlink_paths`
+  - `ea7a9f0674dc/tests.test_symlinks.test_very_long_symlink_target_path`
+  - `ea7a9f0674dc/tests.test_symlinks.test_many_symlinks_in_archive`
+  - `ea7a9f0674dc/tests.test_symlinks.test_symlink_and_hardlink_mixed_archive`
+  - `ea7a9f0674dc/tests.test_symlinks.test_directory_recursion_with_symlinks`
+  - `ea7a9f0674dc/tests.test_symlinks.test_symlink_permissions_preserved`
+  - `ea7a9f0674dc/tests.test_symlinks.test_update_archive_with_symlinks`
+  - `ea7a9f0674dc/tests.test_symlinks.test_symlink_with_dot_slash_prefix`
+  - `ea7a9f0674dc/tests.test_special.test_benchmark_minimal`
+  - `ea7a9f0674dc/tests.test_special.test_benchmark_output_structure`
+  - `ea7a9f0674dc/tests.test_tar_format.test_tar_symlink_with_snl_flag`
+  - `ea7a9f0674dc/tests.test_special.test_benchmark_parameters_dictionary_size`
+  - `ea7a9f0674dc/tests.test_wildcards.test_case_sensitivity_in_wildcards`
+  - `ea7a9f0674dc/tests.test_special.test_benchmark_parameters_threads`
+  - `ea7a9f0674dc/tests.test_wildcards.test_wildcard_with_backslash_on_unix`
+  - `ea7a9f0674dc/tests.test_zip_format.test_zip_case_sensitive_names`
+  - `ea7a9f0674dc/tests.test_symlinks.test_symlink_to_file_stored_with_snl`
+  - `ea7a9f0674dc/tests.test_symlinks.test_symlink_to_directory_stored_with_snl`
+  - `ea7a9f0674dc/tests.test_symlinks.test_broken_symlink_stored_with_snl`
+  - `ea7a9f0674dc/tests.test_symlinks.test_symlink_chain_stored_in_archive`
+  - `ea7a9f0674dc/tests.test_symlinks.test_circular_symlinks_stored_safely`
 
 ## ismaelgv/rnr
 
@@ -1798,6 +2122,290 @@ Course-side: 3 tests dropped by us.
   - `ec95564f8a2f/tests.test_edge_cases.TestEdgeCases.test_case_sensitive_matching`
 - Uses accented fixture filenames; macOS filesystem APIs return them NFD-decomposed while the test passes NFC, so the path lookup fails before the behavior under test runs.
   - `7877cb75132e/tests.test_to_ascii.test_special_unicode_characters`
+
+## ivanceras/svgbob
+
+Instance `ivanceras__svgbob.6d00ad9`: 474 tests shipped, 472 kept.
+
+Benchmark-side: 2 tests dropped by ProgramBench.
+
+- `gold_fail`: 1
+- `dummy_pass`: 1
+
+Course-side: none.
+
+## jhspetersson/fselect
+
+Instance `jhspetersson__fselect.c3559ca`: 3435 tests shipped, 2855 kept.
+
+Benchmark-side: 320 tests dropped by ProgramBench.
+
+- `dummy_pass`: 252
+- `gold_fail`: 68
+
+Course-side: 260 tests dropped by us.
+
+- fselect is a SQL-like file search. On macOS these diverge from the Linux reference by filesystem, not by the tool: APFS block-accounts directory/file sizes differently (so size filters and ORDER BY size return a different set/ order), directory entries are iterated in a different order (so LIMIT without ORDER BY and tie-breaks differ), and permission/symlink/hidden-file/exif/mtime handling follows macOS semantics.
+  - `06dabfabaea7/tests.test_errors.test_symlink_to_nonexistent`
+  - `06dabfabaea7/tests.test_core_queries.test_select_multiple_columns_name_size`
+  - `06dabfabaea7/tests.test_errors.test_permission_denied_directory`
+  - `06dabfabaea7/tests.test_core_queries.test_where_size_lt`
+  - `06dabfabaea7/tests.test_errors.test_hidden_files_included_by_default`
+  - `06dabfabaea7/tests.test_core_queries.test_order_by_size_desc_limit`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_basic_camera_fields`
+  - `06dabfabaea7/tests.test_core_queries.test_limit_without_order`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_datetime_fields`
+  - `06dabfabaea7/tests.test_core_queries.test_output_format_csv`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_gps_coordinates`
+  - `06dabfabaea7/tests.test_core_queries.test_output_format_json`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_software_version`
+  - `06dabfabaea7/tests.test_core_queries.test_limit_with_offset`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_exposure_settings`
+  - `06dabfabaea7/tests.test_core_queries.test_where_size_gte`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_lens_information`
+  - `06dabfabaea7/tests.test_dockerignore_gaps.test_comments_and_empty_lines_ignored`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_metadata_fields`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_camera_settings`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_star_matches_txt_files`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_advanced_settings`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_star_matches_dat_files`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_image_adjustments`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_star_prefix_only`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_serial_numbers`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_star_middle`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_image_dimensions_and_specs`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_star_only_matches_all`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_shutter_and_sensitivity`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_ne_operator`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_gps_altitude_only`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_case_insensitive`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_datetime_parsing_format`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_and_logical_combination`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_exposure_time_fractional_format`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_or_logical_combination`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_flash_detailed_decoding`
+  - `06dabfabaea7/tests.test_glob_patterns.test_glob_unicode_cyrillic`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_orientation_human_readable`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_exposure_program_decoded`
+  - `06dabfabaea7/tests.test_exif_fields_gaps.test_exif_metering_mode_decoded`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_minus_unary_operator`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_concat_function_with_multiple_args`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_root_alias_in_select`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_column_alias_in_select`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_function_with_alias`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_nested_function_with_numeric_in_args`
+  - `06dabfabaea7/tests.test_interactive.test_interactive_cd_command`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_datetime_field_in_function_args`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_colorized_field_in_where_left`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_colorized_field_in_right_side`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_arithmetic_division_with_alias`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_complex_arithmetic_precedence`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_complex_logical_expression_with_parens`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_not_equal_operator`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_parenthesized_arithmetic_in_select`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_group_by_with_having_aggregate`
+  - `06dabfabaea7/tests.test_interactive.test_interactive_cd_nonexistent_directory`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_function_with_single_field_arg`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_modulo_operator`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_order_by_descending`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_order_by_expression`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_regexp_operator_with_pattern`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_substr_function_with_three_args`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_triple_and_condition`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_multiplication_plus_precedence`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_boolean_field_is_file`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_concat_with_two_args`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_gte_comparison_operator`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_logical_or_with_name_field`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_datetime_field_in_where_filter`
+  - `06dabfabaea7/tests.test_expr_deeper_gaps.test_minus_field_expression`
+  - `06dabfabaea7/tests.test_field_dispatch_gaps.test_has_xattrs_xattr_count_fields`
+  - `06dabfabaea7/tests.test_field_dispatch_gaps.test_has_extattrs_extattrs_fields`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_exif_software_field`
+  - `06dabfabaea7/tests.test_media_metadata.test_mixed_media_types_ordered_by_width`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_calculated_pixel_count`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_concat_dimensions_as_string`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_add_dimensions`
+  - `06dabfabaea7/tests.test_metadata_fields_gap.test_device_rdev_fields_on_device_files`
+  - `06dabfabaea7/tests.test_metadata_handlers_deeper.test_device_rdev_fields_on_character_device`
+  - `06dabfabaea7/tests.test_metadata_handlers_deeper.test_has_capabilities_false_for_regular_file`
+  - `06dabfabaea7/tests.test_metadata_handlers_deeper.test_has_extattrs_false_for_regular_file`
+  - `06dabfabaea7/tests.test_metadata_handlers_gaps.test_has_extattrs_false_for_file_without_extattrs`
+  - `06dabfabaea7/tests.test_metadata_handlers_gaps.test_has_capabilities_false_for_file_without_capabilities`
+  - `06dabfabaea7/tests.test_mode_coverage_verification.test_all_mode_functions_via_different_file_types`
+  - `06dabfabaea7/tests.test_mode_permissions.test_mode_field_format_all_files`
+  - `06dabfabaea7/tests.test_mode_permissions.test_user_permissions_individual_fields`
+  - `06dabfabaea7/tests.test_mode_permissions.test_group_permissions_individual_fields`
+  - `06dabfabaea7/tests.test_mode_permissions.test_other_permissions_individual_fields`
+  - `06dabfabaea7/tests.test_mode_permissions.test_user_all_group_all_other_all_fields`
+  - `06dabfabaea7/tests.test_mode_permissions.test_special_bits_suid_sgid_sticky`
+  - `06dabfabaea7/tests.test_lexer_gaps.test_date_year_boundary_lower`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_user_read`
+  - `06dabfabaea7/tests.test_lexer_gaps.test_date_invalid_month_13`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_user_exec`
+  - `06dabfabaea7/tests.test_lexer_gaps.test_date_invalid_month_0`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_suid_bit`
+  - `06dabfabaea7/tests.test_lexer_gaps.test_date_split_across_input_args`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_sgid_bit`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_help_short_flag`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_sticky_bit`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_help_dos_style_slash_question`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_user_all`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_help_dos_style_slash_h`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_other_write`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_functions_information`
+  - `06dabfabaea7/tests.test_mode_permissions.test_directory_mode_formatting`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_multiple_flags_before_query`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_user_read_write_no_exec`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_help_word_contains`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_any_readable`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_functions_starts_with`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_no_user_permissions`
+  - `06dabfabaea7/tests.test_main_cli_gaps.test_case_insensitive_help_flag`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_group_or_other_all`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_any_special_bit`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_help_with_nocolor_env_var`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_all_executable`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_help_displays_format_functions`
+  - `06dabfabaea7/tests.test_mode_permissions.test_special_bits_uppercase_in_mode_string`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_help_word_variant_shows_help`
+  - `06dabfabaea7/tests.test_mode_permissions.test_special_file_types_pipe_and_symlink`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_dos_style_help_slash_h`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_permission_with_other_fields`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_dos_style_help_slash_question`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_negative_user_read`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_case_insensitive_help_flag`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_by_negative_other_exec`
+  - `06dabfabaea7/tests.test_main_deeper_gaps.test_help_partial_match`
+  - `06dabfabaea7/tests.test_mode_permissions.test_filter_user_all_but_not_group_all`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_dimensions_all_formats`
+  - `06dabfabaea7/tests.test_mode_permissions.test_mode_field_with_uid_gid`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_exif_basic_fields_empty`
+  - `06dabfabaea7/tests.test_mode_permissions.test_group_rwx_and_other_rwx_aliases`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_exif_gps_fields_empty`
+  - `06dabfabaea7/tests.test_mode_permissions.test_special_bits_field_aliases`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_filter_width_greater_than_100`
+  - `06dabfabaea7/tests.test_output_formats.test_csv_unicode_filenames`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_filter_exact_dimensions`
+  - `06dabfabaea7/tests.test_output_formats.test_json_unicode_filenames`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_svg_filter_by_extension`
+  - `06dabfabaea7/tests.test_path_options.test_traversal_mode_dfs_order`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_order_by_dimensions_descending`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_lines`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_filter_width_less_than_150`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_list`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_filter_width_greater_or_equal_144`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_csv`
+  - `06dabfabaea7/tests.test_media_metadata.test_image_filter_width_range_with_multiple_conditions`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_json`
+  - `06dabfabaea7/tests.test_parser_gaps.test_arithmetic_multiplication`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_html`
+  - `06dabfabaea7/tests.test_parser_gaps.test_arithmetic_addition`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_case_insensitive_json`
+  - `06dabfabaea7/tests.test_parser_gaps.test_arithmetic_subtraction`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_case_insensitive_csv`
+  - `06dabfabaea7/tests.test_parser_gaps.test_arithmetic_division`
+  - `06dabfabaea7/tests.test_query_gaps.test_output_format_case_insensitive_html`
+  - `06dabfabaea7/tests.test_parser_gaps.test_operator_precedence_mul_before_add`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_mindepth`
+  - `06dabfabaea7/tests.test_parser_gaps.test_operator_precedence_parentheses_override`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_maxdepth`
+  - `06dabfabaea7/tests.test_parser_gaps.test_negative_field_value`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_mindepth_maxdepth_combined`
+  - `06dabfabaea7/tests.test_parser_gaps.test_arithmetic_modulo`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_dfs_traversal`
+  - `06dabfabaea7/tests.test_searcher_deeper_gaps.test_limit_with_offset`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_bfs_traversal_explicit`
+  - `06dabfabaea7/tests.test_searcher_edge_cases_3.test_dfs_traversal_mode`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_gitignore`
+  - `06dabfabaea7/tests.test_searcher_edge_cases_3.test_bfs_traversal_mode`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_nogitignore`
+  - `06dabfabaea7/tests.test_searcher_edge_cases_3.test_depth_with_dfs_mode`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_hgignore`
+  - `06dabfabaea7/tests.test_searcher_edge_cases_3.test_limit_clause`
+  - `06dabfabaea7/tests.test_query_gaps.test_root_option_dockerignore`
+  - `06dabfabaea7/tests.test_searcher_edge_cases_3.test_limit_with_offset`
+  - `06dabfabaea7/tests.test_searcher_deeper_gaps.test_traversal_mode_dfs`
+  - `06dabfabaea7/tests.test_searcher_gaps.test_limit_restricts_result_count`
+  - `06dabfabaea7/tests.test_searcher_deeper_gaps.test_traversal_mode_bfs`
+  - `06dabfabaea7/tests.test_searcher_gaps.test_offset_skips_initial_results`
+  - `06dabfabaea7/tests.test_searcher_deeper_gaps.test_limit_restricts_output`
+  - `06dabfabaea7/tests.test_unicode_filenames.test_unicode_normalization_nfc_vs_nfd`
+  - `06dabfabaea7/tests.test_unix_features.test_has_caps_alias`
+  - `06dabfabaea7/tests.test_unix_features.test_uid_column_query`
+  - `06dabfabaea7/tests.test_unix_features.test_all_unix_columns_combined`
+  - `06dabfabaea7/tests.test_unix_features.test_user_column_query`
+  - `06dabfabaea7/tests.test_unix_features.test_current_uid_function`
+  - `06dabfabaea7/tests.test_unix_features.test_group_column_query`
+  - `06dabfabaea7/tests.test_unix_features.test_has_extattr_function`
+  - `06dabfabaea7/tests.test_unix_features.test_uid_gid_combined_query`
+  - `06dabfabaea7/tests.test_unix_features.test_has_extattr_function_multiple_flags`
+  - `06dabfabaea7/tests.test_unix_features.test_user_group_combined_query`
+  - `06dabfabaea7/tests.test_unix_features.test_has_acl_entry_function`
+  - `06dabfabaea7/tests.test_unix_features.test_uid_filter_equals`
+  - `06dabfabaea7/tests.test_unix_features.test_has_default_acl_entry_function`
+  - `06dabfabaea7/tests.test_unix_features.test_user_filter_equals`
+  - `06dabfabaea7/tests.test_unix_features.test_has_capability_function`
+  - `06dabfabaea7/tests.test_unix_features.test_group_filter_equals`
+  - `06dabfabaea7/tests.test_unix_features.test_has_cap_function_alias`
+  - `06dabfabaea7/tests.test_unix_features.test_has_extattrs_column`
+  - `06dabfabaea7/tests.test_unix_features.test_uid_gid_user_group_all_together`
+  - `06dabfabaea7/tests.test_unix_features.test_has_capabilities_column`
+  - `06dabfabaea7/tests.test_unix_features.test_filter_by_current_user`
+  - `06dabfabaea7/tests.test_util_deeper_gaps.test_initcap_unicode_characters`
+  - `06dabfabaea7/tests.test_unix_features.test_mixed_unix_and_standard_columns`
+  - `06dabfabaea7/tests.test_where_expressions.test_comparison_lt`
+  - `06dabfabaea7/tests.test_unix_features.test_order_by_uid`
+  - `06dabfabaea7/tests.test_where_expressions.test_comparison_ne`
+  - `06dabfabaea7/tests.test_unix_features.test_order_by_user`
+  - `06dabfabaea7/tests.test_where_expressions.test_comparison_ne_alt_syntax`
+  - `06dabfabaea7/tests.test_unix_features.test_group_by_uid`
+  - `06dabfabaea7/tests.test_where_expressions.test_arithmetic_addition_in_where`
+  - `06dabfabaea7/tests.test_unix_features.test_group_by_user`
+  - `06dabfabaea7/tests.test_where_expressions.test_arithmetic_multiplication_in_where`
+  - `06dabfabaea7/tests.test_util_deeper_gaps.test_extension_case_sensitivity`
+  - `06dabfabaea7/tests.test_where_expressions.test_arithmetic_subtraction_in_where`
+  - `06dabfabaea7/tests.test_where_expressions.test_between_operator_inclusive`
+  - `06dabfabaea7/tests.test_where_expressions.test_logical_complex_parentheses`
+  - `06dabfabaea7/tests.test_where_expressions.test_arithmetic_operator_precedence`
+  - `06dabfabaea7/tests.test_where_expressions.test_ne_word_syntax`
+  - `06dabfabaea7/tests.test_where_expressions.test_ene_not_triple_equals_operator`
+  - `06dabfabaea7/tests.test_where_expressions.test_arithmetic_minus_word_syntax`
+  - `06dabfabaea7/tests.test_where_expressions.test_arithmetic_mul_word_syntax`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestAclColumn.test_acl_column_shows_acl_entries`
+  - `825a526c70ae/eval.tests.test_coverage_boost2.TestModeSuidSgid.test_sgid_bit_detection`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestAclColumn.test_has_acl_true`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestAclColumn.test_acl_filter`
+  - `825a526c70ae/eval.tests.test_coverage_gaps.TestCapabilityFields.test_has_capabilities_field`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestAclColumn.test_acl_with_named_user`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestAclFormatting.test_acl_mask_entry`
+  - `825a526c70ae/eval.tests.test_edge_coverage.TestColorizedOutputViaTerminal.test_name_field_colorized`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestDefaultAcl.test_default_acl_column`
+  - `825a526c70ae/eval.tests.test_acl_functions.TestDefaultAcl.test_has_default_acl_true`
+  - `825a526c70ae/eval.tests.test_edge_coverage.TestColorizedOutputViaTerminal.test_name_size_colorized`
+  - `825a526c70ae/eval.tests.test_capabilities.TestCapabilities.test_has_caps_true`
+  - `825a526c70ae/eval.tests.test_capabilities.TestCapabilities.test_capabilities_v2_with_effective`
+  - `825a526c70ae/eval.tests.test_metadata_fields.TestPermissionFields.test_sgid_bit`
+  - `825a526c70ae/eval.tests.test_mode_fields_advanced.TestExtAttrFilter.test_has_extattrs_false`
+  - `825a526c70ae/eval.tests.test_mode_fields.TestModeField.test_mode_char_device`
+  - `825a526c70ae/eval.tests.test_mode_fields.TestSpecialFileTypes.test_is_char_device`
+  - `825a526c70ae/eval.tests.test_new_coverage.TestCapabilityFunctions.test_has_capabilities_regular_file`
+  - `825a526c70ae/eval.tests.test_special_files.TestExtattrs.test_has_extattrs_column`
+  - `825a526c70ae/eval.tests.test_new_coverage.TestCapabilityFunctions.test_has_capability_with_actual_cap`
+  - `825a526c70ae/eval.tests.test_system_files.TestSpecialModeChars.test_sgid_no_exec_shows_capital_s`
+  - `825a526c70ae/eval.tests.test_xattr.TestXattrColumn.test_has_xattrs_true`
+  - `825a526c70ae/eval.tests.test_terminal_output.TestTerminalColorOutput.test_name_field_with_color`
+  - `825a526c70ae/eval.tests.test_xattr.TestXattrColumn.test_xattr_count_positive`
+  - `825a526c70ae/eval.tests.test_xattr.TestHasXattrFunction.test_has_xattr_true`
+  - `825a526c70ae/eval.tests.test_terminal_output.TestTerminalColorOutput.test_name_field_no_color_flag`
+  - `825a526c70ae/eval.tests.test_xattr.TestHasXattrFunction.test_has_xattr_false`
+  - `825a526c70ae/eval.tests.test_xattr.TestHasXattrFunction.test_xattr_value`
+  - `825a526c70ae/eval.tests.test_terminal_output.TestTerminalColorOutput.test_path_field_with_color`
+  - `825a526c70ae/eval.tests.test_xattr.TestHasXattrFunction.test_xattr_nonexistent`
+  - `825a526c70ae/eval.tests.test_xattr.TestExtAttrs.test_extattrs_field_empty`
+  - `825a526c70ae/eval.tests.test_xattr.TestHasXattrFunction.test_filter_by_has_xattr`
+  - `825a526c70ae/eval.tests.test_xattr.TestExtAttrs.test_extattrs_field_with_flag`
+  - `825a526c70ae/eval.tests.test_xattr.TestExtAttrs.test_has_extattrs_filter`
 
 ## JohannesKaufmann/html-to-markdown
 
@@ -2052,6 +2660,82 @@ Course-side: 1 tests dropped by us.
 - fqchk on empty/FASTA input prints NaN statistics; macOS libc printf renders NaN as "nan" while glibc renders "-nan". Same value, different libc spelling.
   - `5d974fdda794/tests.test_info.test_fqchk_fasta_input_ignored`
 
+## lua/lua
+
+Instance `lua__lua.c6b4848`: 1387 tests shipped, 1328 kept.
+
+Benchmark-side: 49 tests dropped by ProgramBench.
+
+- `dummy_pass`: 42
+- `gold_fail`: 7
+
+Course-side: 10 tests dropped by us.
+
+- glibc prints negative-NaN as "-nan"; macOS libc prints "nan", so these math results differ byte-for-byte:
+  - `d549f80b25ef/tests.test_mathlib.test_special_values_infinity_nan`
+  - `d549f80b25ef/tests.test_mathlib.test_sqrt_negative_produces_nan`
+  - `d549f80b25ef/tests.test_mathlib.test_min_max_with_nan`
+  - `d549f80b25ef/tests.test_mathlib.test_log_negative_values`
+- Lua truncates the script's chunk name to LUA_IDSIZE (~60 chars) in error messages; the reference "/workspace/..." path fit, but the harness-rewritten deep checkout path overflows and is shown as "...<tail>", so the error goldens no longer match:
+  - `d549f80b25ef/tests.test_cli.test_script_nil_call_error`
+  - `d549f80b25ef/tests.test_cli.test_script_syntax_error`
+  - `d549f80b25ef/tests.test_cli.test_script_runtime_error`
+- os.execute pipes to `wc`, whose BSD build pads the count with spaces where GNU wc does not:
+  - `d549f80b25ef/tests.test_oslib.test_os_execute_with_pipes_and_redirects`
+- writes to /dev/full, a Linux-only always-ENOSPC device that does not exist on macOS:
+  - `d549f80b25ef/tests.test_harvest.test_files`
+- string.rep overflow allocates enormous memory; times out on macOS rather than failing fast as on the Linux containers:
+  - `d549f80b25ef/tests.test_strlib.test_string_rep_overflow_error`
+
+## LuaJIT/LuaJIT
+
+Instance `luajit__luajit.a553b3d`: 3183 tests shipped, 2931 kept.
+
+Benchmark-side: 216 tests dropped by ProgramBench.
+
+- `dummy_pass`: 199
+- `gold_fail`: 17
+
+Course-side: 36 tests dropped by us.
+
+- LuaJIT is a JIT compiler; these tests inspect architecture-specific internals that necessarily differ between the x86-64 Linux reference and arm64 macOS: * jit.status()/-O flag output lists x86 CPU features (SSE3, SSE4.1, BMI2) that do not exist on arm64; * the JIT hot-loop / trace tests (trace aborts, side exits, hot-loop compilation, type specialization, etc.) assert x86 trace behavior; * -b bytecode tooling needs the jit.* Lua modules installed (only present under the source tree here); * FFI ABI reports arch=arm64 vs the golden's x64; * PRNG seeding is arch-dependent, and APFS is case-insensitive.
+  - `179f5c5f1982/eval.tests.test_bytecode.test_list_to_file`
+  - `179f5c5f1982/eval.tests.test_bytecode.test_list_bytecode`
+  - `179f5c5f1982/eval.tests.test_bytecode_extended.test_bytecode_listing_detailed`
+  - `179f5c5f1982/eval.tests.test_bytecode.test_list_bytecode_from_string`
+  - `179f5c5f1982/eval.tests.test_final_coverage_push.test_jit_trace_abort_reasons`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_extremely_hot_loop`
+  - `179f5c5f1982/eval.tests.test_final_coverage_push.test_jit_side_exits`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_ffi_in_hot_loop`
+  - `179f5c5f1982/eval.tests.test_jit_triggers.test_hot_loop_compilation`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_many_function_calls`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_table_access_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_array_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_mixed_arithmetic_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_string_in_loop`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_comparison_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_upvalue_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_bitop_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_math_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_nested_hot_loops`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_type_specialized_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_constant_folding_hot`
+  - `179f5c5f1982/eval.tests.test_extreme_jit_forcing.test_loop_unrolling_candidate`
+  - `877073963e37/tests.test_ffi.test_abi_queries_platform_info`
+  - `877073963e37/tests.test_jit.test_optimization_flag_individual_opts`
+  - `877073963e37/tests.test_jit.test_command_line_joff_flag`
+  - `877073963e37/tests.test_math_lib.test_randomseed_deterministic`
+  - `877073963e37/tests.test_jit.test_command_line_jon_flag`
+  - `877073963e37/tests.test_jit.test_jit_status_on_by_default`
+  - `877073963e37/tests.test_package_lib.test_module_names_case_sensitive`
+  - `877073963e37/tests.test_jit.test_optimization_flag_O0`
+  - `877073963e37/tests.test_jit.test_jit_off_disables_jit`
+  - `877073963e37/tests.test_jit.test_optimization_flag_O1`
+  - `877073963e37/tests.test_jit.test_optimization_flag_O2`
+  - `877073963e37/tests.test_jit.test_optimization_flag_O3`
+  - `877073963e37/tests.test_jit.test_optimization_flag_minus_fold`
+  - `877073963e37/tests.test_jit.test_jit_opt_module_start_level_0`
+
 ## Lymphatus/caesium-clt
 
 Instance `lymphatus__caesium-clt.a529b2e`: 616 tests shipped, 575 kept.
@@ -2181,6 +2865,20 @@ Course-side: 4 tests dropped by us.
   - `7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_numbers_with_decimals`
   - `7c0e404823ad/tests.test_encoder_colorization.test_hcl_colorization_with_script`
 
+## Miserlou/Loop
+
+Instance `miserlou__loop.209927c`: 778 tests shipped, 709 kept.
+
+Benchmark-side: 68 tests dropped by ProgramBench.
+
+- `dummy_pass`: 57
+- `gold_fail`: 11
+
+Course-side: 1 tests dropped by us.
+
+- Pipes `echo -e ...` through the shell; macOS /bin/sh (bash) prints the literal "-e" where the Linux container's dash interprets it, so stdin content differs.
+  - `2cb9872af9d3/eval.tests.test_iteration.test_stdin_piped`
+
 ## mookid/diffr
 
 Instance `mookid__diffr.2152742`: 782 tests shipped, 606 kept.
@@ -2202,6 +2900,161 @@ Benchmark-side: 224 tests dropped by ProgramBench.
 - `dummy_pass`: 58
 
 Course-side: none.
+
+## nachoparker/dutree
+
+Instance `nachoparker__dutree.44e877d`: 957 tests shipped, 499 kept.
+
+Benchmark-side: 316 tests dropped by ProgramBench.
+
+- `gold_fail`: 238
+- `dummy_pass`: 79
+
+Course-side: 142 tests dropped by us.
+
+- dutree reports on-disk sizes. macOS APFS accounts directory/file block usage differently from the Linux ext4 the goldens were captured on (e.g. a directory shows 86 B here vs 250 B there), so every size/percentage assertion diverges by filesystem, not by the tool. Depth/exclude/symlink tests read back these same size-bearing trees.
+  - `73b2238d2e73/tests.test_core.test_symlinks_reported_as_links`
+  - `73b2238d2e73/tests.test_core.test_default_current_directory`
+  - `73b2238d2e73/tests.test_depth.test_depth_255_maximum_valid_u8`
+  - `73b2238d2e73/tests.test_core.test_exclude_nested_pattern`
+  - `73b2238d2e73/tests.test_core.test_single_path_analysis`
+  - `73b2238d2e73/tests.test_depth.test_depth_256_overflows_to_zero_behaves_like_one`
+  - `73b2238d2e73/tests.test_core.test_empty_directory_in_tree`
+  - `73b2238d2e73/tests.test_depth.test_depth_with_multiple_paths`
+  - `73b2238d2e73/tests.test_core.test_multiple_paths_collection`
+  - `73b2238d2e73/tests.test_core.test_three_paths_collection`
+  - `73b2238d2e73/tests.test_depth.test_summary_flag_overrides_depth_to_one`
+  - `73b2238d2e73/tests.test_core.test_empty_directory_handling`
+  - `73b2238d2e73/tests.test_core.test_aggregate_with_depth`
+  - `73b2238d2e73/tests.test_core.test_files_only_mode`
+  - `73b2238d2e73/tests.test_depth.test_depth2_with_exclusion_filter`
+  - `73b2238d2e73/tests.test_core.test_depth_0_shows_only_root`
+  - `73b2238d2e73/tests.test_depth.test_no_depth_flag_shows_all_levels`
+  - `73b2238d2e73/tests.test_core.test_usage_real_disk_usage`
+  - `73b2238d2e73/tests.test_core.test_depth_2_limits_traversal`
+  - `73b2238d2e73/tests.test_depth.test_depth0_shows_only_root`
+  - `73b2238d2e73/tests.test_core.test_combined_bytes_and_depth`
+  - `73b2238d2e73/tests.test_core.test_depth_3_deeper_traversal`
+  - `73b2238d2e73/tests.test_depth.test_depth2_with_aggregation`
+  - `73b2238d2e73/tests.test_depth.test_depth1_shows_direct_children_only`
+  - `73b2238d2e73/tests.test_depth.test_depth1_with_bytes_flag`
+  - `73b2238d2e73/tests.test_core.test_bytes_mode_format`
+  - `73b2238d2e73/tests.test_depth.test_depth2_shows_two_levels`
+  - `73b2238d2e73/tests.test_depth.test_depth1_with_usage_flag`
+  - `73b2238d2e73/tests.test_depth.test_depth3_shows_three_levels`
+  - `73b2238d2e73/tests.test_depth.test_depth2_empty_nested_directories`
+  - `73b2238d2e73/tests.test_depth.test_depth4_shows_four_levels`
+  - `73b2238d2e73/tests.test_depth.test_depth3_empty_nested_directories`
+  - `73b2238d2e73/tests.test_core.test_tree_structure_characters`
+  - `73b2238d2e73/tests.test_core.test_exclude_file_pattern`
+  - `73b2238d2e73/tests.test_depth.test_depth10_shows_full_tree_when_exceeds_actual_depth`
+  - `73b2238d2e73/tests.test_depth.test_depth2_with_symlinks`
+  - `73b2238d2e73/tests.test_core.test_aggregate_threshold`
+  - `73b2238d2e73/tests.test_core.test_percentage_calculation`
+  - `73b2238d2e73/tests.test_depth.test_long_form_depth_flag`
+  - `73b2238d2e73/tests.test_core.test_summary_mode`
+  - `73b2238d2e73/tests.test_depth.test_depth_invalid_non_numeric_defaults_to_one`
+  - `73b2238d2e73/tests.test_depth.test_depth_negative_value_defaults_to_one`
+  - `73b2238d2e73/tests.test_depth.test_depth_very_large_number_overflows`
+  - `73b2238d2e73/tests.test_depth.test_depth2_with_files_only_flag`
+  - `73b2238d2e73/tests.test_depth.test_depth_with_space_separator`
+  - `73b2238d2e73/tests.test_depth.test_depth5_shows_exactly_five_levels`
+  - `73b2238d2e73/tests.test_depth.test_depth6_shows_deepest_files`
+  - `73b2238d2e73/tests.test_display.test_deep_nested_directory_ascii`
+  - `73b2238d2e73/tests.test_display.test_deep_nested_directory_unicode`
+  - `73b2238d2e73/tests.test_display.test_unicode_bar_gradient_levels`
+  - `73b2238d2e73/tests.test_display.test_multi_path_collection_display`
+  - `73b2238d2e73/tests.test_display.test_empty_directory_display`
+  - `73b2238d2e73/tests.test_display.test_hidden_files_visible_by_default`
+  - `73b2238d2e73/tests.test_display.test_no_hidden_flag_excludes_dotfiles`
+  - `73b2238d2e73/tests.test_errors.test_no_arguments_uses_current_directory`
+  - `73b2238d2e73/tests.test_display.test_symlink_coloring_orphan`
+  - `73b2238d2e73/tests.test_display.test_bar_width_adaptation_varied_sizes`
+  - `73b2238d2e73/tests.test_filtering.test_nested_hidden_directory_excluded`
+  - `73b2238d2e73/tests.test_filtering.test_nested_hidden_included_by_default`
+  - `73b2238d2e73/tests.test_filtering.test_exclude_all_files_in_subdirectory`
+  - `73b2238d2e73/tests.test_gaps.test_broken_symlink_orphan_color`
+  - `73b2238d2e73/tests.test_gaps.test_color_output_ansi_escape_sequences`
+  - `73b2238d2e73/tests.test_gaps.test_executable_file_color`
+  - `73b2238d2e73/tests.test_gaps.test_directory_color_fallback`
+  - `73b2238d2e73/tests.test_gaps.test_file_extension_color_matching`
+  - `73b2238d2e73/tests.test_gaps.test_working_symlink_color`
+  - `73b2238d2e73/tests.test_sizes.test_bytes_flag_large_files`
+  - `73b2238d2e73/tests.test_gaps.test_regular_file_color_fallback`
+  - `73b2238d2e73/tests.test_gaps.test_empty_files_bar_rendering_zero_division`
+  - `73b2238d2e73/tests.test_gaps.test_other_writable_directory_color`
+  - `73b2238d2e73/tests.test_gaps.test_lscolors_with_quotes`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_other_writable_directory`
+  - `d1cae94adb26/tests.test_core.test_depth_limit_deep`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_multiple_paths`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_basic`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_executable_code`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_exact_boundary_1024`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_basic_parsing`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_regular_file_code`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_zero_byte_file`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_empty_string`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_extension_patterns`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_with_usage_flag`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_not_set`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_compound_extension`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_with_hidden_and_all`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_quoted_values`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_long_ansi_codes`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_trailing_colon`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_formatting_consistency`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_very_long_string`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_multiple_consecutive_colons`
+  - `d1cae94adb26/tests.test_bytes.test_bytes_flag_with_exclusion`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_256_color_codes`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_empty_value_after_equals`
+  - `d1cae94adb26/tests.test_core.test_permission_denied_file`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_dot_without_asterisk`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_directory_code`
+  - `d1cae94adb26/tests.test_core.test_multiple_paths`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_single_char_keys_safe`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_symlink_codes`
+  - `d1cae94adb26/tests.test_core.test_nested_directory_single_path`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_unicode_in_values`
+  - `d1cae94adb26/tests.test_core.test_symlink_in_directory`
+  - `d1cae94adb26/tests.test_colors.test_ls_colors_whitespace_in_values`
+  - `d1cae94adb26/tests.test_core.test_unicode_filenames`
+  - `d1cae94adb26/tests.test_edge_cases.test_ascii_mode`
+  - `d1cae94adb26/tests.test_core.test_size_based_sorting`
+  - `d1cae94adb26/tests.test_edge_cases.test_files_only_flag`
+  - `d1cae94adb26/tests.test_edge_cases.test_multiple_paths`
+  - `d1cae94adb26/tests.test_core.test_empty_directory_handling`
+  - `d1cae94adb26/tests.test_edge_cases.test_unicode_filenames`
+  - `d1cae94adb26/tests.test_edge_cases.test_symlink_to_directory`
+  - `d1cae94adb26/tests.test_edge_cases.test_exclude_single_name`
+  - `d1cae94adb26/tests.test_edge_cases.test_combined_depth_and_aggregation`
+  - `d1cae94adb26/tests.test_core.test_permission_denied_directory`
+  - `d1cae94adb26/tests.test_edge_cases.test_aggregation_at_exact_boundary`
+  - `d1cae94adb26/tests.test_filtering.test_depth_limit_3_subdirectory`
+  - `d1cae94adb26/tests.test_flags.test_multiple_paths`
+  - `d1cae94adb26/tests.test_filtering.test_depth_larger_than_tree_depth`
+  - `d1cae94adb26/tests.test_formatting.test_wide_unicode_characters_multiple_scripts`
+  - `d1cae94adb26/tests.test_filtering.test_multiple_paths`
+  - `d1cae94adb26/tests.test_formatting.test_color_codes_with_ls_colors`
+  - `d1cae94adb26/tests.test_formatting.test_unicode_bar_characters_nested`
+  - `d1cae94adb26/tests.test_filtering.test_no_path_defaults_to_current_dir`
+  - `d1cae94adb26/tests.test_formatting.test_ascii_flag_disables_colors`
+  - `d1cae94adb26/tests.test_formatting.test_unicode_bars_simple_case`
+  - `d1cae94adb26/tests.test_formatting.test_zero_byte_files_percentage`
+  - `d1cae94adb26/tests.test_formatting.test_percentage_calculations`
+  - `d1cae94adb26/tests.test_formatting.test_equal_sized_files`
+  - `d1cae94adb26/tests.test_formatting.test_header_with_long_directory_name`
+  - `d1cae94adb26/tests.test_formatting.test_single_file_in_directory`
+  - `d1cae94adb26/tests.test_formatting.test_multiple_file_extensions_with_colors`
+  - `d1cae94adb26/tests.test_formatting.test_nested_directory_bar_rendering`
+  - `d1cae94adb26/tests.test_formatting.test_deep_directory_nesting`
+  - `d1cae94adb26/tests.test_formatting.test_long_filename_truncation`
+  - `d1cae94adb26/tests.test_formatting.test_unicode_with_ascii_and_bytes_flags`
+  - `d1cae94adb26/tests.test_formatting.test_size_formatting_bytes_flag`
+  - `d1cae94adb26/tests.test_formatting.test_combined_ascii_and_bytes_flags`
+  - `d1cae94adb26/tests.test_formatting.test_byte_to_kib_threshold_boundary`
+  - `d1cae94adb26/tests.test_formatting.test_sparse_file_default_size`
+  - `d1cae94adb26/tests.test_formatting.test_unicode_character_width_handling`
 
 ## naggie/dstask
 
@@ -2267,6 +3120,100 @@ Course-side: 4 tests dropped by us.
   - `1e617f44df07/tests.test_output_gaps.test_csv_crlf_line_endings`
 - Compares raw compressed bytes; the gzip stream header/encoding differs between the macOS and container zlib builds.
   - `1e617f44df07/tests.test_reader_importer_gaps.test_multiple_compression_layers_rejected`
+
+## o2sh/onefetch
+
+Instance `o2sh__onefetch.e5958ce`: 1214 tests shipped, 1114 kept.
+
+Benchmark-side: 48 tests dropped by ProgramBench.
+
+- `dummy_pass`: 40
+- `gold_fail`: 9
+
+Course-side: 52 tests dropped by us.
+
+- onefetch prints a colored ASCII-art logo. On macOS its color library emits a slightly different escape sequence (an extra default-color/reset before the first colored run) than the Linux reference, so the exact-byte ASCII-art and true-color/color-resolution goldens never match. It is a terminal color- sequence rendering difference, not a logo/content change.
+  - `36265ef8a882/tests.test_ascii_art.test_rust_default_ascii_art`
+  - `36265ef8a882/tests.test_ascii_art.test_python_default_ascii_art`
+  - `36265ef8a882/tests.test_ascii_art.test_javascript_default_ascii_art`
+  - `36265ef8a882/tests.test_ascii_art.test_go_default_ascii_art`
+  - `36265ef8a882/tests.test_ascii_art.test_true_color_always`
+  - `36265ef8a882/tests.test_ascii_art.test_true_color_never`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_with_monochrome_image`
+  - `36265ef8a882/tests.test_git_gaps.test_churn_pool_size_limits_diff_computation`
+  - `36265ef8a882/tests.test_image_output.test_image_flag_with_valid_png_kitty_protocol_no_tty`
+  - `36265ef8a882/tests.test_image_output.test_image_flag_with_valid_png_sixel_protocol_no_tty`
+  - `36265ef8a882/tests.test_image_output.test_image_flag_with_valid_png_iterm_protocol_no_tty`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_valid_values`
+  - `36265ef8a882/tests.test_text_formatting.test_default_text_formatting`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_16_accepted`
+  - `36265ef8a882/tests.test_text_formatting.test_text_colors_full_specification`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_32_accepted`
+  - `36265ef8a882/tests.test_text_formatting.test_text_colors_partial_specification`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_64_accepted`
+  - `36265ef8a882/tests.test_text_formatting.test_text_colors_bright_colors_mapping`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_256_accepted`
+  - `36265ef8a882/tests.test_image_output.test_image_without_protocol_auto_detection_no_tty`
+  - `36265ef8a882/tests.test_ui_printer_gaps.test_yaml_output_format`
+  - `36265ef8a882/tests.test_image_output.test_image_large_512x512_kitty`
+  - `36265ef8a882/tests.test_ui_printer_gaps.test_no_art_plain_output`
+  - `36265ef8a882/tests.test_image_output.test_image_large_512x512_sixel`
+  - `36265ef8a882/tests.test_ui_printer_gaps.test_ascii_colors_extend_with_language_colors`
+  - `36265ef8a882/tests.test_image_output.test_image_large_512x512_iterm`
+  - `36265ef8a882/tests.test_ui_printer_gaps.test_ascii_language_override`
+  - `36265ef8a882/tests.test_image_output.test_image_tiny_2x2_kitty`
+  - `36265ef8a882/tests.test_ui_printer_gaps.test_json_output_format`
+  - `36265ef8a882/tests.test_image_output.test_image_wide_256x32_sixel`
+  - `36265ef8a882/tests.test_ui_printer_gaps.test_combined_no_bold_with_custom_colors`
+  - `36265ef8a882/tests.test_image_output.test_image_tall_32x256_iterm`
+  - `36265ef8a882/tests.test_ui_printer_module_gaps.test_line_wrapping_control_codes_in_plain_output`
+  - `36265ef8a882/tests.test_image_output.test_image_with_relative_path`
+  - `36265ef8a882/tests.test_ui_printer_module_gaps.test_ascii_language_override_with_python`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_with_different_image_sizes`
+  - `36265ef8a882/tests.test_image_output.test_color_resolution_256_with_large_image`
+  - `36265ef8a882/tests.test_ui_printer_module_gaps.test_text_colors_with_empty_list_uses_primary`
+  - `36265ef8a882/tests.test_image_output.test_checkerboard_pattern_kitty`
+  - `36265ef8a882/tests.test_ui_printer_module_gaps.test_no_bold_flag_affects_ascii_art_rendering`
+  - `36265ef8a882/tests.test_image_output.test_checkerboard_pattern_sixel`
+  - `36265ef8a882/tests.test_ui_text_gaps.test_ascii_colors_extend_with_language_colors`
+  - `36265ef8a882/tests.test_ui_printer_module_gaps.test_json_serialization_with_all_fields`
+  - `36265ef8a882/tests.test_image_output.test_image_path_with_spaces`
+  - `36265ef8a882/tests.test_ui_text_gaps.test_empty_ascii_colors_uses_language_colors`
+  - `36265ef8a882/tests.test_ui_text_gaps.test_text_colors_partial_specification_falls_back`
+  - `36265ef8a882/tests.test_image_output.test_image_path_with_unicode`
+  - `36265ef8a882/tests.test_ui_text_gaps.test_combined_no_art_and_no_bold`
+  - `36265ef8a882/tests.test_image_output.test_all_protocols_with_same_image`
+  - `36265ef8a882/tests.test_url.test_bitbucket_ssh_url_conversion`
+  - `36265ef8a882/tests.test_basic_repo.test_title_structure`
+
+## ogham/dog
+
+Instance `ogham__dog.721440b`: 1722 tests shipped, 964 kept.
+
+Benchmark-side: 422 tests dropped by ProgramBench.
+
+- `dummy_pass`: 239
+- `gold_fail`: 186
+
+Course-side: 16 tests dropped by us.
+
+- dog is a DNS client; these tests hit live DNS (8.8.8.8, google.com) and depend on network/IPv6 availability and OS error text that differ here: AAAA/IPv6 lookups return no records in this environment, and connection/lookup errors use macOS errno numbers and getaddrinfo wording (e.g. "os error 61"/"nodename nor servname" vs Linux "os error 111"/"Name or service not known"). The pytest internal-error entry is an xdist worker artifact, not a test.
+  - `78e6b2a03639/eval.tests.test_edge_cases.test_numeric_ip_query`
+  - `78e6b2a03639/eval.tests.test_final_coverage_boost.test_ipv6_only_query`
+  - `78e6b2a03639/eval.tests.test_dns_queries.test_aaaa_query`
+  - `db7d53e19106/tests.test_dns_library.test_aaaa_record_json_structure`
+  - `db7d53e19106/tests.test_dns_library.test_multiple_record_types_in_answer_section`
+  - `db7d53e19106/tests.test_dns_library.test_aaaa_ipv6_address_format_colons`
+  - `db7d53e19106/tests.test_errors.test_nonexistent_nameserver_lookup_error`
+  - `db7d53e19106/tests.test_errors.test_connection_refused_tcp`
+  - `db7d53e19106/tests.test_errors.test_invalid_nameserver_address`
+  - `db7d53e19106/tests.test_errors.test_malformed_ipv6_address`
+  - `db7d53e19106/tests.test_errors.test_ipv6_address_family_not_supported`
+  - `db7d53e19106/tests.test_errors.test_tls_connection_refused`
+  - `db7d53e19106/tests.test_errors.test_https_invalid_domain`
+  - `db7d53e19106/tests.test_json_output.test_json_aaaa_record_structure`
+  - `db7d53e19106/tests.test_output_formatting.test_short_format_aaaa_records`
+  - `db7d53e19106/pytest.internal`
 
 ## oppiliappan/eva
 
@@ -2348,6 +3295,18 @@ Course-side: 1 tests dropped by us.
 - Asserts the nil-pointer panic traceback cites the workspace source path. Go bakes source paths into the binary at compile time, so the traceback shows the repo checkout path (where compile.sh ran), which can never equal the per-run workspace path in this local harness.
   - `0d7f74667e0b/tests.test_replace_timestamps.test_missing_update_timestamp_causes_crash`
 
+## raviqqe/muffet
+
+Instance `raviqqe__muffet.a882908`: 432 tests shipped, 292 kept.
+
+Benchmark-side: 140 tests dropped by ProgramBench.
+
+- `dummy_pass`: 97
+- `gold_fail`: 42
+- `gold_flaky`: 1
+
+Course-side: none.
+
 ## rcoh/angle-grinder
 
 Instance `rcoh__angle-grinder.9c2fc88`: 1143 tests shipped, 1126 kept.
@@ -2377,6 +3336,76 @@ Course-side: 1 tests dropped by us.
 
 - Renders output through od, whose column spacing differs between BSD od (macOS) and GNU od (containers); the bytes under test are identical.
   - `565c68a30560/tests.test_trim_compress.test_compress_with_zero_terminated_lines`
+
+## robertdavidgraham/masscan
+
+Instance `robertdavidgraham__masscan.b99d433`: 3357 tests shipped, 1490 kept.
+
+Benchmark-side: 808 tests dropped by ProgramBench.
+
+- `dummy_pass`: 603
+- `gold_fail`: 237
+
+Course-side: 46 tests dropped by us.
+
+- masscan dlopens libpcap at runtime. The reference containers had NO libpcap, so every golden carries a "[-] FAIL: failed to load libpcap shared library" line; macOS always ships libpcap (in the dyld shared cache), so masscan loads it and that line is absent, inverting the mismatch (and its debug log shows the extra ".dylib found" step). It cannot be reproduced without removing a system library. The rest are OS-divergent: errno text (readscan "Success", pcap "No such file"), --echo config that reflects the host, and arch/format differences.
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_unknown_flag_errors_and_usage_present`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_echo_includes_sections_and_default_ports_empty`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_missing_config_file_errors_include_cwd`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_echo_rate_setting[args0]`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_echo_rate_setting[args1]`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_echo_port_list_is_normalized_to_ranges`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_echo_renders_target_range[192.168.0.0/30-range = 192.168.0.0/30]`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_echo_renders_target_range[10.0.0.1-10.0.0.3-range = 10.0.0.1-10.0.0.3]`
+  - `4f26916033bc/eval.tests.test_masscan_cli.test_config_file_parsing_affects_echo_output`
+  - `c590bc7e4a13/tests.test_binary_format.test_readscan_empty_file`
+  - `c590bc7e4a13/tests.test_binary_format.test_readscan_truncated_header`
+  - `c590bc7e4a13/tests.test_pcap_files.test_pcap_payloads_nonexistent_file`
+  - `c590bc7e4a13/tests.test_scanning.test_rate_very_large_number`
+  - `c590bc7e4a13/tests.test_scripting.test_script_with_empty_filename`
+  - `c590bc7e4a13/tests.test_scripting.test_script_config_file_empty_value`
+  - `c590bc7e4a13/tests.test_scripting.test_script_config_file_whitespace_value`
+  - `c590bc7e4a13/tests.test_crypto.test_benchmark_exit_code_with_libpcap_warning`
+  - `c590bc7e4a13/tests.test_scripting.test_script_segfault_detection`
+  - `c590bc7e4a13/tests.test_scripting.test_script_exit_code_on_lua_failure`
+  - `c590bc7e4a13/tests.test_utils.test_logging_debug_level_basic`
+  - `c590bc7e4a13/tests.test_utils.test_logging_debug_level_increased`
+  - `c590bc7e4a13/tests.test_utils.test_logging_no_debug_minimal_output`
+  - `c590bc7e4a13/tests.test_utils.test_logging_stderr_vs_stdout_separation`
+  - `c590bc7e4a13/tests.test_utils.test_massip_full_port_range`
+  - `c590bc7e4a13/tests.test_utils.test_massip_ipv6_range_multi`
+  - `c590bc7e4a13/tests.test_utils.test_massip_exclude_range_from_subnet`
+  - `c590bc7e4a13/tests.test_utils.test_massip_complex_port_range`
+  - `c590bc7e4a13/tests.test_utils.test_massip_excludefile_empty`
+  - `c590bc7e4a13/tests.test_utils.test_massip_port_max`
+  - `c590bc7e4a13/tests.test_utils.test_massip_port_zero`
+  - `c590bc7e4a13/tests.test_utils.test_massip_ipv6_exclude_range`
+  - `c590bc7e4a13/tests.test_utils.test_massip_shard_with_seed`
+  - `c590bc7e4a13/tests.test_utils.test_regress_selftest`
+  - `c590bc7e4a13/tests.test_utils.test_rate_specification_high_value`
+  - `c590bc7e4a13/tests.test_utils.test_max_rate_specification`
+  - `c590bc7e4a13/tests.test_utils.test_udp_port_specification`
+  - `c590bc7e4a13/tests.test_utils.test_mixed_protocol_ports`
+  - `c590bc7e4a13/tests.test_utils.test_seed_one_explicit`
+  - `c590bc7e4a13/tests.test_utils.test_massip_max_ipv4_address`
+  - `c590bc7e4a13/tests.test_utils.test_massip_explicit_range_optimized`
+  - `c590bc7e4a13/tests.test_utils.test_massip_zero_ipv4_address`
+  - `c590bc7e4a13/tests.test_utils.test_massip_comma_separated_ips_merged`
+  - `c590bc7e4a13/tests.test_utils.test_massip_non_contiguous_ips_separate`
+  - `d2dcc83decf8/pytest.internal`
+  - `e874f7a39dcd/tests.test_coverage_final_push.test_iflist_mode`
+  - `e874f7a39dcd/pytest.internal`
+
+## rochacbruno/marmite
+
+Instance `rochacbruno__marmite.7d4bc2d`: 853 tests shipped, 668 kept.
+
+Benchmark-side: 185 tests dropped by ProgramBench.
+
+- `gold_fail`: 111
+- `dummy_pass`: 79
+
+Course-side: none.
 
 ## rust-embedded/svd2rust
 
@@ -2522,6 +3551,30 @@ Benchmark-side: 58 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## segmentio/chamber
+
+Instance `segmentio__chamber.5f93f5f`: 3104 tests shipped, 1526 kept.
+
+Benchmark-side: 1356 tests dropped by ProgramBench.
+
+- `dummy_pass`: 1067
+- `gold_fail`: 520
+
+Course-side: 11 tests dropped by us.
+
+- chamber is an AWS secrets manager. Its SSM/S3/SecretsManager backend tests expect specific AWS API error text (AccessDeniedException, NoSuchBucket, an ssm ARN); with no AWS credentials/region here the AWS SDK returns a different "operation error" wrapper. The rest are host-specific: macOS injects extra environment variables (so "pristine env" keeps >2), /bin/sh echo prints a literal "-n", a mock server hits "address already in use", and one test imports the `requests` module which is not in the harness venv. The pytest internal entry is an xdist artifact.
+  - `001afa7e5e9d/tests.test_environ.TestEnvironSetUnsetIsSet.test_exec_pristine_removes_all_parent_env_vars`
+  - `001afa7e5e9d/tests.test_environ.TestEnvironEdgeCases.test_exec_with_newline_in_env_value`
+  - `001afa7e5e9d/tests.test_environ.TestEnvironLoadStrictWithBackend.test_load_strict_pristine_removes_non_store_vars`
+  - `001afa7e5e9d/tests.test_final_9_lines.TestFindListServicesError.test_find_ssm_backend_access_denied`
+  - `001afa7e5e9d/tests.test_final_9_lines.TestSharedGoRegionEnvVar.test_region_from_env_var`
+  - `001afa7e5e9d/tests.test_root_validation.test_s3_backend_bucket_flag_overrides_env_var`
+  - `001afa7e5e9d/tests.test_root_validation.test_secretsmanager_backend_initialization`
+  - `001afa7e5e9d/tests.test_root_validation.test_valid_retry_mode_standard`
+  - `001afa7e5e9d/tests.test_root_validation.test_valid_retry_mode_adaptive`
+  - `ef3491a522d7/.eval.tests.test_s3_working`
+  - `ef3491a522d7/pytest.internal`
+
 ## sharkdp/fd
 
 Instance `sharkdp__fd.40d8eb3`: 1405 tests shipped, 1190 kept.
@@ -2591,6 +3644,20 @@ Benchmark-side: 68 tests dropped by ProgramBench.
 - `gold_fail`: 16
 
 Course-side: none.
+
+## sharkdp/hyperfine
+
+Instance `sharkdp__hyperfine.327d5f4`: 298 tests shipped, 290 kept.
+
+Benchmark-side: 7 tests dropped by ProgramBench.
+
+- `dummy_pass`: 4
+- `gold_fail`: 3
+
+Course-side: 1 tests dropped by us.
+
+- hyperfine records exit code 127 for `/bin/false` on macOS (its shell wrapper resolves the command differently) where Linux reports 1; the gold binary reproduces the 127 here, so this exit-code assertion gold-fails on macOS.
+  - `bc90bea37ab6/tests.test_command_timer.test_timer_reports_exit_codes`
 
 ## sharkdp/pastel
 

@@ -1,0 +1,8 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# hush is a shell; on macOS /tmp is a symlink to /private/tmp, so `cd /tmp; pwd`
+# reports /private/tmp where the Linux containers report /tmp.
+6a555d8a1a6a/tests.test_commands.test_builtin_cd_changes_directory
+6a555d8a1a6a/tests.test_stdlib.test_cd_cwd
+6a555d8a1a6a/tests.test_stdlib_gaps.test_cd_changes_directory

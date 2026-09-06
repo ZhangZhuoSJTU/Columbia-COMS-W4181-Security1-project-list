@@ -1,0 +1,56 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# masscan dlopens libpcap at runtime. The reference containers had NO libpcap, so
+# every golden carries a "[-] FAIL: failed to load libpcap shared library" line;
+# macOS always ships libpcap (in the dyld shared cache), so masscan loads it and
+# that line is absent, inverting the mismatch (and its debug log shows the extra
+# ".dylib found" step). It cannot be reproduced without removing a system library.
+# The rest are OS-divergent: errno text (readscan "Success", pcap "No such file"),
+# --echo config that reflects the host, and arch/format differences.
+4f26916033bc/eval.tests.test_masscan_cli.test_unknown_flag_errors_and_usage_present
+4f26916033bc/eval.tests.test_masscan_cli.test_echo_includes_sections_and_default_ports_empty
+4f26916033bc/eval.tests.test_masscan_cli.test_missing_config_file_errors_include_cwd
+4f26916033bc/eval.tests.test_masscan_cli.test_echo_rate_setting[args0]
+4f26916033bc/eval.tests.test_masscan_cli.test_echo_rate_setting[args1]
+4f26916033bc/eval.tests.test_masscan_cli.test_echo_port_list_is_normalized_to_ranges
+4f26916033bc/eval.tests.test_masscan_cli.test_echo_renders_target_range[192.168.0.0/30-range = 192.168.0.0/30]
+4f26916033bc/eval.tests.test_masscan_cli.test_echo_renders_target_range[10.0.0.1-10.0.0.3-range = 10.0.0.1-10.0.0.3]
+4f26916033bc/eval.tests.test_masscan_cli.test_config_file_parsing_affects_echo_output
+c590bc7e4a13/tests.test_binary_format.test_readscan_empty_file
+c590bc7e4a13/tests.test_binary_format.test_readscan_truncated_header
+c590bc7e4a13/tests.test_pcap_files.test_pcap_payloads_nonexistent_file
+c590bc7e4a13/tests.test_scanning.test_rate_very_large_number
+c590bc7e4a13/tests.test_scripting.test_script_with_empty_filename
+c590bc7e4a13/tests.test_scripting.test_script_config_file_empty_value
+c590bc7e4a13/tests.test_scripting.test_script_config_file_whitespace_value
+c590bc7e4a13/tests.test_crypto.test_benchmark_exit_code_with_libpcap_warning
+c590bc7e4a13/tests.test_scripting.test_script_segfault_detection
+c590bc7e4a13/tests.test_scripting.test_script_exit_code_on_lua_failure
+c590bc7e4a13/tests.test_utils.test_logging_debug_level_basic
+c590bc7e4a13/tests.test_utils.test_logging_debug_level_increased
+c590bc7e4a13/tests.test_utils.test_logging_no_debug_minimal_output
+c590bc7e4a13/tests.test_utils.test_logging_stderr_vs_stdout_separation
+c590bc7e4a13/tests.test_utils.test_massip_full_port_range
+c590bc7e4a13/tests.test_utils.test_massip_ipv6_range_multi
+c590bc7e4a13/tests.test_utils.test_massip_exclude_range_from_subnet
+c590bc7e4a13/tests.test_utils.test_massip_complex_port_range
+c590bc7e4a13/tests.test_utils.test_massip_excludefile_empty
+c590bc7e4a13/tests.test_utils.test_massip_port_max
+c590bc7e4a13/tests.test_utils.test_massip_port_zero
+c590bc7e4a13/tests.test_utils.test_massip_ipv6_exclude_range
+c590bc7e4a13/tests.test_utils.test_massip_shard_with_seed
+c590bc7e4a13/tests.test_utils.test_regress_selftest
+c590bc7e4a13/tests.test_utils.test_rate_specification_high_value
+c590bc7e4a13/tests.test_utils.test_max_rate_specification
+c590bc7e4a13/tests.test_utils.test_udp_port_specification
+c590bc7e4a13/tests.test_utils.test_mixed_protocol_ports
+c590bc7e4a13/tests.test_utils.test_seed_one_explicit
+c590bc7e4a13/tests.test_utils.test_massip_max_ipv4_address
+c590bc7e4a13/tests.test_utils.test_massip_explicit_range_optimized
+c590bc7e4a13/tests.test_utils.test_massip_zero_ipv4_address
+c590bc7e4a13/tests.test_utils.test_massip_comma_separated_ips_merged
+c590bc7e4a13/tests.test_utils.test_massip_non_contiguous_ips_separate
+d2dcc83decf8/pytest.internal
+e874f7a39dcd/tests.test_coverage_final_push.test_iflist_mode
+e874f7a39dcd/pytest.internal

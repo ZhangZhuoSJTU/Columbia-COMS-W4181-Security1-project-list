@@ -1,0 +1,24 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# glibc prints negative-NaN as "-nan"; macOS libc prints "nan", so these math
+# results differ byte-for-byte:
+d549f80b25ef/tests.test_mathlib.test_special_values_infinity_nan
+d549f80b25ef/tests.test_mathlib.test_sqrt_negative_produces_nan
+d549f80b25ef/tests.test_mathlib.test_min_max_with_nan
+d549f80b25ef/tests.test_mathlib.test_log_negative_values
+# Lua truncates the script's chunk name to LUA_IDSIZE (~60 chars) in error
+# messages; the reference "/workspace/..." path fit, but the harness-rewritten
+# deep checkout path overflows and is shown as "...<tail>", so the error goldens
+# no longer match:
+d549f80b25ef/tests.test_cli.test_script_nil_call_error
+d549f80b25ef/tests.test_cli.test_script_syntax_error
+d549f80b25ef/tests.test_cli.test_script_runtime_error
+# os.execute pipes to `wc`, whose BSD build pads the count with spaces where GNU
+# wc does not:
+d549f80b25ef/tests.test_oslib.test_os_execute_with_pipes_and_redirects
+# writes to /dev/full, a Linux-only always-ENOSPC device that does not exist on macOS:
+d549f80b25ef/tests.test_harvest.test_files
+# string.rep overflow allocates enormous memory; times out on macOS rather than
+# failing fast as on the Linux containers:
+d549f80b25ef/tests.test_strlib.test_string_rep_overflow_error

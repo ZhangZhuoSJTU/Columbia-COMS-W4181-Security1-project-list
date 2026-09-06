@@ -1,0 +1,13 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# macOS enforces a 255-byte filename limit (ENAMETOOLONG) where Linux allows the
+# long path this stress test builds.
+8ebac061b133/tests.test_stress.test_maximum_path_length
+# No-tty passphrase prompt: macOS emits a different "could not read passphrase"
+# error text than the Linux containers.
+8ebac061b133/tests.test_ssh_encrypted_keys_gaps.test_encrypted_ed25519_key_no_tty_error
+8ebac061b133/tests.test_ssh_encrypted_keys_gaps.test_encrypted_rsa_key_no_tty_error
+# The gold binary orders the "-r"/filename hint differently on macOS than the
+# test expects (arg-formatting divergence), so gold fails this here.
+8ebac061b133/tests.test_main_gaps.test_input_before_flags_helpful_hint

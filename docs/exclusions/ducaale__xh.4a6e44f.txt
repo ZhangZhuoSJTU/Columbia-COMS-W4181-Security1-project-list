@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# The test's mock server (Python http.server) emits "Server: BaseHTTP/0.6
+# Python/3.10.12" in the response headers; this machine's Python version differs,
+# so the captured header never matches the golden.
+06aaf86cdfa9/tests.test_output_formatting.test_headers_only_print_flag

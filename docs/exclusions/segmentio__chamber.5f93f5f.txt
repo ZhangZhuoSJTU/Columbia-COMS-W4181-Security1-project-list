@@ -1,0 +1,22 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# chamber is an AWS secrets manager. Its SSM/S3/SecretsManager backend tests
+# expect specific AWS API error text (AccessDeniedException, NoSuchBucket, an
+# ssm ARN); with no AWS credentials/region here the AWS SDK returns a different
+# "operation error" wrapper. The rest are host-specific: macOS injects extra
+# environment variables (so "pristine env" keeps >2), /bin/sh echo prints a
+# literal "-n", a mock server hits "address already in use", and one test imports
+# the `requests` module which is not in the harness venv. The pytest internal
+# entry is an xdist artifact.
+001afa7e5e9d/tests.test_environ.TestEnvironSetUnsetIsSet.test_exec_pristine_removes_all_parent_env_vars
+001afa7e5e9d/tests.test_environ.TestEnvironEdgeCases.test_exec_with_newline_in_env_value
+001afa7e5e9d/tests.test_environ.TestEnvironLoadStrictWithBackend.test_load_strict_pristine_removes_non_store_vars
+001afa7e5e9d/tests.test_final_9_lines.TestFindListServicesError.test_find_ssm_backend_access_denied
+001afa7e5e9d/tests.test_final_9_lines.TestSharedGoRegionEnvVar.test_region_from_env_var
+001afa7e5e9d/tests.test_root_validation.test_s3_backend_bucket_flag_overrides_env_var
+001afa7e5e9d/tests.test_root_validation.test_secretsmanager_backend_initialization
+001afa7e5e9d/tests.test_root_validation.test_valid_retry_mode_standard
+001afa7e5e9d/tests.test_root_validation.test_valid_retry_mode_adaptive
+ef3491a522d7/.eval.tests.test_s3_working
+ef3491a522d7/pytest.internal

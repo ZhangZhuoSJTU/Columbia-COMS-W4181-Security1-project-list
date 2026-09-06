@@ -1,0 +1,26 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# rustowl's toolchain manager tests (install/uninstall/check a Rust sysroot)
+# depend on Linux filesystem and environment behavior that differs on macOS:
+# removing a directory that contains read-only files, the runtime/sysroot path
+# location (resolved via the directories crate -> ~/Library on macOS, not the
+# Linux XDG/home layout the tests assert), symlink handling, and toolchain
+# download (which hangs/times out here). They fail for the gold binary on macOS.
+db975e1644f7/tests.test_toolchain.test_uninstall_removes_sysroot_when_present
+db975e1644f7/tests.test_toolchain.test_uninstall_preserves_other_sysroot_versions
+db975e1644f7/tests.test_toolchain.test_uninstall_multiple_times_in_sequence
+db975e1644f7/tests.test_toolchain.test_uninstall_removes_nested_sysroot_structure
+db975e1644f7/tests.test_toolchain.test_uninstall_with_symlinks_in_sysroot
+db975e1644f7/tests.test_toolchain.test_uninstall_with_readonly_files_in_sysroot
+db975e1644f7/tests.test_toolchain.test_uninstall_with_empty_directories_in_sysroot
+db975e1644f7/tests.test_toolchain.test_recursive_read_dir_with_deeply_nested_empty_directories
+db975e1644f7/tests.test_toolchain.test_check_command_with_incomplete_sysroot_missing_bin
+db975e1644f7/tests.test_toolchain.test_check_command_without_project_path_uses_current_dir
+db975e1644f7/tests.test_toolchain.test_get_executable_path_not_in_sysroot_or_same_dir
+db975e1644f7/tests.test_toolchain.test_toolchain_install_starts_downloading_first_component
+db975e1644f7/tests.test_toolchain.test_toolchain_uninstall_with_symlinks_in_sysroot
+db975e1644f7/tests.test_toolchain.test_fallback_runtime_dir_uses_home_directory
+db975e1644f7/tests.test_toolchain.test_executable_path_same_directory_fallback
+db975e1644f7/tests.test_toolchain.test_check_with_valid_sysroot_finds_executables
+db975e1644f7/tests.test_toolchain.test_check_with_executable_in_same_directory_as_binary

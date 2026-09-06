@@ -1,0 +1,9 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# macOS enforces a 255-byte filename limit; this test builds a longer name (ENAMETOOLONG).
+642420bd4df9/tests.test_rc_gaps.test_pathhash_with_hasher_write_error_path
+# The systemd env dump includes host-injected vars; macOS (launchd/iTerm2) sets
+# entries like LaunchInstanceID / __CFBundleIdentifier that the test's strict
+# variable-name regex rejects and that do not exist in the Linux containers.
+642420bd4df9/tests.test_shell_exporters.test_systemd_dump_format

@@ -1,0 +1,7 @@
+# Course-side exclusions: tests that are environment-sensitive outside the
+# benchmark containers. Format: <branch>/<classname>.<testname>
+
+# hyperfine records exit code 127 for `/bin/false` on macOS (its shell wrapper
+# resolves the command differently) where Linux reports 1; the gold binary
+# reproduces the 127 here, so this exit-code assertion gold-fails on macOS.
+bc90bea37ab6/tests.test_command_timer.test_timer_reports_exit_codes
