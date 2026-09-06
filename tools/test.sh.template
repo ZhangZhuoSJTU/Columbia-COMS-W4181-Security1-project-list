@@ -142,7 +142,9 @@ while read -r branch; do
         GIT_AUTHOR_DATE='2000-01-01T00:00:00Z' GIT_COMMITTER_DATE='2000-01-01T00:00:00Z' \
         git -c user.email=gold@local -c user.name=gold -c commit.gpgsign=false \
         commit -q --allow-empty -m gold ) >/dev/null 2>&1 || true
-    cp executable "$dir/executable" && chmod +x "$dir/executable"
+    # Some test tarballs ship a broken `executable` symlink; rm it first so cp
+    # writes a real binary instead of following the dead symlink.
+    rm -f "$dir/executable"; cp executable "$dir/executable" && chmod +x "$dir/executable"
     # The suites were authored in containers whose workspace root is
     # /workspace, and some tests/goldens embed that absolute path. Rewrite it
     # to this run dir in every text file so path-sensitive assertions hold.
