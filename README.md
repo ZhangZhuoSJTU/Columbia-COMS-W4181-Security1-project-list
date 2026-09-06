@@ -6,18 +6,38 @@ open-source program, plants a bug in it, and hunts for the bugs planted by every
 
 ## Rules
 
-The competition runs in **three rounds**. In each round:
+The full rules, the submission workflow and the scoring live on the
+[course competition page](https://zzhang.xyz/teaching/security1-fall26/competition.html).
+This is the same thing in short.
 
-1. **Injection phase.** Each student selects one program from the project list below, injects a
-   **crash-inducing bug**, and privately submits a proof-of-concept (PoC) input to the TAs to
-   demonstrate the bug.
+The competition runs in **two rounds**. In each round:
+
+1. **Preparation phase.** Each student selects one program from the project list below, injects a
+   **crash-inducing bug**, and privately submits a proof-of-concept (PoC) script to the TAs. The
+   modified program must still build with `./compile.sh` and pass `./test.sh`.
 2. **Attack phase.** Students try to discover the bugs injected into other students' programs and
    submit PoCs to the TAs as proof of each discovery.
 
+Round 2 preparation officially opens when the Round 1 attack phase ends, but nothing stops you
+from picking your Round 2 program and studying it earlier.
+
+### Submitting
+
+- **Register first.** By the end of the second week, email the TAs (CC the instructor) your UNI,
+  your GitHub handle, and a competition password. The password is shared with nobody but the TAs
+  and the instructor; every PoC you submit is a zip locked with it.
+- **Your injected bug.** Fork our fork of the program (linked from the table below), inject the bug
+  on a branch, and open a pull request against our fork with your UNI in the title. Attach
+  `poc.sh` as a **password-protected zip** to the pull request description, then email the pull
+  request link to the TAs, CC the instructor. The email timestamp is your submission time.
+- **An attack.** Reproduce the crash on the target pull request's branch, then comment on that pull
+  request with your UNI and your `poc.sh` as a password-protected zip, and email the comment link
+  to the TAs, CC the instructor. The comment timestamp decides first blood.
+
 ### Scoring
 
-Per round, with placeholder weights $A$ (submission), $B$ (defense/attack), $C$ (first blood),
-and $D$ (fresh-project bonus):
+Per round, with weights $A$ (submission), $B$ (defense/attack), $C$ (first blood), and $D$
+(fresh-project bonus):
 
 - **Submission score.** Submitting the modified program on time earns a base score of $A$. Each
   late day deducts $A/3$; at most **three late days** are allowed:
@@ -43,28 +63,37 @@ $$
 S_{\mathrm{attack}} = \sum_{b \in \mathcal{B}} \frac{B}{n_b}
 $$
 
-- **First blood.** The **first** student to discover each bug receives an additional bonus of
-  $C$. With $f$ first-blood discoveries:
+- **First blood.** The first **three** students to discover each bug receive a bonus of $C$,
+  $0.8\,C$ and $0.6\,C$ respectively, in the order of their pull-request comments:
 
 $$
-S_{\mathrm{blood}} = C \cdot f
+S_{\mathrm{blood}} = \sum_{b \in \mathcal{B}} c_b, \qquad c_b \in \{C,\; 0.8\,C,\; 0.6\,C,\; 0\} \text{ by your discovery rank on } b
 $$
 
-- **Fresh-project bonus.** A student who selects a project that **no previous round has
-  touched** (see the *Used in round* column below) earns an extra $D$:
+- **Fresh-project bonus.** The **first** student to open a valid pull request on a project that
+  **no previous round has touched** (see the *Used in round* column below) earns an extra $D$.
+  Only that student; later submissions on the same project do not. In Round 1 every project is
+  fresh.
 
 $$
-S_{\mathrm{fresh}} = D \cdot \mathbb{1}\left[\text{your project was untouched in all previous rounds}\right]
+S_{\mathrm{fresh}} = D \cdot \mathbb{1}\left[\text{yours was the first valid PR on a fresh project}\right]
 $$
 
 **Round total:**
 
 $$
-S_{\mathrm{round}} = \underbrace{A\left(1 - \frac{d}{3}\right)}_{\text{submission}} + \underbrace{B \cdot \mathbb{1}\left[\text{bug not discovered}\right]}_{\text{defense}} + \underbrace{\sum_{b \in \mathcal{B}} \frac{B}{n_b}}_{\text{attack}} + \underbrace{C \cdot f}_{\text{first blood}} + \underbrace{D \cdot \mathbb{1}\left[\text{fresh project}\right]}_{\text{fresh bonus}}
+S_{\mathrm{round}} = \underbrace{A\left(1 - \frac{d}{3}\right)}_{\text{submission}} + \underbrace{B \cdot \mathbb{1}\left[\text{bug not discovered}\right]}_{\text{defense}} + \underbrace{\sum_{b \in \mathcal{B}} \frac{B}{n_b}}_{\text{attack}} + \underbrace{\sum_{b \in \mathcal{B}} c_b}_{\text{first blood}} + \underbrace{D \cdot \mathbb{1}\left[\text{first PR on a fresh project}\right]}_{\text{fresh bonus}}
 $$
 
-The final grade is the sum over the three rounds. The concrete values of $A$, $B$, $C$, $D$ will
-be announced per round.
+**Course grade.** Let $x$ be the sum of your two round totals and $x_{\max}$ the highest such sum
+in the class. The competition grade, out of 100 and worth 40% of the course, is
+
+$$
+10 \sqrt{ \frac{x}{\max\left(x_{\max},\; A_1 + A_2 + 1.5\,B_1 + 1.5\,B_2\right)} \times 100 }
+$$
+
+where $A_i$ and $B_i$ are the weights of round $i$. The concrete values of $A$, $B$, $C$, $D$
+will be announced per round.
 
 ## Building and testing a project
 
@@ -85,7 +114,7 @@ benchmark was built from, with `compile.sh` and `test.sh` already added at the r
 fork and you are ready to build and test. *Tests (ProgramBench)* is the total number of
 behavioral tests the benchmark ships for the project; *Tests kept* is the number we keep after
 removing tests that ProgramBench flags as unreliable (N/A = project not yet prepared, fork link
-may not exist yet). Each project must be validated by all three TAs before it can be selected.
+may not exist yet). Each project must be validated by the TAs (the checkbox columns) before it can be selected.
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
