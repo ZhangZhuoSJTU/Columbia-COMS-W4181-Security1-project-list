@@ -43,7 +43,8 @@ Per round, with weights $A$ (submission), $B$ (defense/attack), $C$ (first blood
 (fresh-project bonus):
 
 - **Submission score.** Submitting the modified program on time earns a base score of $A$. Each
-  late day deducts $A/3$; at most **three late days** are allowed:
+  late day deducts $A/3$; at most **three late days** are allowed. After that the pull request does
+  not count at all, for submission or defense, though you can still earn attack score that round:
 
 $$
 S_{\mathrm{submit}} = A\left(1 - \frac{d}{3}\right), \qquad d \in \{0, 1, 2, 3\}
