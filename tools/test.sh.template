@@ -121,7 +121,12 @@ tmux kill-server 2>/dev/null || true
 mkdir -p "$PB/tests"
 while read -r branch; do
     tar="$PB/tests/$branch.tar.gz"
-    [ -f "$tar" ] || curl -fsSL -o "$tar" "$BASE_URL/$branch.tar.gz"
+    if [ ! -f "$tar" ]; then
+        for _a in 1 2 3 4 5 6; do
+            curl -fsSL -o "$tar" "$BASE_URL/$branch.tar.gz" && tar tzf "$tar" >/dev/null 2>&1 && break
+            rm -f "$tar"; sleep $((_a * 10))
+        done
+    fi
     # The extra "workspace" path segment matters: a few suites assert that
     # paths printed by the tool contain the substring "workspace".
     dir="$PB/run/$branch/workspace"
