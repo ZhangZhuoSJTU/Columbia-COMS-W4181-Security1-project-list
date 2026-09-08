@@ -117,8 +117,6 @@ may not exist yet). Each project must be validated by the TAs (the checkbox colu
 A per-project record of every dropped test and the reason it was dropped lives in
 [docs/dropped-tests.md](docs/dropped-tests.md).
 
-**Ported so far: 174 / 198**
-
 | Project | Commit | Tests (ProgramBench) | Tests kept | Used in round | Annie | SeungHyun | Madalina |
 |---|---|---:|---:|:-:|:-:|:-:|:-:|
 | [abishekvashok/cmatrix](https://github.com/ZhangZhuoSJTU/cmatrix) | `5c082c6` | 769 | 491 | — | ⬜ | ⬜ | ⬜ |
