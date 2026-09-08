@@ -27,15 +27,22 @@ from picking your Round 2 program and studying it earlier.
   your GitHub handle, and a competition password. The password is shared with nobody but the TAs
   and the instructor; every PoC you submit is a zip locked with it.
 - **Your injected bug.** Fork our fork of the program (linked from the table below), inject the bug
-  on a branch, and open a pull request against our fork with your UNI in the title. Attach
-  `poc.sh` as a **password-protected zip** to the pull request description, then email the pull
-  request link to the TAs, CC the instructor. The time the pull request was opened is your
-  submission time; the email just tells the TAs where to look.
-- **An attack.** Reproduce the crash on the target pull request's branch, then comment on that pull
-  request with your UNI and your `poc.sh` as a password-protected zip, and email the comment link
-  to the TAs, CC the instructor. The comment timestamp decides first blood.
-- **GitHub time is the time.** Every timestamp that matters comes from GitHub: when the pull request
-  was opened and when the reply was posted. Never from the emails.
+  on a branch, and open a pull request against our fork titled `<UNI>-Round<N>` (for example
+  `zz3474-Round1`). Attach `poc.sh` as a **password-protected zip** to the pull request
+  description, then email the pull request link to the TAs, CC the instructor. The time the pull
+  request was opened is your submission time; the email just tells the TAs where to look.
+- **An attack.** Reproduce the crash on the target pull request's branch, name your script
+  `<victim UNI>-<attacker UNI>-poc.sh` (the victim's UNI is in the pull request title), and upload
+  it to that round's attack assignment on CourseWorks. No zip, no email, and nothing on GitHub:
+  the CourseWorks timestamp is your discovery time and decides first blood.
+- **The system clock is the time.** Submission time is when the pull request was opened on GitHub.
+  Discovery time is when the PoC landed on CourseWorks. Never the emails.
+- **A hint for defenders.** Everyone can run `diff` on your pull request, and a three-line change is
+  found in minutes. Make the diff bigger than the bug: refactor around it, add semantically
+  equivalent changes, touch several files. Obfuscating the diff is allowed; changing the build or
+  test scripts is not.
+- **Leaderboard.** A leaderboard goes up once the competition starts. It is refreshed every week or
+  two, except that a hacked challenge shows up right away.
 
 ### Scoring
 
@@ -68,7 +75,7 @@ S_{\mathrm{attack}} = \sum_{b \in \mathcal{B}} \frac{B}{n_b}
 $$
 
 - **First blood.** The first **three** students to discover each bug receive a bonus of $C$,
-  $0.8\,C$ and $0.6\,C$ respectively, in the order of their pull-request comments:
+  $0.8\,C$ and $0.6\,C$ respectively, in the order of their CourseWorks submissions:
 
 $$
 S_{\mathrm{blood}} = \sum_{b \in \mathcal{B}} c_b, \qquad c_b \in \{C,\; 0.8\,C,\; 0.6\,C,\; 0\} \text{ by your discovery rank on } b
