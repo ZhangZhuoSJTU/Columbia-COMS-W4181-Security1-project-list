@@ -230,7 +230,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [mookid/diffr](https://github.com/ZhangZhuoSJTU/diffr) | `2152742` | 782 | 606 | — | ⬜ |
 | [multiprocessio/dsq](https://github.com/ZhangZhuoSJTU/dsq) | `c3ae0ba` | 766 | 542 | — | ⬜ |
 | [nachoparker/dutree](https://github.com/ZhangZhuoSJTU/dutree) | `44e877d` | 957 | 499 | — | ⬜ |
-| [naggie/dstask](https://github.com/ZhangZhuoSJTU/dstask) | `ff57396` | 1589 | 1276 | — | ⬜ |
+| [naggie/dstask](https://github.com/ZhangZhuoSJTU/dstask/tree/main) | `ff57396` | 1589 | 1276 | — | ⬜ |
 | [nikolassv/bartib](https://github.com/ZhangZhuoSJTU/bartib) | `6b9b5ce` | 929 | 720 | — | ⬜ |
 | [ninja-build/ninja](https://github.com/ZhangZhuoSJTU/ninja) | `cc60300` | 1905 | 1422 | — | ⬜ |
 | [noborus/trdsql](https://github.com/ZhangZhuoSJTU/trdsql) | `d8c5ff6` | 1403 | 1308 | — | ⬜ |
