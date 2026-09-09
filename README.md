@@ -40,7 +40,8 @@ from picking your Round 2 program and studying it earlier.
 - **A hint for defenders.** Everyone can run `diff` on your pull request, and a three-line change is
   found in minutes. Make the diff bigger than the bug: refactor around it, add semantically
   equivalent changes, touch several files. Obfuscating the diff is allowed; changing the build or
-  test scripts is not.
+  test scripts is not. Do that and you are disqualified for the round: zero points, attack score
+  included.
 - **Leaderboard.** A leaderboard goes up once the competition starts. It is refreshed every week or
   two, except that a hacked challenge shows up right away.
 
