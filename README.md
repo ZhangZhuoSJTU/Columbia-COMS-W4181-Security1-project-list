@@ -114,6 +114,14 @@ toolchain — Go, Rust, or a C compiler — plus `python3` and `curl`):
 
 The intended workflow is simply: edit the code, run `./test.sh`, repeat.
 
+On a fresh clone of a fork, `./test.sh` should report **100% of the kept tests passing** on both
+macOS and Linux: the kept set already excludes every test that is unreliable outside the
+benchmark containers. A lower number is an environment problem to fix, not a baseline to keep.
+The failing tests and their tracebacks are in `.programbench/run/<branch>/workspace/run.log`; the
+usual causes are a tool the suites shell out to that is not installed (`tmux` is the common one),
+or a fork you cloned before a harness fix landed, so `git pull` first. If a test still fails on a
+clean clone, tell the TAs rather than working around it.
+
 ## Project list
 
 Each project links **directly to our forked repository**, reverted to the exact commit the
@@ -197,7 +205,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [hatoo/oha](https://github.com/ZhangZhuoSJTU/oha) | `8dc6349` | 1095 | 887 | — | ⬜ |
 | [hooklift/gowsdl](https://github.com/ZhangZhuoSJTU/gowsdl) | `2a06cec` | 419 | 391 | — | ✅ |
 | [hpjansson/chafa](https://github.com/ZhangZhuoSJTU/chafa) | `dd4d4c1` | 2775 | 1605 | — | ⬜ |
-| [htop-dev/htop](https://github.com/ZhangZhuoSJTU/htop) | `523600b` | 1200 | 616 | — | ✅ |
+| [htop-dev/htop](https://github.com/ZhangZhuoSJTU/htop) | `523600b` | 1200 | 611 | — | ✅ |
 | [hush-shell/hush](https://github.com/ZhangZhuoSJTU/hush) | `560c33a` | 1298 | 1198 | — | ⬜ |
 | [incu6us/goimports-reviser](https://github.com/ZhangZhuoSJTU/goimports-reviser) | `81bd549` | 597 | 512 | — | ✅ |
 | [ip7z/7zip](https://github.com/ZhangZhuoSJTU/7zip) | `839151e` | 1085 | 970 | — | ✅ |

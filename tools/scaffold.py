@@ -31,7 +31,6 @@ executable
 .programbench/tests/
 .programbench/run/
 .programbench/shims/
-.programbench/tmux/
 """
 
 

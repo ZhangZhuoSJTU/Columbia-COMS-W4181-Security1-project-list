@@ -986,6 +986,18 @@ Benchmark-side: 149 tests dropped by ProgramBench.
 
 Course-side: none.
 
+## dandavison/delta
+
+Instance `dandavison__delta.acd758f`: 1188 tests shipped, 907 kept.
+
+Benchmark-side: 239 tests dropped by ProgramBench.
+
+- `dummy_pass`: 189
+- `gold_fail`: 49
+- `gold_flaky`: 1
+
+Course-side: none.
+
 ## danmar/cppcheck
 
 Instance `danmar__cppcheck.0a5b103`: 2550 tests shipped, 2124 kept.
@@ -1017,6 +1029,17 @@ Course-side: 2 tests dropped by us.
   - `642420bd4df9/tests.test_rc_gaps.test_pathhash_with_hasher_write_error_path`
 - The systemd env dump includes host-injected vars; macOS (launchd/iTerm2) sets entries like LaunchInstanceID / __CFBundleIdentifier that the test's strict variable-name regex rejects and that do not exist in the Linux containers.
   - `642420bd4df9/tests.test_shell_exporters.test_systemd_dump_format`
+
+## doxygen/doxygen
+
+Instance `doxygen__doxygen.966d98e`: 252 tests shipped, 229 kept.
+
+Benchmark-side: 23 tests dropped by ProgramBench.
+
+- `dummy_pass`: 17
+- `gold_fail`: 6
+
+Course-side: none.
 
 ## Drew-Alleman/DataSurgeon
 
@@ -1051,6 +1074,17 @@ Course-side: 1 tests dropped by us.
 - The test's mock server (Python http.server) emits "Server: BaseHTTP/0.6 Python/3.10.12" in the response headers; this machine's Python version differs, so the captured header never matches the golden.
   - `06aaf86cdfa9/tests.test_output_formatting.test_headers_only_print_flag`
 
+## dundee/gdu
+
+Instance `dundee__gdu.ede21d2`: 1553 tests shipped, 1121 kept.
+
+Benchmark-side: 392 tests dropped by ProgramBench.
+
+- `dummy_pass`: 295
+- `gold_fail`: 158
+
+Course-side: none.
+
 ## ecumene/rust-sloth
 
 Instance `ecumene__rust-sloth.051c559`: 455 tests shipped, 377 kept.
@@ -1067,6 +1101,20 @@ Course-side: 3 tests dropped by us.
   - `a892469c7f5b/eval.tests.test_argparse_validation.test_double_dash_with_only_input_runs_default_renderer`
   - `f20665bb95a9/eval.tests.test_errors.test_interactive_mode_requires_tty_and_errors_without_one`
   - `f20665bb95a9/eval.tests.test_image_subcommand.test_invalid_subcommand_yields_nonzero_and_message`
+
+## ekzhang/bore
+
+Instance `ekzhang__bore.8e059cd`: 452 tests shipped, 380 kept.
+
+Benchmark-side: 59 tests dropped by ProgramBench.
+
+- `dummy_pass`: 24
+- `gold_fail`: 22
+- `slow_or_hang`: 12
+- `outcome_dependent_presence`: 2
+- `gold_flaky`: 1
+
+Course-side: none.
 
 ## eliukblau/pixterm
 
@@ -1088,6 +1136,18 @@ Course-side: 7 tests dropped by us.
   - `c0ff9908837a/tests.test_terminal_size.test_scale_fit_respects_terminal_size_bounds`
   - `c0ff9908837a/tests.test_url_loading.test_http_jpeg_basic`
   - `c0ff9908837a/tests.test_url_loading.test_http_with_scale_fit`
+
+## elkowar/pipr
+
+Instance `elkowar__pipr.fae0b17`: 835 tests shipped, 510 kept.
+
+Benchmark-side: 311 tests dropped by ProgramBench.
+
+- `dummy_pass`: 262
+- `gold_fail`: 52
+- `gold_flaky`: 1
+
+Course-side: none.
 
 ## Epistates/treemd
 
@@ -1296,6 +1356,18 @@ Course-side: 128 tests dropped by us.
   - `1978239ed7fd/tests.test_python_engine.test_inline_platform_system`
   - `1978239ed7fd/tests.test_python_engine.test_stdlib_imports_file`
 
+## eudoxia0/hashcards
+
+Instance `eudoxia0__hashcards.48aa136`: 1293 tests shipped, 1018 kept.
+
+Benchmark-side: 274 tests dropped by ProgramBench.
+
+- `slow_or_hang`: 132
+- `dummy_pass`: 112
+- `gold_fail`: 38
+
+Course-side: none.
+
 ## facebook/zstd
 
 Instance `facebook__zstd.1168da0`: 2372 tests shipped, 1975 kept.
@@ -1374,6 +1446,17 @@ Course-side: 63 tests dropped by us.
 - Platform-specific console/tty and version-string detection differences.
   - `f7278a893d6d/tests.test_cli_parsing_gap.test_version_verbose_mode`
   - `ff48618e10b3/tests.test_zstdcli_gap2.test_stdin_console_detection`
+
+## facebookresearch/fastText
+
+Instance `facebookresearch__fasttext.1142dc4`: 352 tests shipped, 301 kept.
+
+Benchmark-side: 40 tests dropped by ProgramBench.
+
+- `gold_fail`: 24
+- `dummy_pass`: 18
+
+Course-side: none.
 
 ## FiloSottile/age
 
@@ -1635,6 +1718,18 @@ Benchmark-side: 116 tests dropped by ProgramBench.
 
 - `gold_fail`: 80
 - `dummy_pass`: 37
+
+Course-side: none.
+
+## hatoo/oha
+
+Instance `hatoo__oha.8dc6349`: 1095 tests shipped, 887 kept.
+
+Benchmark-side: 203 tests dropped by ProgramBench.
+
+- `gold_fail`: 124
+- `dummy_pass`: 74
+- `gold_flaky`: 6
 
 Course-side: none.
 
@@ -1988,6 +2083,102 @@ Course-side: 326 tests dropped by us.
   - `df37316a82f6/tests.test_utils.test_label_ellipsization`
 - macOS libpng accepts a truncated/corrupt PNG the container's libpng rejected, so chafa exits 0 where the test expects a non-zero error.
   - `20ebc3204b43/eval.tests.test_input_handling.test_corrupt_file_handling`
+
+## htop-dev/htop
+
+Instance `htop-dev__htop.523600b`: 1200 tests shipped, 611 kept.
+
+Benchmark-side: 508 tests dropped by ProgramBench.
+
+- `dummy_pass`: 505
+- `gold_fail`: 2
+- `gold_flaky`: 1
+
+Course-side: 81 tests dropped by us.
+
+- htop's process columns are defined per platform: the Linux layer (linux/LinuxProcess.c) exposes CGROUP, CONTAINER, AUTOGROUP_*, IO_*/RBYTES/WBYTES/RCHAR/WCHAR/SYSCR/SYSCW, OOM, SECATTR, CTXT, M_PSS/M_PSSWP/M_SWAP/M_PRIV/M_SHARE/M_TRS/M_DRS/M_LRS, UTIME/STIME/CUTIME/CSTIME, CMINFLT/CMAJFLT, COMM, SCHEDULERPOLICY, IO_PRIORITY; the darwin layer does not, so `htop -s <KEY>` exits 1 with 'Error: invalid column "<KEY>"'. These sort-key tests are Linux-only and pass unchanged there; they only shrink the kept set.
+  - `08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_autogroup_id`
+  - `08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_autogroup_nice`
+  - `08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_container`
+  - `08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_iscontainer`
+  - `08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_m_priv`
+  - `08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_schedulerpolicy`
+  - `08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_basic`
+  - `08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_with_filter`
+  - `08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_with_iterations`
+  - `08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_with_tree`
+  - `08291a021ea9/eval.tests.test_exhaustive_combinations.test_all_sort_keys_with_no_color`
+  - `08291a021ea9/eval.tests.test_exhaustive_combinations.test_all_sort_keys_with_user`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_ccgroup`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_cgroup`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_cnclwb`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_comm`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_ctxt`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_priority`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_rate`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_read_rate`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_write_rate`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_m_pss`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_m_psswp`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_m_swap`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_oom`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_rbytes`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_rchar`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_secattr`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_syscr`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_syscw`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_wbytes`
+  - `08291a021ea9/eval.tests.test_io_columns.test_sort_by_wchar`
+  - `08291a021ea9/eval.tests.test_linux_meters.test_fault_sorts`
+  - `08291a021ea9/eval.tests.test_linux_meters.test_io_sorts`
+  - `08291a021ea9/eval.tests.test_linux_meters.test_memory_sorts`
+  - `08291a021ea9/eval.tests.test_linux_meters.test_time_sorts`
+  - `08291a021ea9/eval.tests.test_maximizer.test_all_sorts_with_iterations`
+  - `08291a021ea9/eval.tests.test_maximizer.test_mega_run_7`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cmajflt`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cminflt`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cstime`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cutime`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_drs`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_lrs`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_share`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_trs`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_stime`
+  - `08291a021ea9/eval.tests.test_sort_extended.test_sort_by_utime`
+  - `32e3f2bdc5b7/eval.tests.test_absolute_maximum.test_every_column_individually_long`
+  - `32e3f2bdc5b7/eval.tests.test_deep_coverage.test_cgroup_and_container_columns`
+  - `32e3f2bdc5b7/eval.tests.test_deep_coverage.test_io_columns_extensive`
+  - `32e3f2bdc5b7/eval.tests.test_deep_coverage.test_memory_columns_variations`
+  - `32e3f2bdc5b7/eval.tests.test_deep_coverage.test_time_columns_variations`
+  - `32e3f2bdc5b7/eval.tests.test_extended_runs.test_all_sort_keys_extended`
+  - `32e3f2bdc5b7/eval.tests.test_final_coverage_push.test_every_sort_key_comprehensive`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_all_io_columns`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_autogroup_columns`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_ccgroup_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_cgroup_column_detailed`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_comm_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_container_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_context_switches_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_io_bytes_columns`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_io_priority_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_io_rate_columns`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_priv_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_pss_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_psswp_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_swap_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_oom_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_schedulerpolicy_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_secattr_column`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_syscall_columns`
+  - `32e3f2bdc5b7/eval.tests.test_process_coverage.test_trs_drs_lrs_columns`
+  - `32e3f2bdc5b7/eval.tests.test_ultra_intensive.test_ultra_run_100_iterations`
+  - `32e3f2bdc5b7/eval.tests.test_ultra_intensive.test_ultra_run_all_sort_long`
+- These five tests pass only if the string "root", "bash" or "sleep" happens to appear in a 24x80 batch render of htop (`-n 1..5`, no -u/-p filter), i.e. only when a root-owned process, or one with "bash"/"sleep" in its command line, ranks among the ~17 visible rows sorted by CPU%. That is a property of what the host is running at that instant, not of the binary: on a macOS desktop each of them passed in only some of ten back-to-back runs. The other tests in the suite that look for "root" fall back to a string that is always rendered (the PID header, a digit) or filter with `-u root` / `-p <pid>`, so they are kept.
+  - `08291a021ea9/eval.tests.test_delay_modes.test_delay_multiple_iterations`
+  - `08291a021ea9/eval.tests.test_delay_modes.test_delay_very_small`
+  - `08291a021ea9/eval.tests.test_environment_vars.test_term_linux`
+  - `08291a021ea9/eval.tests.test_highlight_modes.test_highlight_changes_short`
+  - `08291a021ea9/eval.tests.test_meter_modes.test_all_display_flags`
 
 ## hush-shell/hush
 
@@ -2605,6 +2796,40 @@ Course-side: 60 tests dropped by us.
   - `ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_u_monday_based_monday_is_one`
   - `ff26b33afe1a/tests.test_util_gaps.test_strptime_weekday_u_monday_based_sunday_is_seven`
 
+## jrnxf/thokr
+
+Instance `jrnxf__thokr.09375ef`: 507 tests shipped, 378 kept.
+
+Benchmark-side: 67 tests dropped by ProgramBench.
+
+- `dummy_pass`: 55
+- `gold_fail`: 8
+- `gold_flaky`: 5
+
+Course-side: none.
+
+## junegunn/fzf
+
+Instance `junegunn__fzf.b56d614`: 2164 tests shipped, 1846 kept.
+
+Benchmark-side: 308 tests dropped by ProgramBench.
+
+- `dummy_pass`: 187
+- `gold_fail`: 123
+
+Course-side: none.
+
+## kaushiksrini/parqeye
+
+Instance `kaushiksrini__parqeye.8072121`: 564 tests shipped, 346 kept.
+
+Benchmark-side: 85 tests dropped by ProgramBench.
+
+- `dummy_pass`: 56
+- `gold_fail`: 34
+
+Course-side: none.
+
 ## kisielk/errcheck
 
 Instance `kisielk__errcheck.dacab89`: 532 tests shipped, 340 kept.
@@ -2618,6 +2843,17 @@ Course-side: 1 tests dropped by us.
 
 - Passes on gold only because the cleanroom container has no Go source at the workspace root (package loading fails there with rc 0); on any real checkout errcheck analyzes its own tree, legitimately finds unchecked errors, and exits 1.
   - `11c421a3b5f4/eval.tests.test_argparse_validation.test_tags_flag_accepts_comma_or_space_separated_values[tag1 tag2]`
+
+## konradsz/igrep
+
+Instance `konradsz__igrep.aa75630`: 728 tests shipped, 343 kept.
+
+Benchmark-side: 343 tests dropped by ProgramBench.
+
+- `dummy_pass`: 289
+- `gold_fail`: 97
+
+Course-side: none.
 
 ## kyoh86/richgo
 
@@ -2646,6 +2882,29 @@ Course-side: 15 tests dropped by us.
   - `db156070d060/tests.test_cli.test_version_command_exact_output`
   - `db156070d060/tests.test_gaps.test_no_arguments_runs_go_help`
   - `db156070d060/tests.test_samples.test_all_samples_combined@go_test`
+
+## kyoheiu/felix
+
+Instance `kyoheiu__felix.95df390`: 979 tests shipped, 379 kept.
+
+Benchmark-side: 478 tests dropped by ProgramBench.
+
+- `dummy_pass`: 245
+- `gold_fail`: 233
+- `gold_flaky`: 1
+
+Course-side: none.
+
+## lfos/calcurse
+
+Instance `lfos__calcurse.49180d5`: 1994 tests shipped, 555 kept.
+
+Benchmark-side: 1328 tests dropped by ProgramBench.
+
+- `dummy_pass`: 1071
+- `gold_fail`: 485
+
+Course-side: none.
 
 ## lh3/seqtk
 
@@ -3072,6 +3331,17 @@ Course-side: 2 tests dropped by us.
 - Host-syscall error wording: on a corrupted .git/objects, macOS reports "not a directory" while the golden expects Linux's "readdirent" string.
   - `ec2f3d2ab85c/tests.test_git_errors.test_git_commit_with_corrupted_git_objects_directory`
 
+## nikolassv/bartib
+
+Instance `nikolassv__bartib.6b9b5ce`: 929 tests shipped, 720 kept.
+
+Benchmark-side: 208 tests dropped by ProgramBench.
+
+- `dummy_pass`: 165
+- `gold_fail`: 43
+
+Course-side: none.
+
 ## ninja-build/ninja
 
 Instance `ninja-build__ninja.cc60300`: 1905 tests shipped, 1422 kept.
@@ -3120,6 +3390,17 @@ Course-side: 4 tests dropped by us.
   - `1e617f44df07/tests.test_output_gaps.test_csv_crlf_line_endings`
 - Compares raw compressed bytes; the gzip stream header/encoding differs between the macOS and container zlib builds.
   - `1e617f44df07/tests.test_reader_importer_gaps.test_multiple_compression_layers_rejected`
+
+## Nukesor/pueue
+
+Instance `nukesor__pueue.8b9d6fe`: 1223 tests shipped, 634 kept.
+
+Benchmark-side: 585 tests dropped by ProgramBench.
+
+- `gold_fail`: 533
+- `dummy_pass`: 53
+
+Course-side: none.
 
 ## o2sh/onefetch
 
@@ -3241,6 +3522,30 @@ Course-side: 2 tests dropped by us.
   - `df37316a82f6/tests.test_errors.test_streaming_mode_empty_stdin`
   - `df37316a82f6/tests.test_errors.test_empty_file`
 
+## orf/gping
+
+Instance `orf__gping.26eb5b9`: 655 tests shipped, 289 kept.
+
+Benchmark-side: 317 tests dropped by ProgramBench.
+
+- `dummy_pass`: 291
+- `gold_fail`: 53
+- `gold_flaky`: 1
+
+Course-side: none.
+
+## peco/peco
+
+Instance `peco__peco.4e58dad`: 1715 tests shipped, 1187 kept.
+
+Benchmark-side: 500 tests dropped by ProgramBench.
+
+- `dummy_pass`: 288
+- `gold_fail`: 217
+- `gold_flaky`: 9
+
+Course-side: none.
+
 ## pemistahl/grex
 
 Instance `pemistahl__grex.fa3e8ed`: 1518 tests shipped, 1311 kept.
@@ -3281,6 +3586,18 @@ Course-side: 12 tests dropped by us.
   - `358fc390ba61/tests.test_run.test_environment_variable_passthrough`
   - `358fc390ba61/tests.test_run.test_explicit_bash_interpreter`
 
+## pls-rs/pls
+
+Instance `pls-rs__pls.4e1ae50`: 354 tests shipped, 297 kept.
+
+Benchmark-side: 23 tests dropped by ProgramBench.
+
+- `gold_fail`: 21
+- `gold_flaky`: 1
+- `dummy_pass`: 1
+
+Course-side: none.
+
 ## psampaz/go-mod-outdated
 
 Instance `psampaz__go-mod-outdated.bb79367`: 342 tests shipped, 284 kept.
@@ -3294,6 +3611,17 @@ Course-side: 1 tests dropped by us.
 
 - Asserts the nil-pointer panic traceback cites the workspace source path. Go bakes source paths into the binary at compile time, so the traceback shows the repo checkout path (where compile.sh ran), which can never equal the per-run workspace path in this local harness.
   - `0d7f74667e0b/tests.test_replace_timestamps.test_missing_update_timestamp_causes_crash`
+
+## quinn-rs/quinn
+
+Instance `quinn-rs__quinn.bb359cc`: 620 tests shipped, 492 kept.
+
+Benchmark-side: 98 tests dropped by ProgramBench.
+
+- `dummy_pass`: 67
+- `gold_fail`: 31
+
+Course-side: none.
 
 ## raviqqe/muffet
 
@@ -3322,6 +3650,18 @@ Course-side: 2 tests dropped by us.
 - Simulate a TTY via Linux's `script -q -c <cmd>` syntax; macOS/BSD `script` has a different CLI, so the wrapper fails regardless of the binary under test.
   - `06dabfabaea7/tests.test_tty_rendering.test_tty_min_max_aggregates_with_ansi`
   - `06dabfabaea7/tests.test_tty_rendering.test_tty_multi_group_aggregate_with_ansi`
+
+## rhysd/kiro-editor
+
+Instance `rhysd__kiro-editor.4157485`: 770 tests shipped, 519 kept.
+
+Benchmark-side: 181 tests dropped by ProgramBench.
+
+- `gold_fail`: 130
+- `dummy_pass`: 45
+- `gold_flaky`: 6
+
+Course-side: none.
 
 ## riquito/tuc
 
@@ -3404,6 +3744,29 @@ Benchmark-side: 185 tests dropped by ProgramBench.
 
 - `gold_fail`: 111
 - `dummy_pass`: 79
+
+Course-side: none.
+
+## rs/curlie
+
+Instance `rs__curlie.5dfcbb1`: 741 tests shipped, 681 kept.
+
+Benchmark-side: 48 tests dropped by ProgramBench.
+
+- `dummy_pass`: 33
+- `gold_flaky`: 8
+- `gold_fail`: 7
+
+Course-side: none.
+
+## rs/jplot
+
+Instance `rs__jplot.2a54bcc`: 722 tests shipped, 438 kept.
+
+Benchmark-side: 139 tests dropped by ProgramBench.
+
+- `dummy_pass`: 134
+- `gold_fail`: 5
 
 Course-side: none.
 
@@ -3540,6 +3903,18 @@ Course-side: 66 tests dropped by us.
   - `d42773df6c01/eval.tests.test_vscode.test_windsurf_install_shows_openvsx_note`
   - `d42773df6c01/eval.tests.test_vscode.test_windsurf_marketplace_not_found_error`
 
+## sayanarijit/xplr
+
+Instance `sayanarijit__xplr.1751065`: 939 tests shipped, 305 kept.
+
+Benchmark-side: 520 tests dropped by ProgramBench.
+
+- `dummy_pass`: 450
+- `gold_fail`: 52
+- `slow_or_hang`: 44
+
+Course-side: none.
+
 ## sclevine/yj
 
 Instance `sclevine__yj.8016400`: 825 tests shipped, 768 kept.
@@ -3574,6 +3949,18 @@ Course-side: 11 tests dropped by us.
   - `001afa7e5e9d/tests.test_root_validation.test_valid_retry_mode_adaptive`
   - `ef3491a522d7/.eval.tests.test_s3_working`
   - `ef3491a522d7/pytest.internal`
+
+## sharkdp/bat
+
+Instance `sharkdp__bat.f822bd0`: 986 tests shipped, 796 kept.
+
+Benchmark-side: 187 tests dropped by ProgramBench.
+
+- `dummy_pass`: 137
+- `gold_fail`: 52
+- `slow_or_hang`: 2
+
+Course-side: none.
 
 ## sharkdp/fd
 
@@ -3786,6 +4173,29 @@ Course-side: 1 tests dropped by us.
 - Verifies gzip output by piping through zcat. macOS ships the compress-era zcat which appends .Z to the filename instead of reading .gz, so the verification command itself fails.
   - `d307b51db601/tests.test_integration.test_decompress_and_recompress_with_fields`
 
+## svenstaro/genact
+
+Instance `svenstaro__genact.16f96e3`: 237 tests shipped, 221 kept.
+
+Benchmark-side: 6 tests dropped by ProgramBench.
+
+- `gold_fail`: 4
+- `gold_flaky`: 1
+- `dummy_pass`: 1
+
+Course-side: none.
+
+## svenstaro/miniserve
+
+Instance `svenstaro__miniserve.8449e8b`: 440 tests shipped, 301 kept.
+
+Benchmark-side: 136 tests dropped by ProgramBench.
+
+- `gold_fail`: 104
+- `dummy_pass`: 32
+
+Course-side: none.
+
 ## TheZoraiz/ascii-image-converter
 
 Instance `thezoraiz__ascii-image-converter.d05a757`: 488 tests shipped, 451 kept.
@@ -3852,6 +4262,19 @@ Course-side: 4 tests dropped by us.
 - Expects Linux's errno text ("connection refused") for a dial to port 0; macOS reports "can't assign requested address" for the same call.
   - `bc90bea37ab6/tests.test_url_fetch.test_fetch_with_invalid_proxy_url_causes_error`
 
+## unhappychoice/gittype
+
+Instance `unhappychoice__gittype.34b72d0`: 932 tests shipped, 576 kept.
+
+Benchmark-side: 208 tests dropped by ProgramBench.
+
+- `dummy_pass`: 101
+- `gold_fail`: 91
+- `gold_flaky`: 17
+- `outcome_dependent_presence`: 2
+
+Course-side: none.
+
 ## wfxr/code-minimap
 
 Instance `wfxr__code-minimap.0ddeea5`: 370 tests shipped, 312 kept.
@@ -3889,6 +4312,17 @@ Benchmark-side: 40 tests dropped by ProgramBench.
 
 - `dummy_pass`: 39
 - `gold_fail`: 1
+
+Course-side: none.
+
+## wintermute-cell/ngrrram
+
+Instance `wintermute-cell__ngrrram.8ea13c3`: 332 tests shipped, 300 kept.
+
+Benchmark-side: 29 tests dropped by ProgramBench.
+
+- `dummy_pass`: 25
+- `gold_fail`: 4
 
 Course-side: none.
 
@@ -3937,6 +4371,18 @@ Course-side: 6 tests dropped by us.
   - `71456d35eecf/tests.test_errors.test_conflict_without_overwrite_prepends_underscore`
   - `71456d35eecf/tests.test_placeholder.test_no_placeholders_static_output`
   - `71456d35eecf/tests.test_placeholder.test_large_capture_group_index`
+
+## yassinebridi/serpl
+
+Instance `yassinebridi__serpl.c48a9d7`: 536 tests shipped, 404 kept.
+
+Benchmark-side: 119 tests dropped by ProgramBench.
+
+- `gold_fail`: 55
+- `dummy_pass`: 36
+- `gold_flaky`: 29
+
+Course-side: none.
 
 ## yoav-lavi/melody
 

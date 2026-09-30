@@ -1,0 +1,100 @@
+# Course-side exclusions (macOS gold run). Every group below states why it is
+# excluded; all of these tests pass unchanged inside the benchmark's Linux containers.
+
+# htop's process columns are defined per platform: the Linux layer
+# (linux/LinuxProcess.c) exposes CGROUP, CONTAINER, AUTOGROUP_*,
+# IO_*/RBYTES/WBYTES/RCHAR/WCHAR/SYSCR/SYSCW, OOM, SECATTR, CTXT,
+# M_PSS/M_PSSWP/M_SWAP/M_PRIV/M_SHARE/M_TRS/M_DRS/M_LRS, UTIME/STIME/CUTIME/CSTIME,
+# CMINFLT/CMAJFLT, COMM, SCHEDULERPOLICY, IO_PRIORITY; the darwin layer does not,
+# so `htop -s <KEY>` exits 1 with 'Error: invalid column "<KEY>"'. These sort-key
+# tests are Linux-only and pass unchanged there; they only shrink the kept set.
+08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_autogroup_id
+08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_autogroup_nice
+08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_container
+08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_iscontainer
+08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_m_priv
+08291a021ea9/eval.tests.test_advanced_columns.test_sort_by_schedulerpolicy
+08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_basic
+08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_with_filter
+08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_with_iterations
+08291a021ea9/eval.tests.test_all_sorts.test_all_sort_keys_with_tree
+08291a021ea9/eval.tests.test_exhaustive_combinations.test_all_sort_keys_with_no_color
+08291a021ea9/eval.tests.test_exhaustive_combinations.test_all_sort_keys_with_user
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_ccgroup
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_cgroup
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_cnclwb
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_comm
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_ctxt
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_priority
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_rate
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_read_rate
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_io_write_rate
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_m_pss
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_m_psswp
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_m_swap
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_oom
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_rbytes
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_rchar
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_secattr
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_syscr
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_syscw
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_wbytes
+08291a021ea9/eval.tests.test_io_columns.test_sort_by_wchar
+08291a021ea9/eval.tests.test_linux_meters.test_fault_sorts
+08291a021ea9/eval.tests.test_linux_meters.test_io_sorts
+08291a021ea9/eval.tests.test_linux_meters.test_memory_sorts
+08291a021ea9/eval.tests.test_linux_meters.test_time_sorts
+08291a021ea9/eval.tests.test_maximizer.test_all_sorts_with_iterations
+08291a021ea9/eval.tests.test_maximizer.test_mega_run_7
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cmajflt
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cminflt
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cstime
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_cutime
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_drs
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_lrs
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_share
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_m_trs
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_stime
+08291a021ea9/eval.tests.test_sort_extended.test_sort_by_utime
+32e3f2bdc5b7/eval.tests.test_absolute_maximum.test_every_column_individually_long
+32e3f2bdc5b7/eval.tests.test_deep_coverage.test_cgroup_and_container_columns
+32e3f2bdc5b7/eval.tests.test_deep_coverage.test_io_columns_extensive
+32e3f2bdc5b7/eval.tests.test_deep_coverage.test_memory_columns_variations
+32e3f2bdc5b7/eval.tests.test_deep_coverage.test_time_columns_variations
+32e3f2bdc5b7/eval.tests.test_extended_runs.test_all_sort_keys_extended
+32e3f2bdc5b7/eval.tests.test_final_coverage_push.test_every_sort_key_comprehensive
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_all_io_columns
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_autogroup_columns
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_ccgroup_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_cgroup_column_detailed
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_comm_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_container_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_context_switches_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_io_bytes_columns
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_io_priority_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_io_rate_columns
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_priv_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_pss_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_psswp_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_memory_swap_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_oom_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_schedulerpolicy_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_secattr_column
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_syscall_columns
+32e3f2bdc5b7/eval.tests.test_process_coverage.test_trs_drs_lrs_columns
+32e3f2bdc5b7/eval.tests.test_ultra_intensive.test_ultra_run_100_iterations
+32e3f2bdc5b7/eval.tests.test_ultra_intensive.test_ultra_run_all_sort_long
+
+# These five tests pass only if the string "root", "bash" or "sleep" happens to
+# appear in a 24x80 batch render of htop (`-n 1..5`, no -u/-p filter), i.e. only
+# when a root-owned process, or one with "bash"/"sleep" in its command line, ranks
+# among the ~17 visible rows sorted by CPU%. That is a property of what the host
+# is running at that instant, not of the binary: on a macOS desktop each of them
+# passed in only some of ten back-to-back runs. The other tests in the suite that
+# look for "root" fall back to a string that is always rendered (the PID header,
+# a digit) or filter with `-u root` / `-p <pid>`, so they are kept.
+08291a021ea9/eval.tests.test_delay_modes.test_delay_multiple_iterations
+08291a021ea9/eval.tests.test_delay_modes.test_delay_very_small
+08291a021ea9/eval.tests.test_environment_vars.test_term_linux
+08291a021ea9/eval.tests.test_highlight_modes.test_highlight_changes_short
+08291a021ea9/eval.tests.test_meter_modes.test_all_display_flags

@@ -113,9 +113,15 @@ export PATH="$SHIM:$PATH"
 # talks to the *default* tmux server, which may be the user's own; point tmux at
 # a private socket dir so our sessions and kill-server never touch it. Harmless
 # for suites that never launch tmux.
+#
+# The private dir must be SHORT: tmux's socket is $TMUX_TMPDIR/tmux-<uid>/default
+# and the whole path has to fit in sockaddr_un.sun_path (104 bytes on macOS, 108
+# on Linux). Keeping it inside the checkout meant any clone deeper than ~67
+# characters overflowed that limit and every tmux command failed with "File
+# name too long", so use a short per-run dir under /tmp and clean it up on exit.
 export SHELL=/bin/sh
-export TMUX_TMPDIR="$PWD/$PB/tmux"
-mkdir -p "$TMUX_TMPDIR"
+export TMUX_TMPDIR="$(mktemp -d /tmp/pbtmux.XXXXXX)"
+trap 'tmux kill-server 2>/dev/null || true; rm -rf "$TMUX_TMPDIR"' EXIT
 tmux kill-server 2>/dev/null || true
 
 mkdir -p "$PB/tests"
