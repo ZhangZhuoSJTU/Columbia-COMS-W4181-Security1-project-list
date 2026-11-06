@@ -141,7 +141,7 @@ A per-project record of every dropped test and the reason it was dropped lives i
 | [abishekvashok/cmatrix](https://github.com/ZhangZhuoSJTU/cmatrix) | `5c082c6` | 769 | 491 | — | ⬜ |
 | [agourlay/zip-password-finder](https://github.com/ZhangZhuoSJTU/zip-password-finder) | `704700d` | 792 | 680 | 1 | ✅ |
 | [ajeetdsouza/zoxide](https://github.com/ZhangZhuoSJTU/zoxide) | `67ca1bc` | 577 | 530 | — | ⬜ |
-| [alecthomas/chroma](https://github.com/ZhangZhuoSJTU/chroma) | `8d04def` | 531 | 503 | — | ✅ |
+| [alecthomas/chroma](https://github.com/ZhangZhuoSJTU/chroma/tree/main) | `8d04def` | 531 | 503 | — | ✅ |
 | [alexpovel/srgn](https://github.com/ZhangZhuoSJTU/srgn) | `89f943b` | 2080 | 1852 | — | ✅ |
 | [altdesktop/i3-style](https://github.com/ZhangZhuoSJTU/i3-style) | `f93821b` | 750 | 539 | — | ⬜ |
 | [anordal/shellharden](https://github.com/ZhangZhuoSJTU/shellharden) | `6a6ffd4` | 1292 | 1095 | — | ⬜ |
